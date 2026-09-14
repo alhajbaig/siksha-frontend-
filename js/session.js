@@ -344,8 +344,13 @@
           navCtaBtn.setAttribute('href', targetHref);
           navCtaBtn.setAttribute('aria-label', 'Open Dashboard');
           if (innerTextSpan) {
-            const firstName = user.full_name ? user.full_name.split(' ')[0] : 'Dashboard';
-            innerTextSpan.textContent = `Dashboard (${firstName})`;
+            const isMobile = window.innerWidth <= 640;
+            if (isMobile) {
+              innerTextSpan.textContent = 'Dashboard';
+            } else {
+              const firstName = user.full_name ? user.full_name.split(' ')[0] : 'Dashboard';
+              innerTextSpan.textContent = `Dashboard (${firstName})`;
+            }
           }
         } else {
           navCtaBtn.setAttribute('href', 'auth.html');
@@ -431,13 +436,14 @@
           if (user.bio) el.textContent = user.bio;
         });
 
-        // Topbar Greeting update (Dashboard & Subpages)
-        const greetingH2 = document.querySelector('.topbar-greeting h2, #dashboard-greeting');
+        // Topbar Greeting update (Dashboard only)
+        const greetingH2 = document.getElementById('dashboard-greeting');
         if (greetingH2 && user.full_name) {
           const firstName = user.full_name.trim().split(/\s+/)[0];
           const hour = new Date().getHours();
           const timeGreeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-          greetingH2.textContent = `${timeGreeting}, ${firstName}.`;
+          const isMobile = window.innerWidth <= 768;
+          greetingH2.textContent = isMobile ? `Hi, ${firstName} 👋` : `${timeGreeting}, ${firstName}.`;
         }
       }
 

@@ -994,15 +994,42 @@ a, button {
 
 /* SCORE UNPACK BOX */
 .score-unpack-box {
+  width: 100%;
+  max-width: 860px;
+  margin-top: 2.5rem;
+  text-align: left;
+}
+
+.score-unpack-grid {
   display: grid;
   grid-template-columns: 240px 1fr;
   gap: 2.5rem;
   align-items: center;
+  padding: 2.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.score-unpack-side {
+  border-right: 1px solid var(--border-subtle);
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* REVISION SCHEDULE GRID */
+.revision-schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
   width: 100%;
   max-width: 860px;
-  padding: 2.5rem;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .score-big-num {
@@ -1282,19 +1309,19 @@ a, button {
     border-radius: 10px !important;
   }
 
-  /* Slide 03: Score Unpack Box (Override hardcoded inline styles) */
+  /* Slide 03: Score Unpack Box */
   .score-unpack-box {
-    padding: 1.25rem !important;
     margin-top: 1.25rem !important;
     max-width: 100% !important;
   }
 
-  .score-unpack-box .border-glow-inner {
+  .score-unpack-grid {
     grid-template-columns: 1fr !important;
     gap: 1.25rem !important;
+    padding: 1.5rem 1.25rem !important;
   }
 
-  .score-unpack-box .border-glow-inner > div:first-child {
+  .score-unpack-side {
     border-right: none !important;
     border-bottom: 1px solid var(--border-subtle) !important;
     padding-right: 0 !important;
@@ -1303,6 +1330,13 @@ a, button {
 
   .score-big-num {
     font-size: 3.5rem !important;
+  }
+
+  /* Slide 08: Smart Revision Grid */
+  .revision-schedule-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+    margin-top: 1.25rem !important;
   }
 
   /* Slide 05: 7-Steps Timeline */

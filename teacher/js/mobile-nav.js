@@ -29,18 +29,40 @@
     const topbar = document.querySelector('.main-topbar');
     if (!sidebar) return;
 
+    const originalParent = sidebar.parentElement;
+    const originalSibling = sidebar.nextSibling;
+
     // Create backdrop overlay if missing
     let backdrop = document.querySelector('.sidebar-backdrop');
     if (!backdrop) {
       backdrop = document.createElement('div');
       backdrop.className = 'sidebar-backdrop';
       backdrop.setAttribute('aria-hidden', 'true');
-      if (sidebar.parentNode) {
-        sidebar.parentNode.insertBefore(backdrop, sidebar);
+      document.body.appendChild(backdrop);
+    }
+
+    // Move backdrop and sidebar directly to document.body on mobile so no parent stacking context can ever trap or blur the sidebar
+    function syncSidebarDOM() {
+      if (window.innerWidth <= 1024) {
+        if (backdrop.parentElement !== document.body) {
+          document.body.appendChild(backdrop);
+        }
+        if (sidebar.parentElement !== document.body) {
+          document.body.appendChild(sidebar);
+        }
       } else {
-        document.body.appendChild(backdrop);
+        if (originalParent && sidebar.parentElement === document.body) {
+          if (originalSibling) {
+            originalParent.insertBefore(sidebar, originalSibling);
+          } else {
+            originalParent.appendChild(sidebar);
+          }
+        }
       }
     }
+
+    syncSidebarDOM();
+    window.addEventListener('resize', syncSidebarDOM);
 
     function openDrawer() {
       sidebar.classList.add('mobile-open');
