@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
     {
@@ -45,6 +45,10 @@
     },
     {
       "source": "/teacher/",
+      "destination": "/teacher/index.html"
+    },
+    {
+      "source": "/teacher.html",
       "destination": "/teacher/index.html"
     }
   ]

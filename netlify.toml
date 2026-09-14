@@ -34,3 +34,8 @@
   from = "/teacher/"
   to = "/teacher/index.html"
   status = 200
+
+[[redirects]]
+  from = "/teacher.html"
+  to = "/teacher/index.html"
+  status = 200
