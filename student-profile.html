@@ -102,6 +102,12 @@
           <span class="cohort-sidebar-badge">✦ COHORT</span>
         </a>
 
+        <a href="#tab-guidance" class="sidebar-link" id="sidebar-guidance-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span style="font-weight: 700;">Teacher Guidance</span>
+          <span class="sidebar-badge" id="sidebar-guidance-badge">0</span>
+        </a>
+
         <div class="nav-section-title">LEARNING & GENOME</div>
 
         <a href="#tab-genome" class="sidebar-link active" id="sidebar-progress-link" aria-current="page">
@@ -254,6 +260,9 @@
           </div>
         </section>
 
+        <!-- TEACHER PERSONALIZED GUIDANCE BANNER (ACTIVE WHEN EDUCATOR SENDS RECOMMENDATIONS) -->
+        <div id="dashboard-guidance-banner" style="display: none; margin-bottom: 1.5rem;"></div>
+
         <!-- =====================================================================
              TAB NAVIGATION
              ===================================================================== -->
@@ -293,6 +302,13 @@
             <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
             <span style="font-weight: 700;">My Classroom</span>
             <span class="tab-badge-glow">✦ COHORT HUB</span>
+          </button>
+
+          <button class="profile-nav-tab profile-nav-tab-featured" data-tab-target="tab-guidance" role="tab" id="tab-guidance-btn">
+            <span class="tab-highlight-beacon" style="background: var(--brand-indigo, #5B5CE2);"></span>
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            <span style="font-weight: 700;">Teacher Guidance</span>
+            <span class="badge" id="profile-tab-guidance-badge" style="background: rgba(91, 92, 226, 0.15); color: var(--brand-indigo, #5B5CE2); font-size: 0.72rem; padding: 2px 7px; border-radius: 999px; margin-left: 4px;">0</span>
           </button>
 
           <button class="profile-nav-tab" data-tab-target="tab-settings" role="tab">
@@ -1002,6 +1018,29 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 9: TEACHER PERSONALIZED GUIDANCE & MENTORSHIP
+             ===================================================================== -->
+        <div id="tab-guidance" class="profile-tab-content" style="display: none;">
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+              <div>
+                <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--brand-indigo, #5B5CE2);"></span><span>DIRECT EDUCATOR MENTORSHIP</span></div>
+                <h2 class="section-heading">Teacher Guidance & Actionable Recommendations</h2>
+                <p class="section-subtitle">Targeted micro-practice drills, conceptual clarifications, and smart revision notes assigned directly to you by your verified teachers.</p>
+              </div>
+              <span class="badge badge-indigo" id="profile-guidance-status-pill" style="font-size: 0.8rem; padding: 0.4rem 0.85rem;">✦ Direct Sync</span>
+            </div>
+
+            <!-- Guidance list container -->
+            <div id="profile-guidance-list" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+                Loading teacher guidance from database...
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

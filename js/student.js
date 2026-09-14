@@ -910,7 +910,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'tab-classes': false,
     'tab-roadmap': false,
     'tab-activity': false,
-    'tab-subjects': false
+    'tab-subjects': false,
+    'tab-guidance': false
   };
 
   function triggerTabLazyLoad(targetId) {
@@ -940,6 +941,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tabLoadStatus['tab-subjects'] = true;
         loadStudentSubjectsBreakdown();
       }
+    } else if (targetId === 'tab-guidance') {
+      loadStudentGuidance();
     }
   }
 
@@ -1943,7 +1946,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   async function loadStudentGuidance() {
     const listEl = document.getElementById('student-guidance-list');
+    const profileListEl = document.getElementById('profile-guidance-list');
     const badgeCounter = document.getElementById('classroom-guidance-counter');
+    const profileBadge = document.getElementById('profile-tab-guidance-badge');
+    const sidebarBadge = document.getElementById('sidebar-guidance-badge');
     const dashboardBanner = document.getElementById('dashboard-guidance-banner');
 
     try {
@@ -1953,106 +1959,120 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await res.json();
       const items = data.guidance || [];
+      const pendingCount = items.filter(g => g.status !== 'completed').length;
 
+      // Update counters across Classroom, Profile tab, and Sidebar
       if (badgeCounter) {
-        const pendingCount = items.filter(g => g.status !== 'completed').length;
         badgeCounter.textContent = pendingCount;
         badgeCounter.style.background = pendingCount > 0 ? 'var(--rose-accent, #FF4B6E)' : 'rgba(0,0,0,0.06)';
         badgeCounter.style.color = pendingCount > 0 ? '#FFFFFF' : 'var(--text-muted)';
       }
+      if (profileBadge) {
+        profileBadge.textContent = pendingCount;
+        profileBadge.style.background = pendingCount > 0 ? 'var(--rose-accent, #FF4B6E)' : 'rgba(91, 92, 226, 0.15)';
+        profileBadge.style.color = pendingCount > 0 ? '#FFFFFF' : 'var(--brand-indigo, #5B5CE2)';
+      }
+      if (sidebarBadge) {
+        sidebarBadge.textContent = pendingCount;
+        sidebarBadge.style.display = pendingCount > 0 ? 'inline-block' : 'none';
+      }
 
-      // 1. Render in Classroom Hub panel if present
-      if (listEl) {
+      function renderGuidanceCards(container) {
+        if (!container) return;
         if (items.length === 0) {
-          listEl.innerHTML = `
-            <div class="classes-empty-state" style="padding: 3rem 1.5rem;">
-              <div class="classes-empty-icon">🎯</div>
-              <h3 class="classes-empty-title">No Educator Guidance Yet</h3>
-              <p class="classes-empty-desc">
-                When your teachers review your Learning Genome or error patterns, they will dispatch personalized practice drills, conceptual notes, and hints directly here.
+          container.innerHTML = `
+            <div class="classes-empty-state" style="padding: 3rem 1.5rem; text-align: center; border: 1px dashed var(--border-subtle); border-radius: 16px;">
+              <div class="classes-empty-icon" style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
+              <h3 class="classes-empty-title" style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">No Educator Guidance Yet</h3>
+              <p class="classes-empty-desc" style="max-width: 500px; margin: 0 auto; color: var(--text-muted); font-size: 0.88rem;">
+                When your teachers review your Learning Genome or test attempts, their personalized notes, micro-drills, and guidance will appear here live.
               </p>
             </div>
           `;
-        } else {
-          listEl.innerHTML = items.map(g => {
-            const isCompleted = g.status === 'completed';
-            const teacherName = g.teacher_name || 'Class Educator';
-            const teacherInst = g.teacher_institution || 'SikshaSaathi Verified Educator';
-            const initials = teacherName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
-            const gType = g.guidance_type || 'Targeted Practice';
+          return;
+        }
 
-            let typeBadgeStyle = 'background: rgba(91, 92, 226, 0.12); color: var(--brand-indigo, #5B5CE2); border: 1px solid rgba(91, 92, 226, 0.25);';
-            if (gType.toLowerCase().includes('socratic')) {
-              typeBadgeStyle = 'background: rgba(124, 58, 237, 0.12); color: #7C3AED; border: 1px solid rgba(124, 58, 237, 0.25);';
-            } else if (gType.toLowerCase().includes('revision')) {
-              typeBadgeStyle = 'background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);';
-            } else if (gType.toLowerCase().includes('enrichment') || gType.toLowerCase().includes('olympiad')) {
-              typeBadgeStyle = 'background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);';
-            }
+        container.innerHTML = items.map(g => {
+          const isCompleted = g.status === 'completed';
+          const teacherName = g.teacher_name || 'Class Educator';
+          const teacherInst = g.teacher_institution || 'SikshaSaathi Verified Educator';
+          const initials = (teacherName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()) || 'TR';
+          const gType = g.guidance_type || 'Targeted Practice';
 
-            return `
-              <div class="card" style="padding: 1.5rem; border-radius: 16px; border: 1px solid ${isCompleted ? 'var(--border-subtle)' : 'rgba(91, 92, 226, 0.35)'}; background: ${isCompleted ? '#FFFFFF' : 'linear-gradient(145deg, #FFFFFF, #FAF9FF)'}; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
-                  <div style="display: flex; align-items: center; gap: 0.85rem;">
-                    <div class="profile-avatar" style="width: 42px; height: 42px; font-weight: 800; font-size: 0.95rem; background: linear-gradient(135deg, #4F46E5, #8B5CF6); color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center;">${initials}</div>
-                    <div>
-                      <div style="display: flex; align-items: center; gap: 0.4rem;">
-                        <strong style="color: var(--text-main); font-size: 0.95rem;">${escapeHtml(teacherName)}</strong>
-                        <span style="font-size: 0.76rem; color: var(--brand-indigo, #5B5CE2); font-weight: 700;">🛡️ Verified Teacher</span>
-                      </div>
-                      <div style="font-size: 0.76rem; color: var(--text-muted);">${escapeHtml(teacherInst)}</div>
+          let typeBadgeStyle = 'background: rgba(91, 92, 226, 0.12); color: var(--brand-indigo, #5B5CE2); border: 1px solid rgba(91, 92, 226, 0.25);';
+          if (gType.toLowerCase().includes('socratic')) {
+            typeBadgeStyle = 'background: rgba(124, 58, 237, 0.12); color: #7C3AED; border: 1px solid rgba(124, 58, 237, 0.25);';
+          } else if (gType.toLowerCase().includes('revision')) {
+            typeBadgeStyle = 'background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);';
+          } else if (gType.toLowerCase().includes('enrichment') || gType.toLowerCase().includes('olympiad')) {
+            typeBadgeStyle = 'background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);';
+          }
+
+          return `
+            <div class="card guidance-item-card" style="padding: 1.5rem; border-radius: 16px; border: 1px solid ${isCompleted ? 'var(--border-subtle)' : 'rgba(91, 92, 226, 0.35)'}; background: ${isCompleted ? '#FFFFFF' : 'linear-gradient(145deg, #FFFFFF, #FAF9FF)'}; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.85rem;">
+                  <div class="profile-avatar" style="width: 42px; height: 42px; font-weight: 800; font-size: 0.95rem; background: linear-gradient(135deg, #4F46E5, #8B5CF6); color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center;">${initials}</div>
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 0.4rem;">
+                      <strong style="color: var(--text-main); font-size: 0.95rem;">${escapeHtml(teacherName)}</strong>
+                      <span style="font-size: 0.76rem; color: var(--brand-indigo, #5B5CE2); font-weight: 700;">🛡️ Verified Teacher</span>
                     </div>
-                  </div>
-                  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                    <span class="badge" style="${typeBadgeStyle} font-size: 0.74rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 6px;">
-                      ${escapeHtml(gType)}
-                    </span>
-                    ${isCompleted ? `
-                      <span class="badge badge-emerald" style="display: inline-flex; align-items: center; gap: 0.25rem;">
-                        ✓ Completed
-                      </span>
-                    ` : `
-                      <span class="badge badge-amber" style="background: rgba(245, 158, 11, 0.1); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.25);">
-                        ⏳ Active Recommendation
-                      </span>
-                    `}
+                    <div style="font-size: 0.76rem; color: var(--text-muted);">${escapeHtml(teacherInst)}</div>
                   </div>
                 </div>
-
-                <div style="background: rgba(0,0,0,0.02); border-left: 3px solid var(--brand-indigo, #5B5CE2); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-bottom: 1.25rem; font-size: 0.92rem; line-height: 1.6; color: var(--text-main);">
-                  “${escapeHtml(g.message)}”
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.85rem;">
-                  <span style="font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);">
-                    Dispatched: ${g.created_at ? new Date(g.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recently'}
+                <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                  <span class="badge" style="${typeBadgeStyle} font-size: 0.74rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 6px;">
+                    ${escapeHtml(gType)}
                   </span>
-                  <div style="display: flex; gap: 0.6rem; align-items: center;">
-                    <a href="student-practice.html" class="btn btn-secondary btn-sm" style="font-size: 0.78rem;">
-                      <span>Practice Drills →</span>
-                    </a>
-                    ${!isCompleted ? `
-                      <button type="button" class="btn btn-primary btn-sm mark-guidance-done-btn" data-guidance-id="${escapeHtml(g.id)}" style="font-size: 0.78rem;">
-                        <span>Mark Completed ✓</span>
-                      </button>
-                    ` : ''}
-                  </div>
+                  ${isCompleted ? `
+                    <span class="badge badge-emerald" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                      ✓ Completed
+                    </span>
+                  ` : `
+                    <span class="badge badge-amber" style="background: rgba(245, 158, 11, 0.1); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.25);">
+                      ⏳ Action Recommended
+                    </span>
+                  `}
                 </div>
               </div>
-            `;
-          }).join('');
 
-          // Wire mark completed buttons
-          listEl.querySelectorAll('.mark-guidance-done-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-              const gId = btn.getAttribute('data-guidance-id');
-              await markStudentGuidanceComplete(gId, btn);
-            });
+              <div style="background: rgba(0,0,0,0.02); border-left: 3px solid var(--brand-indigo, #5B5CE2); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-bottom: 1.25rem; font-size: 0.92rem; line-height: 1.6; color: var(--text-main);">
+                “${escapeHtml(g.message)}”
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.85rem;">
+                <span style="font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);">
+                  Dispatched: ${g.created_at ? new Date(g.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recently'}
+                </span>
+                <div style="display: flex; gap: 0.6rem; align-items: center;">
+                  <a href="student-practice.html" class="btn btn-secondary btn-sm" style="font-size: 0.78rem;">
+                    <span>Practice Drills →</span>
+                  </a>
+                  ${!isCompleted ? `
+                    <button type="button" class="btn btn-primary btn-sm mark-guidance-done-btn" data-guidance-id="${escapeHtml(g.id)}" style="font-size: 0.78rem;">
+                      <span>Mark Completed ✓</span>
+                    </button>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.querySelectorAll('.mark-guidance-done-btn').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const gId = btn.getAttribute('data-guidance-id');
+            await markStudentGuidanceComplete(gId, btn);
           });
-        }
+        });
       }
 
-      // 2. Render on Student Main Dashboard if active pending guidance exists
+      // Render into both Classroom Hub list (if open) and Student Profile list (if open)
+      renderGuidanceCards(listEl);
+      renderGuidanceCards(profileListEl);
+
+      // Render top banner if active pending guidance exists
       if (dashboardBanner) {
         const pendingItems = items.filter(g => g.status !== 'completed');
         if (pendingItems.length > 0) {
@@ -2085,8 +2105,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button type="button" class="btn btn-secondary btn-sm dashboard-mark-guidance-btn" data-guidance-id="${escapeHtml(topItem.id)}" style="background: rgba(255,255,255,0.1); color: #FFF; border-color: rgba(255,255,255,0.25); font-size: 0.84rem;">
                       <span>Mark Understood ✓</span>
                     </button>
-                    <a href="student-profile.html#tab-classes" class="btn btn-ghost btn-sm" style="color: #A5B4FC; font-size: 0.82rem;">
-                      <span>View All in Classroom Hub ↗</span>
+                    <a href="student-profile.html#tab-guidance" class="btn btn-ghost btn-sm" style="color: #A5B4FC; font-size: 0.82rem;">
+                      <span>View All in Teacher Guidance ↗</span>
                     </a>
                   </div>
                 </div>
@@ -4587,6 +4607,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const achievementsLink = document.getElementById('sidebar-achievements-link') || document.querySelector('.sidebar-nav a[href*="#tab-achievements"]');
       const classesLink = document.getElementById('sidebar-classes-link');
 
+      const guidanceLink = document.getElementById('sidebar-guidance-link');
+
       if (hash === '#tab-classes') {
         if (progressLink) {
           progressLink.classList.remove('active');
@@ -4596,9 +4618,30 @@ document.addEventListener('DOMContentLoaded', () => {
           achievementsLink.classList.remove('active');
           achievementsLink.removeAttribute('aria-current');
         }
+        if (guidanceLink) {
+          guidanceLink.classList.remove('active');
+          guidanceLink.removeAttribute('aria-current');
+        }
         if (classesLink) {
           classesLink.classList.add('active');
           classesLink.setAttribute('aria-current', 'page');
+        }
+      } else if (hash === '#tab-guidance') {
+        if (progressLink) {
+          progressLink.classList.remove('active');
+          progressLink.removeAttribute('aria-current');
+        }
+        if (classesLink) {
+          classesLink.classList.remove('active');
+          classesLink.removeAttribute('aria-current');
+        }
+        if (achievementsLink) {
+          achievementsLink.classList.remove('active');
+          achievementsLink.removeAttribute('aria-current');
+        }
+        if (guidanceLink) {
+          guidanceLink.classList.add('active');
+          guidanceLink.setAttribute('aria-current', 'page');
         }
       } else if (hash === '#tab-achievements') {
         if (progressLink) {
@@ -4608,6 +4651,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (classesLink) {
           classesLink.classList.remove('active');
           classesLink.removeAttribute('aria-current');
+        }
+        if (guidanceLink) {
+          guidanceLink.classList.remove('active');
+          guidanceLink.removeAttribute('aria-current');
         }
         if (achievementsLink) {
           achievementsLink.classList.add('active');
@@ -4621,6 +4668,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (achievementsLink) {
           achievementsLink.classList.remove('active');
           achievementsLink.removeAttribute('aria-current');
+        }
+        if (guidanceLink) {
+          guidanceLink.classList.remove('active');
+          guidanceLink.removeAttribute('aria-current');
         }
         if (progressLink) {
           progressLink.classList.add('active');
