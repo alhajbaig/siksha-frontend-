@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Mode — SikshaSaathi</title>
+  <meta name="description" content="SikshaSaathi Situation Intelligence: Academic Crisis Recovery, Value-Per-Minute Triage, and Adaptive Sprint Study Plans.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Core Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Application Main Stylesheet -->
+  <link rel="stylesheet" href="css/student.css">
+  <!-- Role Route Guard & Session Management -->
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script>
+    if (window.SikshaSession) {
+      window.SikshaSession.checkRouteGuard('student');
+    }
+  </script>
+
+  <style>
+    /* =========================================================================
+       EMERGENCY MODE — SITUATION INTELLIGENCE & CRISIS RECOVERY UI
+       ========================================================================= */
+
+    .main-content-scroll {
+      padding: 2rem 2.5rem;
+      max-width: 1200px;
+    }
+
+    .emg-phase { display: none; }
+    .emg-phase.active { display: block; animation: emgFadeIn 0.25s ease-out; }
+    @keyframes emgFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Header Banner */
+    .emg-banner {
+      display: flex; align-items: flex-start; gap: 1.25rem;
+      padding: 1.5rem 1.75rem; border-radius: 16px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-left: 5px solid #4F46E5;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      margin-bottom: 2rem;
+    }
+    .emg-banner-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; margin-top: 0.1rem; }
+    .emg-banner h1 { font-size: 1.4rem; font-weight: 800; color: #0F172A; margin: 0 0 0.35rem; }
+    .emg-banner p { font-size: 0.92rem; color: #475569; margin: 0; line-height: 1.55; }
+
+    /* Setup Section */
+    .emg-setup-section { margin-bottom: 2rem; }
+    .emg-setup-section h3 {
+      font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.07em; color: #64748B; margin-bottom: 0.85rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* Situation Intelligence Scenario Cards */
+    .emg-scenario-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .emg-scenario-card {
+      background: #FFFFFF; border: 1.5px solid #E2E8F0;
+      border-radius: 14px; padding: 1.15rem 1.25rem; cursor: pointer;
+      transition: all 0.2s ease; display: flex; flex-direction: column;
+      position: relative; text-align: left;
+    }
+    .emg-scenario-card:hover {
+      border-color: #4F46E5; transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.08);
+    }
+    .emg-scenario-card.selected {
+      border-color: #4F46E5 !important; background: #F5F3FF !important;
+      box-shadow: 0 0 0 1.5px #4F46E5;
+    }
+    .emg-sc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .emg-sc-icon { font-size: 1.5rem; }
+    .emg-sc-badge {
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.04em; padding: 0.25rem 0.6rem; border-radius: 20px;
+      background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE;
+    }
+    .emg-sc-title { font-size: 1rem; font-weight: 800; color: #0F172A; margin-bottom: 0.25rem; }
+    .emg-sc-tagline { font-size: 0.74rem; font-weight: 700; color: #4F46E5; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .emg-sc-desc { font-size: 0.82rem; color: #475569; line-height: 1.45; margin: 0; }
+
+    /* Time Selection Pills */
+    .emg-time-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+    .emg-time-pill {
+      padding: 0.65rem 1.25rem; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+      background: #FFFFFF; border: 1.5px solid #CBD5E1;
+      color: #1E293B !important; cursor: pointer; transition: all 0.2s;
+      font-family: inherit;
+    }
+    .emg-time-pill:hover { border-color: #4F46E5; color: #4F46E5 !important; background: #EEF2FF; }
+    .emg-time-pill.selected {
+      background: #4F46E5 !important; color: #FFFFFF !important; border-color: #4F46E5 !important;
+      box-shadow: 0 3px 10px rgba(79, 70, 229, 0.3);
+    }
+    .emg-custom-time-wrap {
+      display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.35rem;
+    }
+    .emg-custom-input {
+      width: 95px; padding: 0.6rem 0.8rem; font-size: 0.88rem; font-weight: 600;
+      border-radius: 8px; border: 1.5px solid #CBD5E1; background: #FFFFFF; color: #0F172A;
+    }
+    .emg-custom-input:focus { outline: none; border-color: #4F46E5; }
+
+    /* Subject Selection Pills */
+    .emg-subject-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .emg-subject-pill {
+      padding: 0.65rem 1.25rem; border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      background: #FFFFFF; border: 1.5px solid #CBD5E1;
+      color: #1E293B !important; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 0.5rem; font-family: inherit;
+    }
+    .emg-subject-pill:hover { border-color: #4F46E5; color: #4F46E5 !important; background: #EEF2FF; }
+    .emg-subject-pill.selected {
+      background: #4F46E5 !important; color: #FFFFFF !important; border-color: #4F46E5 !important;
+      box-shadow: 0 3px 10px rgba(79, 70, 229, 0.3);
+    }
+    .subj-acc { font-size: 0.74rem; font-weight: 500; color: #64748B; margin-left: 0.25rem; }
+    .emg-subject-pill.selected .subj-acc { color: #E0E7FF !important; }
+
+    /* Optional Exam Context Card */
+    .emg-exam-card {
+      background: #FFFFFF; border: 1px solid #E2E8F0;
+      border-radius: 14px; padding: 1.25rem 1.5rem;
+    }
+    .emg-exam-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .emg-exam-row label { display: block; font-size: 0.8rem; font-weight: 700; color: #334155; margin-bottom: 0.4rem; }
+    .emg-exam-row input {
+      width: 100%; padding: 0.65rem 0.85rem; font-size: 0.88rem; font-family: inherit;
+      border: 1.5px solid #CBD5E1; border-radius: 8px; background: #F8FAFC; color: #0F172A;
+    }
+    .emg-exam-row input:focus { outline: none; border-color: #4F46E5; background: #FFF; }
+
+    /* CTA Wrap */
+    .emg-cta-wrap { margin-top: 2rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .emg-cta {
+      padding: 0.9rem 2.25rem; border-radius: 12px; font-size: 0.96rem; font-weight: 700;
+      background: #4F46E5 !important; color: #FFFFFF !important; border: none; cursor: pointer;
+      transition: all 0.2s ease; font-family: inherit;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35); display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .emg-cta:hover:not(:disabled) {
+      background: #4338CA !important; transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(79, 70, 229, 0.45);
+    }
+    .emg-cta:disabled {
+      background: #A5B4FC !important; cursor: not-allowed; opacity: 0.7; transform: none; box-shadow: none;
+    }
+    .emg-cta-secondary {
+      padding: 0.85rem 1.6rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+      background: #FFFFFF; color: #334155 !important; border: 1.5px solid #CBD5E1;
+      cursor: pointer; transition: all 0.2s; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+    }
+    .emg-cta-secondary:hover {
+      border-color: #4F46E5; color: #4F46E5 !important; background: #EEF2FF;
+    }
+
+    /* =========================================================================
+       PHASE 2: RESCUE PLAN & CRISIS DIAGNOSIS
+       ========================================================================= */
+
+    .emg-plan-top-banner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; background: #FFFFFF; border: 1px solid #E2E8F0;
+      border-radius: 14px; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .emg-plan-top-banner h2 { font-size: 1.25rem; font-weight: 800; color: #0F172A; margin: 0; }
+    .emg-plan-badges { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .emg-badge-pill {
+      font-size: 0.78rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 20px;
+      background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE;
+    }
+
+    /* 3-Pillar Crisis Diagnosis Card */
+    .emg-diagnosis-card {
+      background: #FFFFFF; border: 1.5px solid #E2E8F0;
+      border-radius: 16px; padding: 1.5rem 1.75rem; margin-bottom: 1.5rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    }
+    .emg-diag-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.15rem; padding-bottom: 0.75rem; border-bottom: 1px solid #F1F5F9;
+    }
+    .emg-diag-header h3 {
+      font-size: 0.85rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #4F46E5; margin: 0;
+      display: flex; align-items: center; gap: 0.45rem;
+    }
+    .emg-diag-conf { font-size: 0.78rem; font-weight: 700; color: #059669; }
+    .emg-diag-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr 1.2fr; gap: 1.5rem;
+    }
+    .emg-diag-col h4 {
+      font-size: 0.76rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #64748B; margin: 0 0 0.45rem;
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .emg-diag-col p { font-size: 0.88rem; color: #334155; line-height: 1.55; margin: 0; }
+    .emg-diag-col.risk h4 { color: #DC2626; }
+    .emg-diag-col.opportunity h4 { color: #059669; }
+    .emg-diag-footer {
+      margin-top: 1rem; padding-top: 0.65rem; border-top: 1px dashed #E2E8F0;
+      font-size: 0.76rem; color: #94A3B8; text-align: right;
+    }
+
+    /* "If You Only Do One Thing" Spotlight Card */
+    .emg-one-thing-card {
+      background: #FFFBEB; border: 1.5px solid #F59E0B;
+      border-radius: 14px; padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;
+      gap: 1.25rem; flex-wrap: wrap; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
+    }
+    .emg-one-left { flex: 1; min-width: 260px; }
+    .emg-one-label {
+      font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+      color: #B45309; display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 0.35rem;
+    }
+    .emg-one-title { font-size: 1.2rem; font-weight: 800; color: #78350F; margin-bottom: 0.25rem; }
+    .emg-one-reason { font-size: 0.86rem; color: #92400E; line-height: 1.45; }
+    .emg-one-cta {
+      padding: 0.8rem 1.6rem; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+      background: #B45309; color: #FFFFFF !important; border: none; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap; font-family: inherit;
+    }
+    .emg-one-cta:hover { background: #78350F; transform: translateY(-1px); }
+
+    /* Dynamic Time Breakdown Schedule */
+    .emg-time-breakdown {
+      background: #FFFFFF; border: 1px solid #E2E8F0;
+      border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+    }
+    .emg-tb-title {
+      font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #64748B; margin-bottom: 0.85rem;
+    }
+    .emg-tb-bar {
+      display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 0.85rem;
+      background: #F1F5F9;
+    }
+    .emg-tb-seg { height: 100%; transition: width 0.3s; }
+    .emg-tb-seg.active_recall { background: #6366F1; }
+    .emg-tb-seg.practice_question { background: #10B981; }
+    .emg-tb-seg.mistake_review { background: #F59E0B; }
+    .emg-tb-seg.notes_review { background: #8B5CF6; }
+    .emg-tb-seg.self_check { background: #06B6D4; }
+
+    .emg-tb-legend { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+    .emg-tb-item { display: flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; color: #475569; }
+    .emg-tb-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Priority Topic Cards */
+    .emg-priority-card {
+      background: #FFFFFF; border: 1.5px solid #E2E8F0;
+      border-radius: 14px; padding: 1.35rem 1.5rem; margin-bottom: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .emg-priority-card.do_first { border-left: 5px solid #DC2626; }
+    .emg-priority-card.high_impact { border-left: 5px solid #F59E0B; }
+    .emg-priority-card.quick_win { border-left: 5px solid #10B981; }
+
+    .emg-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+    .emg-card-label {
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 0.25rem 0.65rem; border-radius: 6px;
+      display: inline-block; margin-bottom: 0.4rem;
+    }
+    .emg-card-label.do_first { background: #FEE2E2; color: #DC2626; }
+    .emg-card-label.high_impact { background: #FEF3C7; color: #D97706; }
+    .emg-card-label.quick_win { background: #D1FAE5; color: #047857; }
+
+    .emg-card-topic { font-size: 1.15rem; font-weight: 800; color: #0F172A; margin-bottom: 0.25rem; }
+    .emg-card-subject { font-size: 0.82rem; color: #64748B; font-weight: 500; }
+    .emg-card-time {
+      font-size: 1.6rem; font-weight: 800; color: #4F46E5;
+      font-family: var(--font-mono, monospace); white-space: nowrap; line-height: 1; text-align: right;
+    }
+    .emg-card-time span { font-size: 0.74rem; font-weight: 600; color: #94A3B8; display: block; margin-top: 0.2rem; }
+
+    .emg-why-toggle {
+      font-size: 0.82rem; font-weight: 700; color: #4F46E5;
+      cursor: pointer; margin-top: 0.75rem; display: inline-flex; align-items: center; gap: 0.35rem;
+      background: none; border: none; padding: 0; font-family: inherit;
+    }
+    .emg-why-content {
+      display: none; margin-top: 0.75rem; padding: 0.9rem 1.15rem;
+      background: #F8FAFC; border-radius: 10px; border: 1px solid #E2E8F0;
+      font-size: 0.84rem; color: #334155; line-height: 1.55;
+    }
+    .emg-why-content.open { display: block; }
+    .emg-evidence-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.35rem; }
+    .emg-evidence-dot { width: 6px; height: 6px; border-radius: 50%; background: #4F46E5; margin-top: 0.45rem; flex-shrink: 0; }
+
+    /* Steps Preview Chips */
+    .emg-steps-preview { display: flex; gap: 0.5rem; margin-top: 0.85rem; flex-wrap: wrap; }
+    .emg-step-chip {
+      font-size: 0.75rem; padding: 0.35rem 0.7rem; border-radius: 6px;
+      background: #F1F5F9; color: #334155; font-weight: 600;
+      border: 1px solid #E2E8F0;
+    }
+
+    /* "Don't Study This Now" (Time Protection) */
+    .emg-skip-container {
+      background: #F8FAFC; border: 1.5px dashed #CBD5E1;
+      border-radius: 16px; padding: 1.5rem; margin-top: 2rem; margin-bottom: 1.5rem;
+    }
+    .emg-skip-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;
+    }
+    .emg-skip-header h4 {
+      font-size: 0.86rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+      color: #475569; margin: 0; display: flex; align-items: center; gap: 0.45rem;
+    }
+    .emg-skip-grid { display: flex; flex-direction: column; gap: 0.65rem; }
+    .emg-skip-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 1.15rem; background: #FFFFFF; border-radius: 10px;
+      border: 1px solid #E2E8F0; gap: 1rem; flex-wrap: wrap;
+    }
+    .emg-skip-left { display: flex; align-items: center; gap: 0.65rem; }
+    .emg-skip-tag {
+      font-size: 0.72rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .emg-skip-tag.emerald { background: #D1FAE5; color: #047857; }
+    .emg-skip-tag.amber { background: #FEF3C7; color: #B45309; }
+    .emg-skip-tag.slate { background: #F1F5F9; color: #475569; }
+    .emg-skip-reason { font-size: 0.82rem; color: #64748B; }
+
+    /* =========================================================================
+       PHASE 3: ACTIVE GUIDED SESSION STYLES
+       ========================================================================= */
+
+    .emg-live-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.75rem; background: #FFFFFF; border: 1px solid #E2E8F0;
+      border-radius: 16px; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .emg-live-timer-box { display: flex; align-items: center; gap: 1rem; }
+    .emg-timer {
+      font-size: 2.6rem; font-weight: 800; font-family: var(--font-mono, monospace);
+      color: #4F46E5; line-height: 1; letter-spacing: -0.02em;
+    }
+    .emg-budget-status { font-size: 0.82rem; font-weight: 700; color: #64748B; }
+    .emg-live-topic { font-size: 1.25rem; font-weight: 800; color: #0F172A; }
+    .emg-live-progress { font-size: 0.86rem; color: #475569; }
+
+    .emg-session-step-card {
+      background: #FFFFFF; border: 2px solid #4F46E5;
+      border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem;
+      box-shadow: 0 6px 24px rgba(79, 70, 229, 0.08);
+    }
+    .emg-step-number {
+      font-size: 0.78rem; font-weight: 800; color: #4F46E5;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.45rem;
+    }
+    .emg-step-title { font-size: 1.35rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem; }
+    .emg-step-duration { font-size: 0.86rem; color: #64748B; font-weight: 600; margin-bottom: 1.25rem; }
+    .emg-step-instruction {
+      font-size: 1rem; color: #334155; line-height: 1.6; margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem; background: #F8FAFC; border-radius: 10px; border: 1px solid #E2E8F0;
+    }
+    .emg-step-launch {
+      display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.7rem 1.4rem;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 700; background: #4F46E5;
+      color: #FFFFFF !important; text-decoration: none; margin-bottom: 1.5rem;
+    }
+    .emg-step-launch:hover { background: #4338CA; }
+
+    /* Step self-check prompt */
+    .emg-step-selfcheck {
+      margin-top: 1rem; padding: 1rem 1.25rem; background: #F8FAFC; border-radius: 10px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .emg-selfcheck-label { font-size: 0.84rem; font-weight: 700; color: #334155; }
+    .emg-selfcheck-btns { display: flex; gap: 0.5rem; }
+    .emg-rating-btn {
+      padding: 0.4rem 0.85rem; font-size: 0.8rem; font-weight: 700; border-radius: 8px;
+      border: 1.5px solid #CBD5E1; background: #FFFFFF; color: #334155; cursor: pointer;
+    }
+    .emg-rating-btn:hover { border-color: #4F46E5; }
+    .emg-rating-btn.active { background: #4F46E5; color: #FFFFFF !important; border-color: #4F46E5; }
+
+    .emg-live-controls { display: flex; gap: 0.85rem; flex-wrap: wrap; align-items: center; }
+
+    /* =========================================================================
+       PHASE 4: COMPLETION & ECOSYSTEM HANDOFF
+       ========================================================================= */
+
+    .emg-complete-card {
+      background: #FFFFFF; border: 1px solid #E2E8F0;
+      border-radius: 20px; padding: 2.5rem; text-align: center; max-width: 680px; margin: 0 auto;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.04);
+    }
+    .emg-complete-icon { font-size: 3.2rem; margin-bottom: 0.75rem; }
+    .emg-complete-card h2 { font-size: 1.45rem; font-weight: 800; color: #0F172A; margin-bottom: 0.4rem; }
+    .emg-complete-card p { font-size: 0.92rem; color: #475569; margin-bottom: 1.75rem; }
+
+    .emg-outcomes-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+      margin-bottom: 1.75rem; text-align: center;
+    }
+    .emg-out-stat {
+      padding: 1.15rem 1rem; background: #F8FAFC; border-radius: 12px;
+      border: 1px solid #E2E8F0;
+    }
+    .emg-out-num { font-size: 1.75rem; font-weight: 800; color: #4F46E5; font-family: var(--font-mono, monospace); }
+    .emg-out-lbl { font-size: 0.75rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-top: 0.25rem; }
+
+    .emg-handoff-box {
+      text-align: left; padding: 1.35rem 1.5rem; background: #F5F3FF;
+      border: 1.5px solid #C7D2FE; border-radius: 14px; margin-bottom: 1.75rem;
+    }
+    .emg-handoff-title {
+      font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+      color: #4F46E5; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .emg-handoff-text { font-size: 0.88rem; color: #1E293B; line-height: 1.55; margin-bottom: 1rem; }
+    .emg-handoff-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .emg-loading {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 250px; gap: 1rem;
+    }
+    .emg-spinner {
+      width: 36px; height: 36px; border: 3px solid #E2E8F0;
+      border-top-color: #4F46E5; border-radius: 50%;
+      animation: emgSpin 0.8s linear infinite;
+    }
+    @keyframes emgSpin { to { transform: rotate(360deg); } }
+
+    .emg-error {
+      text-align: center; padding: 2rem; background: #FEF2F2;
+      border: 1px solid #FECACA; border-radius: 14px; margin: 1rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .emg-diag-grid { grid-template-columns: 1fr; }
+      .emg-outcomes-grid { grid-template-columns: 1fr; }
+      .emg-exam-row { grid-template-columns: 1fr; }
+      .emg-live-header { flex-direction: column; text-align: center; }
+      .emg-card-top { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Interactive Canvas Overlays -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- =========================================================================
+         LEFT SIDEBAR
+         ========================================================================= -->
+    <aside class="app-sidebar" aria-label="Application Navigation">
+      <a href="index.html" class="sidebar-logo" aria-label="SikshaSaathi Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#19B86B"/>
+          <circle cx="24" cy="16" r="2.5" fill="#5B5CE2"/>
+          <circle cx="12" cy="24" r="3" fill="#5B5CE2"/>
+        </svg>
+        <span>Siksha Saathi</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <a href="student.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="student-mentor.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>AI Mentor</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+        <a href="student-notes.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Smart Notes</span>
+        </a>
+        <a href="student-practice.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <span>Adaptive Practice</span>
+        </a>
+        <a href="student-flashcards.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0"/><path d="M2 9.5h20"/></svg>
+          <span>Flashcards</span>
+        </a>
+        <a href="student-assessments.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+        </a>
+        <a href="student-revision.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Smart Revision</span>
+        </a>
+        <a href="student-emergency.html" class="sidebar-link active" aria-current="page">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 10 10-12h-9l1-10z"/></svg>
+          <span>Emergency Mode</span>
+        </a>
+
+        <div class="nav-section-title">LEARNING</div>
+        <a href="student-profile.html#tab-genome" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <span>Genome & Progress</span>
+        </a>
+        <a href="student-profile.html#tab-achievements" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>Achievements</span>
+        </a>
+      </nav>
+
+      <!-- Bottom Profile Area -->
+      <div class="sidebar-profile">
+        <div id="profile-menu-popup" class="profile-menu-popup" role="menu">
+          <a href="student-profile.html" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile Details</span>
+          </a>
+          <a href="student-profile.html#tab-genome" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Learning Genome</span>
+          </a>
+          <a href="student-profile.html#tab-settings" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </a>
+          <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 4px 0;">
+          <a href="index.html" class="profile-menu-item" style="color: #E11D48;">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="stroke: #E11D48;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Sign Out</span>
+          </a>
+        </div>
+        <button id="profile-menu-btn" class="profile-card-btn" aria-haspopup="true" aria-expanded="false">
+          <div class="profile-avatar">AS</div>
+          <div style="flex-grow: 1;">
+            <div class="profile-name">Aarav Sharma</div>
+            <div class="profile-role">Class 12 • Science</div>
+          </div>
+          <span class="profile-dropdown-arrow">▾</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- =========================================================================
+         MAIN CONTENT REGION
+         ========================================================================= -->
+    <main class="app-main">
+      <header class="main-topbar">
+        <div class="topbar-greeting">
+          <h2>🚨 Emergency Mode — Situation Solver</h2>
+          <p>"You have limited time. Let's use it well."</p>
+        </div>
+        <div class="topbar-actions">
+          <a href="student.html" class="topbar-btn" title="Back to Dashboard" aria-label="Back to Dashboard">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <div class="main-content-scroll">
+
+        <!-- Loading State -->
+        <div id="emg-loading" class="emg-loading">
+          <div class="emg-spinner"></div>
+          <p style="font-size:0.9rem; color:#64748B; font-weight:600;">Analyzing learning genome, practice telemetry & revision decay...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="emg-error" class="emg-error" style="display:none;">
+          <p id="emg-error-msg" style="font-size:0.92rem; color:#991B1B; font-weight:600; margin-bottom:1rem;">We couldn't load your study situation.</p>
+          <button class="emg-cta-secondary" onclick="EmergencyMode.init()">Retry Analysis</button>
+        </div>
+
+        <!-- Phase Container -->
+        <div class="emg-phases" style="display:none;" id="emg-phases">
+
+          <!-- ===== PHASE 1: SITUATION INTELLIGENCE & SETUP ===== -->
+          <div id="phase-setup" class="emg-phase active">
+            
+            <div class="emg-banner">
+              <div class="emg-banner-icon">🎯</div>
+              <div>
+                <h1>Personal Academic Crisis-Recovery Assistant</h1>
+                <p>Don't try to cover everything. Siksha Saathi analyzes your real academic telemetry to eliminate decision fatigue, diagnose what is putting your marks at risk, and tell you what to study and what to ignore.</p>
+              </div>
+            </div>
+
+            <!-- Situation Intelligence Grid -->
+            <div class="emg-setup-section">
+              <h3>1. What is your current situation? <span id="emg-detected-note" style="font-size:0.78rem; color:#4F46E5; font-weight:700; text-transform:none;"></span></h3>
+              <div class="emg-scenario-grid" id="emg-scenario-grid"></div>
+            </div>
+
+            <!-- Time Selection -->
+            <div class="emg-setup-section">
+              <h3>2. How much time do you have?</h3>
+              <div class="emg-time-grid" id="emg-time-grid"></div>
+            </div>
+
+            <!-- Subject Focus -->
+            <div class="emg-setup-section">
+              <h3>3. Subject Focus</h3>
+              <div class="emg-subject-grid" id="emg-subject-grid"></div>
+            </div>
+
+            <!-- Exam Context (Optional) -->
+            <div class="emg-setup-section">
+              <h3>4. Exam Context <span style="font-weight:400; text-transform:none;">(optional)</span></h3>
+              <div class="emg-exam-card">
+                <div class="emg-exam-row">
+                  <div>
+                    <label for="emg-exam-name">Exam / Test Name</label>
+                    <input type="text" id="emg-exam-name" placeholder="e.g. JEE Main, Midterm Physics...">
+                  </div>
+                  <div>
+                    <label for="emg-exam-date">Exam Date</label>
+                    <input type="date" id="emg-exam-date">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="emg-cta-wrap">
+              <button class="emg-cta" id="emg-build-plan">
+                <span>DIAGNOSE & BUILD RESCUE PLAN</span>
+                <svg class="svg-icon" viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#FFF;"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button class="emg-cta-secondary" id="emg-choose-for-me">
+                <span>⚡ Auto-Resolve (Choose For Me)</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- ===== PHASE 2: RESCUE PLAN & DIAGNOSIS ===== -->
+          <div id="phase-plan" class="emg-phase">
+            
+            <div class="emg-plan-top-banner">
+              <div>
+                <h2>Your Academic Rescue Plan</h2>
+                <div class="emg-plan-meta" style="margin-top:0.35rem; font-size:0.86rem; color:#64748B;">
+                  <span id="emg-plan-time-summary">Plan Duration</span>
+                </div>
+              </div>
+              <div class="emg-plan-badges">
+                <span class="emg-badge-pill" id="emg-plan-situation-badge">Strategy</span>
+                <span class="emg-badge-pill" id="emg-plan-steps-count">0 Steps</span>
+              </div>
+            </div>
+
+            <!-- "What is Actually Going Wrong?" Diagnosis Card -->
+            <div class="emg-diagnosis-card" id="emg-diagnosis-card">
+              <div class="emg-diag-header">
+                <h3><span>🔍</span> Academic Crisis Diagnosis</h3>
+                <span class="emg-diag-conf" id="emg-diag-conf">High Confidence</span>
+              </div>
+              <div class="emg-diag-grid">
+                <div class="emg-diag-col">
+                  <h4><span>📌</span> Current Situation</h4>
+                  <p id="emg-diag-situation">Evaluating situation...</p>
+                </div>
+                <div class="emg-diag-col risk">
+                  <h4><span>⚠️</span> Biggest Risk</h4>
+                  <p id="emg-diag-risk">Evaluating risk...</p>
+                </div>
+                <div class="emg-diag-col opportunity">
+                  <h4><span>💡</span> Best Opportunity</h4>
+                  <p id="emg-diag-opportunity">Evaluating opportunity...</p>
+                </div>
+              </div>
+              <div class="emg-diag-footer" id="emg-diag-source">Derived from active telemetry</div>
+            </div>
+
+            <!-- "If You Only Do One Thing" Spotlight Card -->
+            <div class="emg-one-thing-card" id="emg-one-thing-card" style="display:none;">
+              <div class="emg-one-left">
+                <div class="emg-one-label">⚡ IF YOU ONLY DO ONE THING</div>
+                <div class="emg-one-title" id="emg-one-title">Core Topic — Action</div>
+                <div class="emg-one-reason" id="emg-one-reason">Reason description</div>
+              </div>
+              <button class="emg-one-cta" id="emg-one-start">Launch This Action Now →</button>
+            </div>
+
+            <!-- Dynamic Time Breakdown Schedule -->
+            <div class="emg-time-breakdown" id="emg-time-breakdown-box">
+              <div class="emg-tb-title">⏱️ Functional Time Budget Breakdown</div>
+              <div class="emg-tb-bar" id="emg-tb-bar"></div>
+              <div class="emg-tb-legend" id="emg-tb-legend"></div>
+            </div>
+
+            <!-- Priority Action Topic Cards -->
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="font-size:0.85rem; font-weight:800; text-transform:uppercase; letter-spacing:0.07em; color:#64748B; margin-bottom:0.85rem;">
+                Priority Focus Path (Ranked by Value-Per-Minute)
+              </h3>
+              <div id="emg-plan-cards"></div>
+            </div>
+
+            <!-- "Don't Study This Now" (Time Protection Section) -->
+            <div class="emg-skip-container" id="emg-skip-container" style="display:none;">
+              <div class="emg-skip-header">
+                <h4><span>🛡️</span> Protected Time: What to skip right now</h4>
+                <span style="font-size:0.75rem; color:#64748B; font-weight:600;">Decisive Time Protection</span>
+              </div>
+              <p style="font-size:0.84rem; color:#64748B; margin:0 0 1rem; line-height:1.5;">
+                Emergency Mode actively prevents you from wasting precious sprint minutes on already-mastered concepts or time-draining rabbit holes.
+              </p>
+              <div class="emg-skip-grid" id="emg-skip-grid"></div>
+            </div>
+
+            <!-- Decision Bar -->
+            <div class="emg-cta-wrap">
+              <button class="emg-cta" id="emg-start-session">
+                <span>START RESCUE SESSION</span>
+                <svg class="svg-icon" viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#FFF;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </button>
+              <button class="emg-cta-secondary" id="emg-back-to-setup">← Adjust Constraints</button>
+            </div>
+
+          </div>
+
+          <!-- ===== PHASE 3: GUIDED LIVE FOCUS SPRINT ===== -->
+          <div id="phase-session" class="emg-phase">
+            
+            <div class="emg-live-header">
+              <div class="emg-live-timer-box">
+                <div class="emg-timer" id="emg-timer">00:00</div>
+                <div>
+                  <div class="emg-budget-status" id="emg-budget-status">Time Remaining</div>
+                  <div class="emg-live-progress" id="emg-session-progress">Step 1 of 5</div>
+                </div>
+              </div>
+              <div>
+                <div class="emg-live-topic" id="emg-session-topic">Topic Name</div>
+                <div style="font-size:0.82rem; color:#64748B; margin-top:0.25rem;" id="emg-session-situation-tip">Stay focused on current task.</div>
+              </div>
+            </div>
+
+            <!-- Active Step Card -->
+            <div id="emg-current-step"></div>
+
+            <!-- Controls -->
+            <div class="emg-live-controls">
+              <button class="emg-cta" id="emg-complete-step">
+                <span>✓ Complete Step & Proceed</span>
+              </button>
+              <button class="emg-cta-secondary" id="emg-reallocate-step" title="Save time on this step and reallocate minutes to later topics">
+                <span>⏩ I Already Know This (Reallocate Time)</span>
+              </button>
+              <button class="emg-cta-secondary" id="emg-skip-step">Skip Step</button>
+              <button class="emg-cta-secondary" id="emg-finish-early" style="margin-left:auto; color:#DC2626; border-color:#FECACA;">Finish Early</button>
+            </div>
+
+          </div>
+
+          <!-- ===== PHASE 4: MEASURED OUTCOMES & ECOSYSTEM HANDOFF ===== -->
+          <div id="phase-complete" class="emg-phase">
+            <div class="emg-complete-card">
+              <div class="emg-complete-icon">🎯</div>
+              <h2>Rescue Session Complete</h2>
+              <p id="emg-complete-msg">Your emergency study sprint has been recorded and synced to your learning genome.</p>
+
+              <!-- Measured Outcomes Stats -->
+              <div class="emg-outcomes-grid" id="emg-outcomes-grid">
+                <div class="emg-out-stat">
+                  <div class="emg-out-num" id="emg-out-time">0m</div>
+                  <div class="emg-out-lbl">Time Invested</div>
+                </div>
+                <div class="emg-out-stat">
+                  <div class="emg-out-num" id="emg-out-steps">0</div>
+                  <div class="emg-out-lbl">Steps Completed</div>
+                </div>
+                <div class="emg-out-stat">
+                  <div class="emg-out-num" id="emg-out-topics">0</div>
+                  <div class="emg-out-lbl">Topics Reinforced</div>
+                </div>
+              </div>
+
+              <!-- Smart Ecosystem Handoff -->
+              <div class="emg-handoff-box" id="emg-handoff-box">
+                <div class="emg-handoff-title"><span>🚀</span> Next Best Move (Post-Emergency Handoff)</div>
+                <div class="emg-handoff-text" id="emg-handoff-text">Loading recommendation...</div>
+                <div class="emg-handoff-links">
+                  <a href="student-revision.html" class="emg-cta" style="padding:0.7rem 1.4rem; font-size:0.88rem;" id="emg-handoff-primary-btn">
+                    Open Smart Revision →
+                  </a>
+                  <a href="student-profile.html#tab-genome" class="emg-cta-secondary" style="padding:0.7rem 1.4rem; font-size:0.88rem;">
+                    View Learning Genome
+                  </a>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap;">
+                <button class="emg-cta-secondary" id="emg-new-session">Start Another Emergency Sprint</button>
+                <a href="student.html" class="emg-cta-secondary">Back to Dashboard</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/click-spark.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <script src="js/emergency.js"></script>
+
+  <script>
+    // Profile menu toggle
+    (function() {
+      const btn = document.getElementById('profile-menu-btn');
+      const popup = document.getElementById('profile-menu-popup');
+      if (btn && popup) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const open = popup.style.display === 'flex';
+          popup.style.display = open ? 'none' : 'flex';
+          btn.setAttribute('aria-expanded', !open);
+        });
+        document.addEventListener('click', function() {
+          popup.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

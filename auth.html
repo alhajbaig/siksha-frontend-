@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — SikshaSaathi</title>
+  <meta name="description" content="Your learning, your path. SikshaSaathi adapts to what you know, where you struggle, and what comes next.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Fonts & Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-editorial-body">
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Radial Center Glow -->
+  <div id="ambient-bg-glow" class="ambient-bg-canvas" aria-hidden="true"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="auth-top-bar">
+    <a href="index.html" class="auth-brand-logo" aria-label="SikshaSaathi Home">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 28px; height: 28px;">
+        <circle cx="18" cy="18" r="17" stroke="#111216" stroke-width="1.5" opacity="0.15"/>
+        <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="18" cy="11" r="3" fill="#19B86B"/>
+        <circle cx="24" cy="16" r="2.5" fill="#5B5CE2"/>
+        <circle cx="12" cy="24" r="3" fill="#5B5CE2"/>
+      </svg>
+      <span>Siksha Saathi</span>
+    </a>
+
+    <a href="index.html" class="auth-back-nav" aria-label="Back to SikshaSaathi">
+      <span class="back-arrow">←</span>
+      <span>Back to SikshaSaathi</span>
+    </a>
+  </header>
+
+  <!-- Main 2-Zone Editorial Canvas -->
+  <main class="auth-stage-container">
+    
+    <!-- =========================================================================
+         LEFT ZONE: EDITORIAL TYPOGRAPHY & ANIMATED LEARNING PATH LINE
+         ========================================================================= -->
+    <section class="auth-hero-zone" aria-label="Brand Storytelling">
+      
+      <div class="auth-eyebrow-text" id="auth-eyebrow">SIKSHA SAATHI • YOUR LEARNING JOURNEY</div>
+
+      <h1 class="auth-main-headline" id="auth-main-headline">
+        <span class="headline-line-1" id="headline-l1">Your learning,</span>
+        <span class="headline-line-2" id="headline-l2">your path.</span>
+      </h1>
+
+      <p class="auth-supporting-lead" id="auth-supporting-lead">
+        SikshaSaathi adapts to what you know,<br>
+        where you struggle, and what comes next.
+      </p>
+
+      <!-- The Single Subtle Animated Learning Path Line -->
+      <div class="auth-learning-path-module">
+        <svg class="path-svg-frame" viewBox="0 0 240 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background faint track -->
+          <path class="path-line-track" d="M 0 16 L 70 16 Q 100 16 110 32 Q 120 44 145 44 L 235 44"/>
+          <!-- Active drawing line -->
+          <path id="active-path-line" class="path-line-active" d="M 0 16 L 70 16 Q 100 16 110 32 Q 120 44 145 44 L 235 44"/>
+          <!-- Traveling green particle -->
+          <circle id="active-path-dot" class="path-travel-dot" r="3.5" style="offset-path: path('M 0 16 L 70 16 Q 100 16 110 32 Q 120 44 145 44 L 235 44');"/>
+        </svg>
+
+        <div class="path-microcopy-row">
+          <span>Learning should adapt to the learner.</span>
+          <span class="path-status-pill">
+            <span class="path-pulse-indicator"></span>
+            <span>continuously adapting</span>
+          </span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         RIGHT ZONE: MINIMAL EMBEDDED AUTHENTICATION AREA
+         ========================================================================= -->
+    <section class="auth-form-zone" aria-label="Authentication">
+      
+      <div class="auth-form-embedded">
+        
+        <!-- Segmented Role Selector (STUDENT | TEACHER) -->
+        <div class="auth-segmented-role" role="tablist" aria-label="User Role Selector">
+          <button class="role-segment-btn active" id="role-btn-student" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>STUDENT</span>
+          </button>
+          
+          <button class="role-segment-btn" id="role-btn-teacher" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+              <path d="M6 6h10"/>
+              <path d="M6 10h10"/>
+            </svg>
+            <span>TEACHER</span>
+          </button>
+        </div>
+
+        <!-- Mode Switcher Tabs (LOG IN | CREATE ACCOUNT) -->
+        <div class="auth-tabs-header" role="tablist" aria-label="Form Mode Tabs">
+          <button class="auth-tab-link active" id="tab-login" role="tab" aria-selected="true">
+            LOG IN
+          </button>
+          <button class="auth-tab-link" id="tab-signup" role="tab" aria-selected="false">
+            CREATE ACCOUNT
+          </button>
+          <div class="auth-tabs-slider-bar" id="auth-tabs-slider"></div>
+        </div>
+
+        <!-- Social Authentication Buttons -->
+        <div class="auth-social-actions">
+          <button type="button" class="social-action-btn" id="btn-social-google">
+            <svg viewBox="0 0 24 24" width="15" height="15"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.97 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+            <span>Continue with Google</span>
+          </button>
+          
+          <button type="button" class="social-action-btn" id="btn-social-apple">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.62-.75 1.04-1.8 0.92-2.83-.9.04-2 .6-2.65 1.35-.58.67-.99 1.74-.85 2.76 1 .08 2.06-.51 2.58-1.28"/></svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <div class="auth-inline-divider">OR</div>
+
+        <!-- Form Heading Area -->
+        <div class="auth-headline-group">
+          <h2 class="form-primary-title" id="form-heading">Welcome back to SikshaSaathi.</h2>
+          <p class="form-secondary-subtext" id="form-subheading">Continue your learning journey.</p>
+        </div>
+
+        <!-- Dynamic Form Body -->
+        <form id="auth-main-form" class="auth-fields-stack" novalidate>
+          
+          <!-- Full Name (Sign Up only) -->
+          <div class="field-unit" id="field-wrap-name" style="display: none;">
+            <label class="field-label-row" for="input-name">Full name</label>
+            <div class="field-input-wrapper">
+              <input type="text" id="input-name" class="field-control-input" placeholder="Aarav Sharma" autocomplete="name">
+            </div>
+            <span class="field-error-feedback" id="error-name">Please enter your full name.</span>
+          </div>
+
+          <!-- Class / Grade (Student Sign Up only) -->
+          <div class="field-unit" id="field-wrap-grade" style="display: none;">
+            <label class="field-label-row" for="select-grade">Class / Target Goal</label>
+            <div class="field-input-wrapper">
+              <select id="select-grade" class="field-control-input" style="cursor: pointer;">
+                <option value="class-12" selected>Class 12 • Senior Secondary</option>
+                <option value="class-11">Class 11 • Senior Secondary</option>
+                <option value="jee">Dropper / JEE Advanced Target</option>
+                <option value="neet">NEET Medical Target</option>
+                <option value="foundation">Class 9–10 Foundation</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Institution (Teacher Sign Up only) -->
+          <div class="field-unit" id="field-wrap-institution" style="display: none;">
+            <label class="field-label-row" for="input-institution">School / Institution</label>
+            <div class="field-input-wrapper">
+              <input type="text" id="input-institution" class="field-control-input" placeholder="Delhi Public School">
+            </div>
+            <span class="field-error-feedback" id="error-institution">Please enter your institution name.</span>
+          </div>
+
+          <!-- Subject (Teacher Sign Up only) -->
+          <div class="field-unit" id="field-wrap-subject" style="display: none;">
+            <label class="field-label-row" for="select-subject">Subject Specialization</label>
+            <div class="field-input-wrapper">
+              <select id="select-subject" class="field-control-input" style="cursor: pointer;">
+                <option value="physics" selected>Physics</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="biology">Biology</option>
+                <option value="computer-science">Computer Science</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Email Address -->
+          <div class="field-unit" id="field-wrap-email">
+            <label class="field-label-row" for="input-email">
+              <span>Email address</span>
+            </label>
+            <div class="field-input-wrapper">
+              <input type="email" id="input-email" class="field-control-input" placeholder="aarav@example.com" autocomplete="email" required>
+            </div>
+            <span class="field-error-feedback" id="error-email">Please enter a valid email address.</span>
+          </div>
+
+          <!-- Password Field -->
+          <div class="field-unit" id="field-wrap-password">
+            <label class="field-label-row" for="input-password">
+              <span>Password</span>
+              <button type="button" class="field-forgot-anchor" id="btn-forgot-password" tabindex="-1">Forgot password?</button>
+            </label>
+            <div class="field-input-wrapper">
+              <input type="password" id="input-password" class="field-control-input" placeholder="••••••••" autocomplete="current-password" required>
+              <button type="button" class="field-reveal-toggle" data-target="input-password" aria-label="Toggle password visibility">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <span class="field-error-feedback" id="error-password">Password is required (min 4 characters).</span>
+          </div>
+
+          <!-- Confirm Password (Sign Up only) -->
+          <div class="field-unit" id="field-wrap-confirm" style="display: none;">
+            <label class="field-label-row" for="input-confirm">Confirm password</label>
+            <div class="field-input-wrapper">
+              <input type="password" id="input-confirm" class="field-control-input" placeholder="••••••••" autocomplete="new-password">
+              <button type="button" class="field-reveal-toggle" data-target="input-confirm" aria-label="Toggle confirm password visibility">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <span class="field-error-feedback" id="error-confirm">Passwords do not match.</span>
+          </div>
+
+          <!-- Primary CTA Button -->
+          <button type="submit" class="auth-submit-action" id="btn-auth-submit">
+            <span id="btn-submit-label">CONTINUE</span>
+            <span class="cta-arrow-icon">→</span>
+          </button>
+
+          <!-- Footer Switch (Login <-> Signup) -->
+          <div class="auth-switch-footer">
+            <span id="footer-prompt-text">New to SikshaSaathi?</span>
+            <button type="button" class="switch-mode-link" id="btn-footer-toggle">Create an account →</button>
+          </div>
+
+          <!-- Trust Microcopy -->
+          <div class="auth-quiet-trust-note">
+            Your learning journey stays yours.
+          </div>
+
+          <!-- Demo Mode Exploration Bypass -->
+          <div class="auth-demo-bypass-section" style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--border-subtle, rgba(0,0,0,0.1)); text-align: center;">
+            <div style="font-size: 0.76rem; color: var(--text-tertiary, #6B7280); margin-bottom: 0.5rem; font-weight: 500;">
+              Want to explore Siksha Saathi before creating an account?
+            </div>
+            <button type="button" class="auth-demo-bypass-btn" id="btn-explore-demo" style="width: 100%; padding: 0.6rem 1rem; background: rgba(91, 92, 226, 0.05); border: 1px solid rgba(91, 92, 226, 0.25); border-radius: 10px; color: var(--brand-indigo, #5B5CE2); font-weight: 700; font-size: 0.82rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; transition: all 0.2s ease;">
+              <span>⚡ Explore Demo</span>
+              <span style="font-size: 0.72rem; opacity: 0.75; font-weight: 500;">(Sandbox Mode)</span>
+              <span style="margin-left: auto;">↗</span>
+            </button>
+            <div style="font-size: 0.68rem; color: var(--text-muted, #9CA3AF); margin-top: 0.4rem;">
+              Guest session • Progress will not be permanently saved
+            </div>
+          </div>
+
+        </form>
+
+        <!-- Simulated Success Modal Toast -->
+        <div class="auth-success-modal" id="auth-success-modal">
+          <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--brand-green-soft); color: var(--brand-green); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.95rem;">✓</div>
+          <h3 id="modal-title" style="font-size: 1.05rem; font-weight: 800; color: var(--text-primary); margin: 0;">Welcome to SikshaSaathi.</h3>
+          <p id="modal-desc" style="font-size: 0.8rem; color: var(--text-secondary); margin: 0;">Loading your personalized path...</p>
+          <div style="width: 18px; height: 18px; border: 2px solid #E8E8E6; border-top-color: var(--brand-indigo); border-radius: 50%; animation: spin 0.6s linear infinite; margin-top: 4px;"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <!-- Scripts: Lenis + GSAP + CursorGrid + ClickSpark + Auth Controller -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <!-- Supabase Cloud SDK & Bridge -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

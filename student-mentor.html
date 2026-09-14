@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Socratic Mentor — SikshaSaathi</title>
+  <meta name="description" content="SikshaSaathi AI Socratic Mentor. Dialogue-driven active inquiry and conceptual mastery.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/student.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <!-- Role Route Guard & Session Management -->
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script>
+    if (window.SikshaSession) {
+      window.SikshaSession.checkRouteGuard('student');
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Center Radial Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- =========================================================================
+         LEFT SIDEBAR (DESKTOP APPLICATION LAYOUT)
+         ========================================================================= -->
+    <aside class="app-sidebar" aria-label="Application Navigation">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="sidebar-logo" aria-label="SikshaSaathi Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#19B86B"/>
+          <circle cx="24" cy="16" r="2.5" fill="#5B5CE2"/>
+          <circle cx="12" cy="24" r="3" fill="#5B5CE2"/>
+        </svg>
+        <span>Siksha Saathi</span>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="sidebar-nav">
+        
+        <a href="student.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="student-mentor.html" class="sidebar-link active" aria-current="page">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>AI Mentor</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+
+        <a href="student-notes.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+          <span>Notes</span>
+        </a>
+
+        <a href="student-flashcards.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9Z"/><path d="m9 2 3 4 3-4"/></svg>
+          <span>Flashcards</span>
+          <span class="sidebar-badge">8 DUE</span>
+        </a>
+
+        <a href="student-practice.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Practice</span>
+        </a>
+
+        <a href="student-assessments.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+        </a>
+
+        <a href="student-revision.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Smart Revision</span>
+        </a>
+
+        <a href="student-emergency.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 10 10-12h-9l1-10z"/></svg>
+          <span>Emergency Mode</span>
+        </a>
+
+        <div class="nav-section-title">LEARNING</div>
+
+        <a href="student-profile.html#tab-genome" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <span>Progress</span>
+        </a>
+
+        <a href="student-profile.html#tab-achievements" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>Achievements</span>
+        </a>
+
+      </nav>
+
+      <!-- Bottom Profile Area -->
+      <div class="sidebar-profile">
+        
+        <!-- Profile Dropdown Popup -->
+        <div id="profile-menu-popup" class="profile-menu-popup" role="menu">
+          <a href="student-profile.html" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile Details</span>
+          </a>
+          <a href="student-profile.html#tab-genome" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Learning Genome</span>
+          </a>
+          <a href="student-profile.html#tab-achievements" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            <span>Achievements</span>
+          </a>
+          <a href="student-profile.html#tab-settings" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </a>
+          <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: 4px 0;">
+          <a href="index.html" class="profile-menu-item" style="color: var(--rose-accent);">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="stroke: var(--rose-accent);"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Sign Out</span>
+          </a>
+        </div>
+
+        <button id="profile-menu-btn" class="profile-card-btn" aria-haspopup="true" aria-expanded="false">
+          <div class="profile-avatar">AS</div>
+          <div style="flex-grow: 1;">
+            <div class="profile-name">Aarav Sharma</div>
+            <div class="profile-role">Class 12 • Science</div>
+          </div>
+          <span class="profile-dropdown-arrow">▾</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         MAIN CONTENT REGION
+         ========================================================================= -->
+    <main class="app-main">
+      
+      <!-- Top Bar -->
+      <header class="main-topbar">
+        <div class="topbar-greeting">
+          <h2>AI Socratic Mentor</h2>
+          <p>“Never just given answers. Always led to true understanding.”</p>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="search-input-wrap">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="mentor-search-input" type="text" placeholder="Search conversations..." aria-label="Search">
+          </div>
+
+          <button class="topbar-btn" aria-label="Notifications">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notification-dot"></span>
+          </button>
+
+          <a href="index.html" class="topbar-btn" title="Back to Landing Page" aria-label="Exit to landing page">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <div class="main-content-scroll">
+        
+        <div class="mentor-studio-container">
+          
+          <!-- Left Thread Selector -->
+          <div class="mentor-sidebar-panel">
+            <button id="btn-new-conversation" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem;">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="stroke: #FFFFFF;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>New Conversation</span>
+            </button>
+
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.5rem;">
+              ACTIVE THREADS
+            </div>
+
+            <div id="mentor-threads-list" style="display: flex; flex-direction: column; gap: 4px; overflow-y: auto;">
+              <!-- Threads populated dynamically by ai-mentor-engine.js -->
+            </div>
+
+            <div style="margin-top: auto; padding: 1rem; background: var(--indigo-soft); border-radius: 12px; border: 1px solid rgba(91, 92, 226, 0.2);">
+              <div style="font-size: 0.75rem; font-weight: 700; color: var(--indigo-primary); display: flex; align-items: center; gap: 0.4rem;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>Socratic Guarantee</span>
+              </div>
+              <p style="font-size: 0.74rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">
+                SikshaSaathi trains intuition and conceptual reasoning without giving away final solutions prematurely.
+              </p>
+            </div>
+          </div>
+
+          <!-- Main Interactive Chat Window -->
+          <div class="mentor-chat-window">
+            
+            <!-- Chat Header with Mode Selector -->
+            <div class="mentor-chat-header">
+              <div>
+                <div class="eyebrow" style="margin-bottom: 0;">
+                  <span class="eyebrow-dot"></span>
+                  <span id="mentor-conv-subject">AI MENTOR</span>
+                </div>
+                <div id="mentor-conv-title" style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-top: 2px;">
+                  New Conversation
+                </div>
+              </div>
+
+              <!-- Mode Selector Switch -->
+              <div class="mentor-mode-pills" role="tablist">
+                <button class="mentor-mode-pill active" data-mode="SOCRATIC" role="tab">✦ Socratic</button>
+                <button class="mentor-mode-pill" data-mode="DEEP" role="tab">⚡ Deep Concept</button>
+                <button class="mentor-mode-pill" data-mode="EXAM" role="tab">🎯 Exam Solver</button>
+              </div>
+            </div>
+
+            <!-- Chat Message Stream -->
+            <div id="mentor-chat-stream" class="mentor-chat-stream">
+              <!-- Chat messages populated dynamically by ai-mentor-engine.js -->
+            </div>
+
+            <!-- Quick Suggestions Prompt Chips -->
+            <div class="mentor-prompt-chips">
+              <button class="prompt-chip" type="button">Explain with a real-world elevator analogy</button>
+              <button class="prompt-chip" type="button">What if air resistance is included?</button>
+              <button class="prompt-chip" type="button">Give me a quick 1-question check</button>
+              <button class="prompt-chip" type="button">Show the calculus derivation</button>
+            </div>
+
+            <!-- Multi-Modal Attachment Preview Tray -->
+            <div id="mentor-attachment-preview" class="mentor-attachment-preview-tray" style="display: none;"></div>
+
+            <!-- Input Bar -->
+            <form id="mentor-chat-form" class="mentor-input-bar">
+              <!-- Hidden File Input for Multimodal Uploads -->
+              <input type="file" id="mentor-file-upload" accept="image/*,.pdf,.txt,.md,.doc,.docx" multiple style="display: none;">
+
+              <!-- Paperclip / Image Attachment Trigger -->
+              <button type="button" class="topbar-btn" id="btn-mentor-attach" title="Attach image, diagram, or document (or paste Ctrl+V)" style="border-radius: 12px; width: 42px; height: 42px;">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              </button>
+
+              <input type="text" id="mentor-user-input" class="mentor-input-field" placeholder="Ask anything, upload diagrams/notes, or paste screenshots..." aria-label="Chat input">
+              
+              <!-- Voice Dictation Trigger -->
+              <button type="button" class="topbar-btn" id="btn-mentor-voice" title="Voice Input Dictation" style="border-radius: 12px; width: 42px; height: 42px;">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+              </button>
+
+              <button type="submit" class="btn btn-primary" style="border-radius: 12px; padding: 0.65rem 1.25rem;">
+                <span>Send</span>
+                <svg class="svg-icon-sm" viewBox="0 0 24 24" style="stroke: #FFFFFF;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <script src="js/click-spark.js"></script>
+  <script src="js/student.js?v=3.2"></script>
+  <script src="js/ai-mentor-engine.js?v=3.2"></script>
+</body>
+</html>

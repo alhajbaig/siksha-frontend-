@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aarav Sharma — Learning Home | SikshaSaathi</title>
+  <meta name="description" content="SikshaSaathi Student Learning Home. AI-Powered Personalized Learning Companion.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/student.css">
+  <!-- Role Route Guard & Session Management -->
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script>
+    if (window.SikshaSession) {
+      window.SikshaSession.checkRouteGuard('student');
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Center Radial Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- =========================================================================
+         LEFT SIDEBAR (DESKTOP APPLICATION LAYOUT)
+         ========================================================================= -->
+    <aside class="app-sidebar" aria-label="Application Navigation">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="sidebar-logo" aria-label="SikshaSaathi Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#19B86B"/>
+          <circle cx="24" cy="16" r="2.5" fill="#5B5CE2"/>
+          <circle cx="12" cy="24" r="3" fill="#5B5CE2"/>
+        </svg>
+        <span>Siksha Saathi</span>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="sidebar-nav">
+        
+        <a href="student.html" class="sidebar-link active" aria-current="page">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="student-mentor.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>AI Mentor</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+
+        <a href="student-notes.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+          <span>Notes</span>
+        </a>
+
+        <a href="student-flashcards.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9Z"/><path d="m9 2 3 4 3-4"/></svg>
+          <span>Flashcards</span>
+          <span class="sidebar-badge">8 DUE</span>
+        </a>
+
+        <a href="student-practice.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Practice</span>
+        </a>
+
+        <a href="student-assessments.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+        </a>
+
+        <a href="student-revision.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Smart Revision</span>
+        </a>
+
+        <a href="student-emergency.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 10 10-12h-9l1-10z"/></svg>
+          <span>Emergency Mode</span>
+        </a>
+
+        <div class="nav-section-title">LEARNING</div>
+
+        <a href="student-profile.html#tab-genome" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <span>Progress</span>
+        </a>
+
+        <a href="student-profile.html#tab-achievements" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>Achievements</span>
+        </a>
+
+      </nav>
+
+      <!-- Bottom Profile Area -->
+      <div class="sidebar-profile">
+        
+        <!-- Profile Dropdown Popup -->
+        <div id="profile-menu-popup" class="profile-menu-popup" role="menu">
+          <a href="student-profile.html" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile Details</span>
+          </a>
+          <a href="student-profile.html#tab-genome" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Learning Genome</span>
+          </a>
+          <a href="student-profile.html#tab-achievements" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            <span>Achievements</span>
+          </a>
+          <a href="student-profile.html#tab-settings" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </a>
+          <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: 4px 0;">
+          <a href="index.html" class="profile-menu-item" style="color: var(--rose-accent);">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="stroke: var(--rose-accent);"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Sign Out</span>
+          </a>
+        </div>
+
+        <button id="profile-menu-btn" class="profile-card-btn" aria-haspopup="true" aria-expanded="false">
+          <div class="profile-avatar">AS</div>
+          <div style="flex-grow: 1;">
+            <div class="profile-name">Aarav Sharma</div>
+            <div class="profile-role">Class 12 • Science</div>
+          </div>
+          <span class="profile-dropdown-arrow">▾</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         MAIN CONTENT REGION
+         ========================================================================= -->
+    <main class="app-main">
+      
+      <!-- Top Bar -->
+      <header class="main-topbar">
+        <div class="topbar-greeting">
+          <h2 id="dashboard-greeting">Good morning.</h2>
+          <p>“Let's make today's learning count.”</p>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="search-input-wrap">
+            <span>🔍</span>
+            <input type="text" placeholder="Search concepts, notes..." aria-label="Search">
+          </div>
+
+          <button class="topbar-btn" aria-label="Notifications">
+            <span>🔔</span>
+            <span class="notification-dot"></span>
+          </button>
+
+          <a href="index.html" class="topbar-btn" title="Back to Landing Page" aria-label="Exit to landing page">
+            <span>↗</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <div class="main-content-scroll">
+        
+        <!-- =====================================================================
+             SECTION 01: PROGRESS & ACTIVE LEARNING FRONTIER (HERO)
+             ===================================================================== -->
+        <section id="today-section" class="hero-recommendation-card" aria-label="Today's Primary Recommendation">
+          <div class="hero-rec-grid">
+            <div>
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                <span>ADAPTIVE ARENA • SINGLE SOURCE OF TRUTH</span>
+              </div>
+              <h1 class="hero-rec-title">Practice & Mastery</h1>
+              <p class="section-subtitle" style="margin-bottom: 0;">“Live progress tracked across 20 calibrated levels in 4 core subjects.”</p>
+
+              <div class="hero-rec-meta">
+                <div class="meta-progress-bar-wrap">
+                  <span id="dashboard-overall-progress" style="font-weight: 700; color: var(--indigo-primary);">0%</span>
+                  <div class="meta-progress-bar-bg" style="width: 140px;">
+                    <div id="dashboard-progress-fill" class="meta-progress-bar-fill" style="width: 0%;"></div>
+                  </div>
+                </div>
+                <span id="dashboard-levels-completed" style="font-family: var(--font-mono); font-weight: 600; color: var(--text-main);">0 / 20 Levels Completed</span>
+                <span style="color: var(--emerald-primary); font-weight: 600;">● Real-Time Synced</span>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 1.25rem;">
+                <a id="dashboard-start-practice-btn" href="student-practice.html" class="btn btn-primary" style="padding: 0.8rem 2rem; font-size: 0.95rem;">
+                  <span>Start Practice Quiz</span>
+                  <span>→</span>
+                </a>
+                <button id="why-seeing-btn" class="btn-ghost">Why am I seeing this? ↗</button>
+              </div>
+
+              <!-- Interactive Explanation Drawer -->
+              <div id="why-seeing-box" class="why-seeing-box">
+                <strong style="color: var(--text-main); font-size: 0.88rem;">Real-Time Progress Engine:</strong>
+                <ul style="padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px;">
+                  <li>Each subject contains 5 calibrated levels of 10 MCQs each.</li>
+                  <li>All scores are calculated server-side in SQLite database.</li>
+                  <li>Completing a level automatically unlocks the next stage and updates this dashboard.</li>
+                </ul>
+                <div style="display: flex; gap: 0.6rem; margin-top: 0.75rem; flex-wrap: wrap;">
+                  <a href="student-practice.html" class="btn btn-primary" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; text-decoration: none;">Solve Calibration Quiz →</a>
+                  <a href="student-profile.html#tab-genome" class="btn btn-secondary" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; text-decoration: none;">View AI Roadmap ↗</a>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Visual Node Indicator -->
+            <div style="text-align: center; background: #FFFFFF; border: 1px solid var(--border-subtle); border-radius: 18px; padding: 1.5rem 2rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);">
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--indigo-primary); font-weight: 700; text-transform: uppercase;">LEARNING STREAK</div>
+              <div class="metric-active-streak" style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin: 0.25rem 0;"><span id="dashboard-hero-streak">0</span> <span style="font-size: 1rem; color: var(--amber-accent); font-weight: 600;">Days 🔥</span></div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Active Cognitive State: <strong id="dashboard-cognitive-state">Warming Up</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             SECTION 02: TODAY'S PROGRESS ROW
+             ===================================================================== -->
+        <section aria-label="Today's Progress Metrics">
+          <div class="metrics-strip">
+            
+            <div class="metric-col">
+              <span class="metric-label">Active Streak</span>
+              <div class="metric-value"><span id="metric-streak-days">0</span> <span style="font-size: 1.1rem; color: var(--amber-accent);">Days 🔥</span></div>
+            </div>
+
+            <div class="metric-col">
+              <span class="metric-label">Questions Solved</span>
+              <div class="metric-value"><span id="metric-questions-solved">0</span> <span style="font-size: 1rem; color: var(--text-muted); font-weight: 500;">questions</span></div>
+            </div>
+
+            <div class="metric-col">
+              <span class="metric-label">Accuracy Rate</span>
+              <div class="metric-value" style="color: var(--emerald-primary);"><span id="metric-accuracy-rate">0%</span></div>
+            </div>
+
+            <div class="metric-col">
+              <span class="metric-label">Completed Levels</span>
+              <div class="metric-value" style="color: var(--indigo-primary);"><span id="metric-completed-levels">0</span> <span style="font-size: 1rem; color: var(--text-muted); font-weight: 500;">/ 20</span></div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             SECTION 03: REAL-TIME SUBJECT TRACKS
+             ===================================================================== -->
+        <section id="tracks-section">
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>REAL-TIME SUBJECT PROGRESS</span></div>
+          <h2 class="section-heading">Subject Progress Tracks</h2>
+          <p class="section-subtitle">5 levels per subject • Foundation to Competitive Challenge.</p>
+
+          <div id="dashboard-tracks-grid" class="tracks-grid">
+            <!-- Dynamically populated from /api/student/progress -->
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             SECTION 03B: RECENT QUIZ ACTIVITY FEED
+             ===================================================================== -->
+        <section style="margin-top: 2rem;">
+          <div class="card" style="padding: 1.5rem 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <div>
+                <span class="eyebrow" style="margin-bottom: 0.15rem;"><span>RECENT ACTIVITY</span></span>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Diagnostic Quiz History</h3>
+              </div>
+              <a href="student-practice.html" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;">
+                Open Practice Arena →
+              </a>
+            </div>
+
+            <div id="dashboard-recent-activity-list" style="display: flex; flex-direction: column;">
+              <!-- Dynamically populated from /api/student/progress -->
+            </div>
+          </div>
+        </section>
+
+
+
+        <!-- =====================================================================
+             SECTION 05 & 06: LEARNING GENOME & AI INSIGHT (2-COL)
+             ===================================================================== -->
+        <section id="genome-section" class="two-col-grid">
+          
+          <!-- Learning Genome Card -->
+          <div class="card">
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>LEARNING GENOME</span></div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;">Your learning at a glance</h3>
+
+            <div class="genome-bar-row">
+              <div class="genome-bar-meta"><span>Mathematics</span><span id="db-genome-math-pct" style="color: var(--indigo-primary);">0%</span></div>
+              <div class="genome-bar-bg"><div id="db-genome-math-fill" class="genome-bar-fill" style="width: 0%; background-color: var(--indigo-primary);"></div></div>
+            </div>
+
+            <div class="genome-bar-row">
+              <div class="genome-bar-meta"><span>Physics</span><span id="db-genome-phys-pct" style="color: var(--amber-accent);">0%</span></div>
+              <div class="genome-bar-bg"><div id="db-genome-phys-fill" class="genome-bar-fill" style="width: 0%; background-color: var(--amber-accent);"></div></div>
+            </div>
+
+            <div class="genome-bar-row">
+              <div class="genome-bar-meta"><span>Chemistry</span><span id="db-genome-chem-pct" style="color: var(--emerald-primary);">0%</span></div>
+              <div class="genome-bar-bg"><div id="db-genome-chem-fill" class="genome-bar-fill" style="width: 0%; background-color: var(--emerald-primary);"></div></div>
+            </div>
+
+            <div class="genome-bar-row">
+              <div class="genome-bar-meta"><span>Computer Science</span><span id="db-genome-cs-pct" style="color: var(--soft-blue);">0%</span></div>
+              <div class="genome-bar-bg"><div id="db-genome-cs-fill" class="genome-bar-fill" style="width: 0%; background-color: var(--soft-blue);"></div></div>
+            </div>
+
+            <div class="genome-bar-row">
+              <div class="genome-bar-meta"><span>Biology</span><span id="db-genome-bio-pct" style="color: #10B981;">0%</span></div>
+              <div class="genome-bar-bg"><div id="db-genome-bio-fill" class="genome-bar-fill" style="width: 0%; background-color: #10B981;"></div></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Strength: <strong id="db-genome-strength" style="color: var(--emerald-primary);">Start Practicing</strong></div>
+              <a href="student-profile.html#tab-genome" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.8rem;">View Genome →</a>
+            </div>
+          </div>
+
+          <!-- AI Active Insight Card -->
+          <div class="card" style="background: linear-gradient(145deg, #FFFFFF, #F8F8FD); border-color: rgba(91, 92, 226, 0.2);">
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>AI ACTIVE OBSERVATION</span></div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;">“You’re improving in algebra, but sign errors are still appearing in multi-step problems.”</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+              SikshaSaathi noticed a recurring pattern of negative-sign misplacement during binomial expansion. A quick targeted drill will lock in your mastery before moving to quadratic curves.
+            </p>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1rem; border-top: 1px dashed rgba(91, 92, 226, 0.2);">
+              <span style="font-size: 0.8rem; font-weight: 600; color: var(--indigo-primary);">Recommended: 10 min practice</span>
+              <a href="student-practice.html" class="btn btn-primary" style="padding: 0.55rem 1.25rem; font-size: 0.82rem;">Practice now →</a>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =====================================================================
+         SECTION 07: SMART REVISION QUEUE
+         ===================================================================== -->
+        <section id="revision-section">
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>NEURAL FORGETTING CURVE</span></div>
+          <h2 class="section-heading">Ready for revision</h2>
+          <p class="section-subtitle">Concepts scheduled for active recall right before memory decay occurs.</p>
+
+          <div class="revision-cards-grid">
+            
+            <div class="revision-item-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="badge" style="background: rgba(235, 87, 87, 0.1); color: var(--rose-accent); font-size: 0.68rem; font-weight: 700;">REVISION DUE</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Last: 5d ago</span>
+              </div>
+              <strong style="font-size: 1.05rem; color: var(--text-main);">Quadratic Factorisation</strong>
+              <div class="meta-progress-bar-wrap">
+                <span style="font-size: 0.8rem; font-weight: 700;">62%</span>
+                <div class="meta-progress-bar-bg"><div class="meta-progress-bar-fill" style="width: 62%; background-color: var(--amber-accent);"></div></div>
+              </div>
+              <a href="student-flashcards.html" class="btn btn-primary" style="margin-top: 0.5rem; justify-content: space-between; font-size: 0.82rem;">
+                <span>Revise now</span><span>→</span>
+              </a>
+            </div>
+
+            <div class="revision-item-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="badge" style="background: rgba(91, 92, 226, 0.1); color: var(--indigo-primary); font-size: 0.68rem; font-weight: 700;">REVIEW RECOMMENDED</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Last: 3d ago</span>
+              </div>
+              <strong style="font-size: 1.05rem; color: var(--text-main);">Newton's Laws</strong>
+              <div class="meta-progress-bar-wrap">
+                <span style="font-size: 0.8rem; font-weight: 700;">71%</span>
+                <div class="meta-progress-bar-bg"><div class="meta-progress-bar-fill" style="width: 71%; background-color: var(--indigo-primary);"></div></div>
+              </div>
+              <a href="student-flashcards.html" class="btn btn-secondary" style="margin-top: 0.5rem; justify-content: space-between; font-size: 0.82rem;">
+                <span>Revise</span><span>→</span>
+              </a>
+            </div>
+
+            <div class="revision-item-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="badge" style="background: rgba(25, 184, 107, 0.1); color: var(--emerald-primary); font-size: 0.68rem; font-weight: 700;">LOOKING STRONG</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Last: 1d ago</span>
+              </div>
+              <strong style="font-size: 1.05rem; color: var(--text-main);">Chemical Bonding</strong>
+              <div class="meta-progress-bar-wrap">
+                <span style="font-size: 0.8rem; font-weight: 700;">89%</span>
+                <div class="meta-progress-bar-bg"><div class="meta-progress-bar-fill" style="width: 89%; background-color: var(--emerald-primary);"></div></div>
+              </div>
+              <a href="student-flashcards.html" class="btn btn-secondary" style="margin-top: 0.5rem; justify-content: space-between; font-size: 0.82rem;">
+                <span>Review later</span><span>✓</span>
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             SECTION 08 & 09: AI MENTOR PREVIEW & 3D FLASHCARD (2-COL)
+             ===================================================================== -->
+        <section id="mentor-section" class="two-col-grid">
+          
+          <!-- AI Mentor Preview -->
+          <div class="card" style="background: #0E0F14; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.12);">
+            <div class="eyebrow" style="color: #8C8DFF;"><span class="eyebrow-dot" style="background: #8C8DFF;"></span><span>AI SOCRATIC MENTOR</span></div>
+            <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem;">Need help with a concept?</h3>
+
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;">
+              <div style="background: #191B26; padding: 0.85rem 1rem; border-radius: 12px; font-size: 0.85rem; color: #ECECF0;">
+                <span style="font-weight: 700; color: #8E929E; font-size: 0.72rem; display: block; margin-bottom: 2px;">STUDENT</span>
+                “I don't understand why the acceleration is negative in problem 4.”
+              </div>
+
+              <div id="mentor-preview-answer" style="background: rgba(91, 92, 226, 0.16); border: 1px solid rgba(91, 92, 226, 0.35); padding: 0.95rem 1.1rem; border-radius: 12px; font-size: 0.88rem; color: #FFFFFF; line-height: 1.5;">
+                <span style="font-weight: 700; color: #8C8DFF; font-size: 0.72rem; display: block; margin-bottom: 2px;">AI SOCRATIC MENTOR</span>
+                “Let's work through your reasoning. What coordinate sign did you choose for initial downward motion?”
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; margin-top: auto;">
+              <a href="student-mentor.html" class="btn btn-secondary" style="background: transparent; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.2); font-size: 0.82rem;">
+                <span>Ask AI Mentor</span><span>→</span>
+              </a>
+              <a href="student-mentor.html" class="btn btn-primary" style="font-size: 0.82rem;">
+                <span>Try Socratic Mode</span><span>✦</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 3D Interactive Flashcard -->
+          <div id="flashcards-section" class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+            <div class="eyebrow" style="align-self: flex-start;"><span class="eyebrow-dot"></span><span>QUICK RECALL</span></div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; align-self: flex-start; margin-bottom: 1rem;">Active Flashcards</h3>
+
+            <!-- 3D Flip Card -->
+            <div class="flashcard-wrap" role="button" tabindex="0" aria-label="Flip Flashcard">
+              <div class="flashcard-inner">
+                
+                <div class="flashcard-front">
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--indigo-primary); font-weight: 700; margin-bottom: 0.5rem;">PHYSICS • NEWTON'S LAWS</span>
+                  <div style="font-size: 1.3rem; font-weight: 700; color: var(--text-main);">What is Newton's Second Law of Motion?</div>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1.25rem;">(Click to reveal formula)</span>
+                </div>
+
+                <div class="flashcard-back">
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--emerald-primary); font-weight: 700; margin-bottom: 0.5rem;">ANSWER FORMULA</span>
+                  <div style="font-size: 2.2rem; font-weight: 800; letter-spacing: 0.05em; color: #FFFFFF;">F = ma</div>
+                  <div style="font-size: 0.8rem; color: #A0A5B5; margin-top: 0.5rem;">Force = Mass × Acceleration</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; margin-top: 1.25rem;">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">3 cards due today</span>
+              <a href="student-flashcards.html" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Open Flashcards →</a>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =====================================================================
+             SECTION 10 & 11: NOTES & SUBJECT LIST (2-COL)
+             ===================================================================== -->
+        <section id="notes-section" class="two-col-grid">
+          
+          <!-- Recent Note Card -->
+          <div class="card">
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>SMART NOTES</span></div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">Your notes, made useful</h3>
+            <p class="section-subtitle">AI-indexed handwritten and uploaded notes.</p>
+
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 0.35rem;">
+                <span>CHEMISTRY NOTE</span>
+                <span>Updated: Today</span>
+              </div>
+              <div style="font-size: 1rem; font-weight: 700; color: var(--text-main);">Organic Chemistry: Reaction Mechanisms</div>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem;">Nucleophilic substitution SN1 vs SN2 kinetics and stereochemistry.</p>
+              
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.85rem;">
+                <a href="student-notes.html" class="btn btn-secondary" style="padding: 0.3rem 0.75rem; font-size: 0.75rem;">Ask Note</a>
+                <a href="student-notes.html" class="btn btn-secondary" style="padding: 0.3rem 0.75rem; font-size: 0.75rem;">Summarize</a>
+                <a href="student-notes.html" class="btn btn-secondary" style="padding: 0.3rem 0.75rem; font-size: 0.75rem;">Quiz Me</a>
+              </div>
+            </div>
+
+            <a href="student-notes.html" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 0.82rem;">Open Notes AI →</a>
+          </div>
+
+          <!-- Subjects List Card -->
+          <div id="subjects-section" class="card">
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>ACADEMIC OVERVIEW</span></div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">Your subjects</h3>
+            <p class="section-subtitle">Live progress across practice levels.</p>
+
+            <div id="db-subjects-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- Dynamically populated from /api/student/progress -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =====================================================================
+             SECTION 12: SOPHISTICATED ACHIEVEMENTS / SMALL WINS
+             ===================================================================== -->
+        <section id="achievements-section" class="card">
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>MILESTONES & RECOGNITION</span></div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;">Small wins</h3>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+            
+            <a href="student-profile.html#tab-achievements" style="padding: 1rem; border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center; display: block;">
+              <div style="font-size: 1.3rem; margin-bottom: 0.25rem;">🔥</div>
+              <strong style="font-size: 0.85rem; color: var(--text-main); display: block;">7 Day Streak</strong>
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Consistent daily practice</span>
+            </a>
+
+            <a href="student-profile.html#tab-achievements" style="padding: 1rem; border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center; display: block;">
+              <div style="font-size: 1.3rem; margin-bottom: 0.25rem;">⚡</div>
+              <strong style="font-size: 0.85rem; color: var(--text-main); display: block;">+120 XP</strong>
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Earned this week</span>
+            </a>
+
+            <a href="student-profile.html#tab-achievements" style="padding: 1rem; border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center; display: block;">
+              <div style="font-size: 1.3rem; margin-bottom: 0.25rem;">📐</div>
+              <strong style="font-size: 0.85rem; color: var(--text-main); display: block;">Algebra Mastered</strong>
+              <span style="font-size: 0.72rem; color: var(--emerald-primary); font-weight: 600;">Verified 94%</span>
+            </a>
+
+            <a href="student-profile.html#tab-achievements" style="padding: 1rem; border: 1px solid var(--border-subtle); border-radius: 12px; text-align: center; display: block;">
+              <div style="font-size: 1.3rem; margin-bottom: 0.25rem;">🎯</div>
+              <strong style="font-size: 0.85rem; color: var(--text-main); display: block;">First Perfect Quiz</strong>
+              <span style="font-size: 0.72rem; color: var(--indigo-primary); font-weight: 600;">10/10 In Functions</span>
+            </a>
+
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             SECTION 13: EDITORIAL LEARNING SUMMARY
+             ===================================================================== -->
+        <section class="card" style="background: linear-gradient(135deg, #FFFFFF 0%, #FAFAF8 100%);">
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>MONTHLY SYNTHESIS</span></div>
+          <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.25rem;">“Here's what your learning is telling you.”</h3>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+            <div>
+              <span class="badge" style="background: rgba(25, 184, 107, 0.1); color: var(--emerald-primary); font-size: 0.68rem; font-weight: 700;">STRENGTH</span>
+              <div style="font-size: 1.05rem; font-weight: 700; margin-top: 0.4rem;">Problem Solving</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Your accuracy is consistently improving across multi-step challenges.</p>
+            </div>
+
+            <div>
+              <span class="badge" style="background: rgba(234, 160, 35, 0.1); color: var(--amber-accent); font-size: 0.68rem; font-weight: 700;">FOCUS AREA</span>
+              <div style="font-size: 1.05rem; font-weight: 700; margin-top: 0.4rem;">Physics Mechanics</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Coordinate axes and sign conventions need targeted review.</p>
+            </div>
+
+            <div>
+              <span class="badge" style="background: rgba(91, 92, 226, 0.1); color: var(--indigo-primary); font-size: 0.68rem; font-weight: 700;">GROWTH TREND</span>
+              <div style="font-size: 1.05rem; font-weight: 700; margin-top: 0.4rem; color: var(--emerald-primary);">+14% This Month</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Concept retention has increased across all 5 active subjects.</p>
+            </div>
+
+            <div>
+              <span class="badge" style="background: rgba(0, 0, 0, 0.06); color: var(--text-main); font-size: 0.68rem; font-weight: 700;">NEXT GOAL</span>
+              <div style="font-size: 1.05rem; font-weight: 700; margin-top: 0.4rem;">Quadratic Factorisation</div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">18 min practice session ready to begin.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             SECTION 14: FINAL DAILY CTA
+             ===================================================================== -->
+        <section style="background: #0E0F14; color: #FFFFFF; border-radius: 20px; padding: 2.5rem; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div class="eyebrow" style="color: #8C8DFF;"><span class="eyebrow-dot" style="background: #8C8DFF;"></span><span>READY FOR YOUR NEXT STEP?</span></div>
+            <h3 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em;">Quadratic Equations</h3>
+            <p style="font-size: 0.88rem; color: #A0A5B5; margin-top: 0.25rem;">18 min recommended practice calibrated to your current knowledge frontier.</p>
+          </div>
+
+          <a href="student-practice.html" class="btn btn-primary" style="padding: 0.9rem 2.2rem; font-size: 0.95rem; background: var(--indigo-primary);">
+            <span>Start Learning</span>
+            <span>→</span>
+          </a>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <!-- Supabase Cloud SDK & Bridge -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/student.js"></script>
+</body>
+</html>

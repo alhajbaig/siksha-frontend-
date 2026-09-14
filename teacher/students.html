@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Learning Genome Roster — SikshaSaathi Teacher</title>
+  <meta name="description" content="SikshaSaathi Student Learning Genome Explorer. Real-time cognitive telemetry, conceptual strengths, and misconception tracking for every student.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/teacher.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+  <!-- Role Route Guard (Strict Teacher Access Only, Zero Flash) -->
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script>
+    if (window.SikshaSession) {
+      window.SikshaSession.checkRouteGuard('teacher');
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Center Radial Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="app-sidebar" aria-label="Educator Navigation">
+      <a href="/teacher/index.html" class="sidebar-logo" aria-label="SikshaSaathi Educator Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#059669"/>
+          <circle cx="24" cy="16" r="2.5" fill="#4F46E5"/>
+          <circle cx="12" cy="24" r="3" fill="#4F46E5"/>
+        </svg>
+        <span>SIKHSAATHI <span style="font-size: 0.65rem; color: var(--indigo-primary); font-weight: 700; vertical-align: top;">TEACHER</span></span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Class Overview</span>
+        </a>
+
+        <a href="students.html" class="sidebar-link active" aria-current="page">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Student Genome</span>
+          <span class="sidebar-badge">42 ACTIVE</span>
+        </a>
+
+        <a href="assessments.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+          <span class="sidebar-badge">BUILDER</span>
+        </a>
+
+        <a href="curriculum.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Study Notes & RAG</span>
+        </a>
+
+        <a href="interventions.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>Guidance & Copilot</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+
+        <div class="nav-section-title">PORTAL SWITCHER</div>
+        <a href="/index.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+          <span>Platform Home</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-profile">
+        <div class="profile-card-btn" aria-label="Educator Profile">
+          <div class="profile-avatar">RV</div>
+          <div style="flex-grow: 1; min-width: 0;">
+            <div class="profile-name" style="font-weight: 700; font-size: 0.88rem; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dr. Rajesh Verma</div>
+            <div class="profile-role" style="font-size: 0.74rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Senior Physics Educator</div>
+          </div>
+        </div>
+        <div style="margin-top: 0.5rem;">
+          <button id="teacher-signout-btn" class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.76rem; padding: 0.4rem 0.5rem; color: var(--rose-accent); border-color: rgba(225, 29, 72, 0.25); display: flex; align-items: center; justify-content: center; gap: 0.35rem; cursor: pointer;">
+            <span>Sign Out</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN APP -->
+    <main class="app-main">
+      <header class="main-topbar">
+        <div class="topbar-cohort-select">
+          <span>🏫</span>
+          <select id="cohort-selector">
+            <option value="" selected>All Enrolled Classrooms</option>
+          </select>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="search-input-wrap">
+            <span>🔍</span>
+            <input type="text" id="global-search-input" placeholder="Search student name, roll, gap...">
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Exported complete cohort genome report!', '📊')">
+            <span>Export Roster CSV</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="main-content-scroll">
+        
+        <!-- HEADER -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>STUDENT LEARNING GENOME ROSTER</span></div>
+            <h1 class="section-heading" style="font-size: 1.8rem;">Classroom Mastery & Cognitive Frontiers</h1>
+            <p class="section-subtitle">Click any student row to slide open their complete Learning Genome, misconception logs, and forgetting predictions.</p>
+          </div>
+        </div>
+
+        <!-- SUMMARY STATS -->
+        <div class="metrics-strip">
+          <div class="metric-card">
+            <span class="metric-label">Total Cohort</span>
+            <div class="metric-value" id="roster-total-cohort">0</div>
+            <div class="metric-trend trend-neutral" id="roster-class-subtitle">Enrolled Scholars</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Excelling Tier</span>
+            <div class="metric-value" style="color: var(--emerald-primary);" id="roster-excelling-tier">0</div>
+            <div class="metric-trend trend-up">High mastery (>85%)</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">On Track Tier</span>
+            <div class="metric-value" style="color: var(--indigo-primary);" id="roster-ontrack-tier">0</div>
+            <div class="metric-trend trend-up">Steady progress (70-85%)</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Needs Support</span>
+            <div class="metric-value" style="color: var(--rose-accent);" id="roster-support-tier">0</div>
+            <div class="metric-trend trend-down">Focus area (<70%)</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Classroom Status</span>
+            <div class="metric-value" style="color: var(--emerald-primary); font-size: 1.25rem;">Active</div>
+            <div class="metric-trend trend-neutral">Cloud Synced</div>
+          </div>
+        </div>
+
+        <!-- ROSTER TABLE -->
+        <div class="card data-table-card">
+          <div class="data-table-header">
+            <div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Cohort Telemetry Roster</h3>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Real-time continuous tracking across authentic student attempts.</p>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-secondary btn-sm" id="filter-all-btn">All (<span id="btn-count-all">0</span>)</button>
+              <button class="btn btn-secondary btn-sm" id="filter-attention-btn">Needs Attention (<span id="btn-count-attention">0</span>)</button>
+              <button class="btn btn-secondary btn-sm" id="filter-excelling-btn">Excelling (<span id="btn-count-excelling">0</span>)</button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student & Roll</th>
+                  <th>Status</th>
+                  <th>Overall Mastery</th>
+                  <th>Primary Strength</th>
+                  <th>Active Misconception Gap</th>
+                  <th>Last Active</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="roster-table-body">
+                <tr>
+                  <td colspan="7" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+                    Loading enrolled scholars from database...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- SLIDE-OVER DRAWER FOR LEARNING GENOME -->
+  <div id="student-drawer-backdrop" class="drawer-backdrop" aria-hidden="true">
+    <div class="slide-drawer" role="dialog" aria-label="Student Learning Genome Deep Dive">
+      
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 0.85rem;">
+          <div id="drawer-student-avatar" class="profile-avatar" style="width: 44px; height: 44px; font-size: 1rem;">AS</div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <h2 id="drawer-student-name" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Aarav Sharma</h2>
+              <span id="drawer-student-status" class="badge badge-indigo">On Track</span>
+            </div>
+            <div id="drawer-student-meta" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Roll: 12-A-01 • Class 12-A</div>
+          </div>
+        </div>
+        <button id="student-drawer-close-btn" class="btn btn-ghost" aria-label="Close Drawer" style="font-size: 1.25rem;">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <div id="drawer-forgetting-alert"></div>
+
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>LEARNING GENOME BREAKDOWN</span></div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin: 0.2rem 0 0.85rem 0;">Curriculum Competency Index</h3>
+          <div id="drawer-genome-bars"></div>
+        </div>
+
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--emerald-primary);"></span><span>DEMONSTRATED STRENGTHS</span></div>
+          <ul id="drawer-strengths-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+        </div>
+
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--rose-accent);"></span><span>CRITICAL CONCEPTUAL GAPS</span></div>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Root causes identified through Socratic diagnostic telemetry:</p>
+          <ul id="drawer-gaps-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button class="btn btn-secondary" onclick="document.getElementById('student-drawer-backdrop').classList.remove('open')">Close</button>
+        <button id="drawer-send-guidance-btn" class="btn btn-primary">
+          <span>✉ Dispatch Personalized Guidance</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DISPATCH GUIDANCE MODAL -->
+  <div id="guidance-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Dispatch Personalized Guidance">
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>TEACHER MENTORSHIP DISPATCHER</span></div>
+          <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Send Personalized Guidance</h2>
+        </div>
+        <button id="close-guidance-modal-btn" class="btn btn-ghost" style="font-size: 1.1rem;">✕</button>
+      </div>
+
+      <form id="guidance-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="guidance-student-select">Select Student</label>
+            <select id="guidance-student-select" class="form-select">
+              <option value="STU-101">Aarav Sharma (Roll: 12-A-01 • Mastery: 78%)</option>
+              <option value="STU-102">Diya Patel (Roll: 12-A-04 • Mastery: 92%)</option>
+              <option value="STU-103">Rohan Verma (Roll: 12-A-09 • Mastery: 58%)</option>
+              <option value="STU-104">Ananya Iyer (Roll: 12-A-12 • Mastery: 86%)</option>
+              <option value="STU-105">Vikram Aditya (Roll: 12-A-15 • Mastery: 64%)</option>
+              <option value="STU-106">Sneha Kulkarni (Roll: 12-A-18 • Mastery: 81%)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="guidance-type-select">Intervention Type</label>
+            <select id="guidance-type-select" class="form-select">
+              <option value="Targeted Practice">Targeted Micro-Practice Drill</option>
+              <option value="Socratic Note">Socratic Clarification Note</option>
+              <option value="Smart Revision Boost">Smart Revision (Forgetting Decelerator)</option>
+              <option value="Enrichment Challenge">Advanced Olympiad / Extension Problem</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="guidance-text-input">Educator Guidance / Socratic Prompt</label>
+            <textarea id="guidance-text-input" class="form-textarea" rows="4" placeholder="e.g. Focus on binomial expansion sign rules. Check your signs in step 2."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('guidance-modal').classList.remove('open')">Cancel</button>
+          <button type="submit" class="btn btn-primary">✉ Dispatch to Student Portal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <script src="js/click-spark.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+</html>

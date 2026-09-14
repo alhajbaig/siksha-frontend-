@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SikshaSaathi — Learning, that learns you | AI Personalized Companion</title>
+  <meta name="description"
+    content="SikshaSaathi is an AI-powered personalized learning companion that adapts continuously to how you think, reason, and understand.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SikshaSaathi — Learning, that learns you">
+  <meta property="og:description"
+    content="AI-Powered Personalized Learning Companion. Minimal, intelligent, responsive.">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Radial Center Color Morphing Background -->
+  <div id="ambient-bg-glow" class="ambient-bg-canvas" aria-hidden="true"></div>
+
+  <!-- =========================================================================
+       FLOATING CARD NAV (INTERACTIVE APP FEATURE BUTTONS)
+       ========================================================================= -->
+  <header class="card-nav-container">
+    <nav class="card-nav" aria-label="Main Navigation">
+
+      <!-- Top Bar -->
+      <div class="card-nav-top">
+
+        <!-- Animated Hamburger Toggle -->
+        <div class="hamburger-menu" role="button" aria-label="Toggle navigation menu" aria-expanded="false"
+          tabindex="0">
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+        </div>
+
+        <!-- Center Brand Logo -->
+        <a href="#hero-slide" class="logo-container" aria-label="SikshaSaathi Home">
+          <svg class="brand-logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12" />
+            <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="18" cy="11" r="3" fill="#19B86B" />
+            <circle cx="24" cy="16" r="2.5" fill="#5B5CE2" />
+            <circle cx="12" cy="24" r="3" fill="#5B5CE2" />
+          </svg>
+          <span>SHIKSHASAATHI</span>
+        </a>
+
+        <!-- Right StarBorder CTA -->
+        <div class="card-nav-cta-wrap">
+          <a href="auth.html" class="star-border-btn btn-sm" aria-label="Get Started">
+            <div class="star-border-gradient-bottom"></div>
+            <div class="star-border-gradient-top"></div>
+            <div class="star-border-inner">
+              <span>Get Started</span>
+              <span>→</span>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Expanding Navigation Content with Interactive Feature Buttons -->
+      <div class="card-nav-content" aria-hidden="true">
+
+        <!-- Card 1: Diagnostic AI Feature Buttons -->
+        <div class="nav-card" style="background-color: #0E0F14; color: #FFFFFF;">
+          <div class="nav-card-badge" style="color: var(--emerald-primary);">01 DIAGNOSTICS</div>
+          <div class="nav-card-label">Diagnostic Engine</div>
+          <div class="nav-card-feature-list">
+            <a class="nav-feature-btn" href="#shift-slide" aria-label="Knowledge Genome Map">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span>Knowledge Genome Map</span>
+              </span>
+              <span class="nav-feature-pill" style="color: var(--emerald-primary);">GENOME</span>
+            </a>
+            <a class="nav-feature-btn" href="#marks-slide" aria-label="Deep Score Unpacker">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span>Deep Score Unpacker</span>
+              </span>
+              <span class="nav-feature-pill" style="color: var(--indigo-primary);">UNPACK</span>
+            </a>
+            <a class="nav-feature-btn" href="#how-slide" aria-label="7-Step Adaptive Loop">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span>7-Step Adaptive Loop</span>
+              </span>
+              <span class="nav-feature-pill">LOOP</span>
+            </a>
+          </div>
+          <a class="nav-add-feature-btn" href="#marks-slide" aria-label="Add Diagnostic Module">
+            <span>+</span>
+            <span>Add Diagnostic Module</span>
+          </a>
+        </div>
+
+        <!-- Card 2: Socratic Intelligence Feature Buttons -->
+        <div class="nav-card" style="background-color: #1A1B2E; color: #A5A6F6;">
+          <div class="nav-card-badge" style="color: #8C8DFF;">02 AI TUTOR</div>
+          <div class="nav-card-label" style="color: #FFFFFF;">Socratic Mentor</div>
+          <div class="nav-card-feature-list">
+            <a class="nav-feature-btn" href="#mentor-slide" aria-label="Inquiry-First AI Mentor">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span style="color: #FFFFFF;">Inquiry-First AI Mentor</span>
+              </span>
+              <span class="nav-feature-pill" style="color: #8C8DFF;">SOCRATIC</span>
+            </a>
+            <a class="nav-feature-btn" href="#mistakes-slide" aria-label="Mistake Signal Pipeline">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span style="color: #FFFFFF;">Mistake Signal Classifier</span>
+              </span>
+              <span class="nav-feature-pill" style="color: var(--amber-accent);">SIGNALS</span>
+            </a>
+            <a class="nav-feature-btn" href="#mentor-slide" aria-label="Multimodal Diagram Solver">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span style="color: #FFFFFF;">Multimodal Diagram Solver</span>
+              </span>
+              <span class="nav-feature-pill" style="color: var(--emerald-primary);">VISION</span>
+            </a>
+          </div>
+          <a class="nav-add-feature-btn" href="#mentor-slide" aria-label="Add AI Capability">
+            <span>+</span>
+            <span>Add AI Capability</span>
+          </a>
+        </div>
+
+        <!-- Card 3: Smart Retention Feature Buttons -->
+        <div class="nav-card" style="background-color: #14151E; color: #FFFFFF;">
+          <div class="nav-card-badge" style="color: var(--indigo-primary);">03 ECOSYSTEM</div>
+          <div class="nav-card-label">Neural Retention</div>
+          <div class="nav-card-feature-list">
+            <a class="nav-feature-btn" href="#revision-slide" aria-label="Spaced Recall Optimizer">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span>Spaced Recall Optimizer</span>
+              </span>
+              <span class="nav-feature-pill" style="color: var(--emerald-primary);">RECALL</span>
+            </a>
+            <a class="nav-feature-btn" href="#stakeholders-slide" aria-label="Teacher Telemetry Portal">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span>Teacher Telemetry Portal</span>
+              </span>
+              <span class="nav-feature-pill" style="color: var(--indigo-primary);">PORTAL</span>
+            </a>
+            <a class="nav-feature-btn" href="#promise-slide" aria-label="Autonomous Study Path">
+              <span class="nav-feature-btn-title">
+                <span>↗</span>
+                <span>Autonomous Study Path</span>
+              </span>
+              <span class="nav-feature-pill">PATH</span>
+            </a>
+          </div>
+          <a class="nav-add-feature-btn" href="#stakeholders-slide" aria-label="Add Ecosystem Feature">
+            <span>+</span>
+            <span>Add Ecosystem Feature</span>
+          </a>
+        </div>
+
+      </div>
+
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =========================================================================
+         SLIDE 01 — HERO (100VH PINNED STORYTELLING)
+         ========================================================================= -->
+    <section id="hero-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>AI-POWERED PERSONALIZED LEARNING</span>
+        </div>
+
+        <h1 class="title-hero" style="margin-bottom: 1.5rem;">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">Learning,</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right" style="color: var(--indigo-primary);"><span
+                class="serif-italic">that learns you.</span></span></span>
+        </h1>
+
+        <p class="lead-text" style="margin-bottom: 2.5rem;">
+          Understand what you know. Discover what you're missing. Know what to learn next.
+        </p>
+
+        <div class="hero-cta-wrap" style="display: flex; gap: 1rem; align-items: center;">
+          <!-- StarBorder Hero Primary CTA -->
+          <a href="#problem-slide" class="star-border-btn" aria-label="Begin the Journey">
+            <div class="star-border-gradient-bottom"></div>
+            <div class="star-border-gradient-top"></div>
+            <div class="star-border-inner">
+              <span>Begin the Journey</span>
+              <span>↓</span>
+            </div>
+          </a>
+          <a href="#how-slide" class="btn btn-secondary">
+            <span>How It Works</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 02 — THE PROBLEM (DIRECTIONAL ASSEMBLY -> PINNED 4 STATEMENTS)
+         ========================================================================= -->
+    <section id="problem-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>01 / THE PROBLEM</span>
+        </div>
+
+        <h2 class="title-major">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">Every student is different.</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--text-muted);">Learning often isn't.</span></span>
+        </h2>
+
+        <p class="lead-text" style="margin-top: 1rem;">
+          Most learning systems teach a topic, give a test, show a score and move on. But a score doesn't explain what
+          the student actually understands.
+        </p>
+
+        <!-- Secondary Scrubbed Statements -->
+        <div class="slide-secondary-content">
+          <div class="problem-statements-wrapper">
+            <div class="problem-single-card active">
+              <span class="problem-card-num">01</span>
+              <div style="font-size: 1.35rem; font-weight: 600; color: var(--text-main);">
+                “I know my test score. But not my weak concepts.”
+              </div>
+            </div>
+
+            <div class="problem-single-card">
+              <span class="problem-card-num">02</span>
+              <div style="font-size: 1.35rem; font-weight: 600; color: var(--text-main);">
+                “I made a mistake. But I don't know why.”
+              </div>
+            </div>
+
+            <div class="problem-single-card">
+              <span class="problem-card-num">03</span>
+              <div style="font-size: 1.35rem; font-weight: 600; color: var(--text-main);">
+                “I finished the chapter. But I don't know what comes next.”
+              </div>
+            </div>
+
+            <div class="problem-single-card">
+              <span class="problem-card-num">04</span>
+              <div style="font-size: 1.35rem; font-weight: 600; color: var(--text-main);">
+                “I understood it once. But I forgot it later.”
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 03 — WHY MARKS ARE NOT ENOUGH (DIRECTIONAL ASSEMBLY -> BORDERGLOW UNPACK)
+         ========================================================================= -->
+    <section id="marks-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>CONCEPTUAL DIAGNOSTICS</span>
+        </div>
+
+        <h2 class="title-major">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">A score tells you</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right">what happened.</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-bottom serif-italic"
+              style="color: var(--indigo-primary);">Not why.</span></span>
+        </h2>
+
+        <!-- Secondary Score Unpack Content with BorderGlow -->
+        <div class="slide-secondary-content">
+          <div class="border-glow-card score-unpack-box">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner"
+              style="display: grid; grid-template-columns: 240px 1fr; gap: 2.5rem; align-items: center; width: 100%;">
+
+              <div style="text-align: center; border-right: 1px solid var(--border-subtle); padding-right: 2rem;">
+                <div class="score-big-num">68%</div>
+                <div
+                  style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 0.5rem;">
+                  TRADITIONAL SCORE
+                </div>
+              </div>
+
+              <div class="score-breakdown-list">
+                <div
+                  style="font-size: 0.75rem; font-weight: 700; color: var(--indigo-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;">
+                  WHAT SIKHSAATHI UNCOVERS:
+                </div>
+
+                <div class="score-topic-row">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 600;">
+                    <span>Algebra & Quadratic Functions</span>
+                    <span style="color: var(--emerald-primary);">82% Mastered</span>
+                  </div>
+                  <div class="score-topic-bar-bg">
+                    <div class="score-topic-bar-fill" style="width: 82%; background-color: var(--emerald-primary);">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="score-topic-row">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 600;">
+                    <span>Kinematics & Acceleration</span>
+                    <span style="color: var(--indigo-primary);">61% Developing</span>
+                  </div>
+                  <div class="score-topic-bar-bg">
+                    <div class="score-topic-bar-fill" style="width: 61%; background-color: var(--indigo-primary);">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="score-topic-row">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 600;">
+                    <span>Graph Interpretation & Slope</span>
+                    <span style="color: var(--amber-accent);">58% Needs Focus</span>
+                  </div>
+                  <div class="score-topic-bar-bg">
+                    <div class="score-topic-bar-fill" style="width: 58%; background-color: var(--amber-accent);"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 04 — THE SHIFT (DIRECTIONAL ASSEMBLY -> PINNED BADGES)
+         ========================================================================= -->
+    <section id="shift-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <span class="eyebrow" style="color: var(--indigo-primary);">THE INTELLIGENCE SHIFT</span>
+
+        <h2 class="title-hero" style="margin-bottom: 1.5rem;">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">What if your learning</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--indigo-primary);">could adapt to you?</span></span>
+        </h2>
+
+        <p class="lead-text" style="margin: 0 auto;">
+          SikshaSaathi turns every question, practice session and assessment into a living, real-time picture of how you
+          learn.
+        </p>
+
+        <div class="slide-secondary-content" style="margin-top: 2rem;">
+          <div style="display: flex; gap: 1rem; justify-content: center;">
+            <span class="badge badge-indigo">CLOSED LOOP</span>
+            <span class="badge badge-green">ADAPTIVE GENOME</span>
+            <span class="badge badge-neutral">SOCRATIC AI</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 05 — HOW IT WORKS (DIRECTIONAL ASSEMBLY -> PINNED 7 STEPS SCRUB)
+         ========================================================================= -->
+    <section id="how-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>02 / HOW IT WORKS</span>
+        </div>
+
+        <h2 class="title-major">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">Seven steps.</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--indigo-primary);">One continuous loop.</span></span>
+        </h2>
+
+        <!-- Secondary 7 Steps Timeline -->
+        <div class="slide-secondary-content">
+          <div class="steps-story-timeline">
+
+            <div class="step-story-card active">
+              <span class="problem-card-num">01</span>
+              <div>
+                <strong style="font-size: 1.15rem; color: var(--text-main);">LEARN</strong>
+                <p class="body-text" style="margin-top: 0.25rem;">Build your foundation through subject-wise principles
+                  across Physics, Chemistry, Math, Biology, and CS.</p>
+              </div>
+            </div>
+
+            <div class="step-story-card">
+              <span class="problem-card-num">02</span>
+              <div>
+                <strong style="font-size: 1.15rem; color: var(--text-main);">PRACTICE</strong>
+                <p class="body-text" style="margin-top: 0.25rem;">Practice concepts through targeted questions
+                  calibrated precisely to your cognitive frontier.</p>
+              </div>
+            </div>
+
+            <div class="step-story-card">
+              <span class="problem-card-num">03</span>
+              <div>
+                <strong style="font-size: 1.15rem; color: var(--text-main);">ASSESS</strong>
+                <p class="body-text" style="margin-top: 0.25rem;">Measure what you actually understand beyond raw
+                  memorization or standardized test stress.</p>
+              </div>
+            </div>
+
+            <div class="step-story-card">
+              <span class="problem-card-num">04</span>
+              <div>
+                <strong style="font-size: 1.15rem; color: var(--text-main);">ANALYSE</strong>
+                <p class="body-text" style="margin-top: 0.25rem;">Identify mistake patterns, prerequisite flaws, and
+                  conceptual reasoning gaps.</p>
+              </div>
+            </div>
+
+            <div class="step-story-card">
+              <span class="problem-card-num">05</span>
+              <div>
+                <strong style="font-size: 1.15rem; color: var(--text-main);">PERSONALIZE</strong>
+                <p class="body-text" style="margin-top: 0.25rem;">Adapt the next learning step around your needs with
+                  dynamic branch pathways.</p>
+              </div>
+            </div>
+
+            <div class="step-story-card">
+              <span class="problem-card-num">06</span>
+              <div>
+                <strong style="font-size: 1.15rem; color: var(--text-main);">REVISE</strong>
+                <p class="body-text" style="margin-top: 0.25rem;">Revisit concepts right before they fade using
+                  algorithmic spaced repetition.</p>
+              </div>
+            </div>
+
+            <div class="step-story-card">
+              <span class="problem-card-num">07</span>
+              <div>
+                <strong style="font-size: 1.15rem; color: var(--text-main);">IMPROVE</strong>
+                <p class="body-text" style="margin-top: 0.25rem;">Measure permanent mastery and continuously refine your
+                  personalized journey.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 06 — MISTAKE SIGNALS (DIRECTIONAL ASSEMBLY -> SCROLL-SYNCED 3D FOLDER)
+         ========================================================================= -->
+    <section id="mistakes-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>MISTAKE SIGNALS</span>
+        </div>
+
+        <h2 class="title-major">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">Your mistakes</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--indigo-primary);">are signals.</span></span>
+        </h2>
+
+        <p class="lead-text" style="margin-top: 0.75rem;">
+          SikshaSaathi doesn't simply mark an answer wrong. It extracts the cognitive pattern behind it.
+        </p>
+
+        <!-- Interactive Scroll-Synced 3D Folder Component (React Bits) -->
+        <div class="folder-interactive-wrap">
+          <div class="folder-scale-box">
+            <div class="folder" role="button" aria-label="Mistake Diagnostic Folder" tabindex="0">
+
+              <div class="folder__back">
+
+                <!-- Paper 1: File 01 Incident Record (Fanned Left) -->
+                <div class="paper paper-1">
+                  <div class="paper-badge" style="color: var(--rose-accent);">
+                    <span>● FILE 01</span>
+                    <span>/ ERROR LOG</span>
+                  </div>
+                  <div class="paper-title">Sign Inversion Error</div>
+                  <div class="paper-body">
+                    <div><strong>Problem:</strong> Factorize x² - 5x + 6</div>
+                    <div style="color: var(--rose-accent); margin-top: 4px;">Student: (x + 2)(x + 3) ✗</div>
+                  </div>
+                  <div class="paper-footer">
+                    <span style="color: var(--rose-accent);">STATUS: INCORRECT</span>
+                    <span style="color: var(--text-muted);">TIME: 42s</span>
+                  </div>
+                </div>
+
+                <!-- Paper 2: File 02 Pattern Signal (Fanned Center-Top) -->
+                <div class="paper paper-2">
+                  <div class="paper-badge" style="color: var(--amber-accent);">
+                    <span>● FILE 02</span>
+                    <span>/ NEURAL PATTERN</span>
+                  </div>
+                  <div class="paper-title">Prerequisite Gap</div>
+                  <div class="paper-body">
+                    <div>Repeated sign inversion on middle negative binomial terms.</div>
+                    <div style="color: var(--amber-accent); margin-top: 4px;">Root: (x - a)(x - b) rule</div>
+                  </div>
+                  <div class="paper-footer">
+                    <span style="color: var(--amber-accent);">GAP ISOLATED</span>
+                    <span style="color: var(--text-muted);">CONFIDENCE: 94%</span>
+                  </div>
+                </div>
+
+                <!-- Paper 3: File 03 Remediation (Fanned Right) -->
+                <div class="paper paper-3">
+                  <div class="paper-badge" style="color: var(--emerald-primary);">
+                    <span>● FILE 03</span>
+                    <span>/ REMEDIATION</span>
+                  </div>
+                  <div class="paper-title">Mastery Verified</div>
+                  <div class="paper-body">
+                    <div>AI Socratic mini-probe scheduled. 5 targeted drill questions solved.</div>
+                    <div style="color: var(--emerald-primary); margin-top: 4px;">Accuracy: 100% Locked ✓</div>
+                  </div>
+                  <div class="paper-footer">
+                    <span style="color: var(--emerald-primary);">MASTERY RESTORED</span>
+                    <span style="color: var(--indigo-primary);">GENOME +4%</span>
+                  </div>
+                </div>
+
+                <!-- Front Folder Flap -->
+                <div class="folder__front">
+                  <span class="folder-front-tab">DIAGNOSTIC ARCHIVE</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 07 — AI SOCRATIC MENTOR (DIRECTIONAL ASSEMBLY -> BORDERGLOW TERMINAL)
+         ========================================================================= -->
+    <section id="mentor-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>AI PERSONAL MENTOR</span>
+        </div>
+
+        <h2 class="title-major">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">An AI mentor that doesn't</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--indigo-primary);">rush to answer.</span></span>
+        </h2>
+
+        <p class="lead-text" style="margin-top: 0.5rem;">
+          “Sometimes the best answer is another question.”
+        </p>
+
+        <!-- Socratic Terminal with BorderGlow (Dark Variant) -->
+        <div class="border-glow-card border-glow-card--dark socratic-terminal">
+          <span class="edge-light"></span>
+          <div class="border-glow-inner">
+
+            <div class="socratic-header">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span class="eyebrow-dot"></span>
+                <span style="font-weight: 700; font-size: 0.82rem; color: #FFFFFF;">SIKHSAATHI MENTOR TERMINAL</span>
+              </div>
+
+              <div style="display: flex; gap: 4px;">
+                <button class="socratic-mode-btn" data-mode="socratic"
+                  style="padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; background: var(--indigo-primary); color: #FFFFFF;">SOCRATIC</button>
+                <button class="socratic-mode-btn" data-mode="normal"
+                  style="padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; color: #8E929E;">NORMAL</button>
+                <button class="socratic-mode-btn" data-mode="multimodal"
+                  style="padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; color: #8E929E;">MULTIMODAL</button>
+              </div>
+            </div>
+
+            <div class="socratic-body">
+              <div class="socratic-bubble-student">
+                <div style="font-size: 0.7rem; font-weight: 700; color: #8E929E; margin-bottom: 0.25rem;">STUDENT</div>
+                <div>What is photosynthesis and why does it matter for plant cells?</div>
+              </div>
+
+              <div class="socratic-bubble-ai">
+                <div
+                  style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--indigo-primary); margin-bottom: 0.4rem;">
+                  <span>AI PERSONAL MENTOR</span>
+                  <span id="socratic-mode-badge" style="color: var(--emerald-primary);">SOCRATIC MODE</span>
+                </div>
+                <div id="socratic-ai-msg">Where do you think a plant gets the raw energy to construct complex sugar
+                  molecules, and what happens to the oxygen atom left behind?</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 08 — SMART REVISION (DIRECTIONAL ASSEMBLY -> BORDERGLOW SCHEDULE)
+         ========================================================================= -->
+    <section id="revision-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>06 / SMART REVISION</span>
+        </div>
+
+        <h2 class="title-major">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">Learning isn't finished</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--indigo-primary);">when the lesson ends.</span></span>
+        </h2>
+
+        <div class="slide-secondary-content">
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; width: 100%; max-width: 860px; margin-top: 2rem; text-align: left;">
+            <div>
+              <p class="lead-text" style="margin-bottom: 1.5rem;">
+                SikshaSaathi identifies when a concept may be fading from neural memory and schedules active recall at
+                the optimal moment.
+              </p>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; font-weight: 600;">
+                <span style="color: var(--emerald-primary);">— With Spaced Revision (Retention 92%)</span>
+                <span style="color: var(--text-muted);">--- Memory Decay (Retention 20%)</span>
+              </div>
+            </div>
+
+            <!-- BorderGlow Card for Recall Schedule -->
+            <div class="border-glow-card" style="padding: 1.75rem;">
+              <span class="edge-light"></span>
+              <div class="border-glow-inner">
+                <div
+                  style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--indigo-primary); font-weight: 700;">
+                  SPACED RECALL SCHEDULE</div>
+                <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;"><span>Day 01: Learn
+                      Concept</span><strong style="color: var(--emerald-primary);">100%</strong></div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;"><span>Day 03: Active
+                      Micro-Quiz</span><strong style="color: var(--emerald-primary);">95%</strong></div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;"><span>Day 07: Applied
+                      Practice</span><strong style="color: var(--emerald-primary);">98%</strong></div>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.9rem;"><span>Day 21: Permanent
+                      Mastery</span><strong style="color: var(--emerald-primary);">Locked</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 09 — FOR STUDENTS & TEACHERS (DIRECTIONAL ASSEMBLY -> BORDERGLOW CARDS)
+         ========================================================================= -->
+    <section id="stakeholders-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>ECOSYSTEM ALIGNMENT</span>
+        </div>
+
+        <h2 class="title-major">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">Built for</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--indigo-primary);">real clarity.</span></span>
+        </h2>
+
+        <div class="stakeholders-story-grid">
+
+          <div class="border-glow-card stakeholder-story-card">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner">
+              <span class="badge badge-indigo" style="width: fit-content;">FOR STUDENTS</span>
+              <h3 style="font-size: 1.3rem; font-weight: 700; margin-top: 0.5rem;">Stop wondering what to study next.
+              </h3>
+              <p class="body-text" style="margin-top: 0.5rem;">
+                Daily adaptive recommendations, instant Socratic AI guidance, and automated revision keep you in a
+                continuous state of mastery.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-glow-card stakeholder-story-card">
+            <span class="edge-light"></span>
+            <div class="border-glow-inner">
+              <span class="badge badge-green" style="width: fit-content;">FOR TEACHERS</span>
+              <h3 style="font-size: 1.3rem; font-weight: 700; margin-top: 0.5rem;">See beyond the raw marks.</h3>
+              <p class="body-text" style="margin-top: 0.5rem;">
+                Conceptual telemetry isolates exactly which classroom topics need targeted reinforcement, closing gaps
+                before exams.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SLIDE 10 — THE PROMISE & FINAL CTA (DIRECTIONAL ASSEMBLY -> PINNED CTA)
+         ========================================================================= -->
+    <section id="promise-slide" class="story-pinned-slide">
+      <div class="slide-content-wrap">
+
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>THE SIKHSAATHI PROMISE</span>
+        </div>
+
+        <h2 class="title-hero" style="margin-bottom: 1.5rem;">
+          <span class="kinetic-mask"><span class="kinetic-line from-left">Don't just learn more.</span></span>
+          <span class="kinetic-mask"><span class="kinetic-line from-right serif-italic"
+              style="color: var(--indigo-primary);">Learn better.</span></span>
+        </h2>
+
+        <p class="lead-text" style="margin: 0 auto 2.5rem;">
+          Understand where you are. Know what comes next. Keep improving.
+        </p>
+
+        <div class="slide-secondary-content">
+          <div style="display: flex; gap: 1rem; justify-content: center; align-items: center;">
+            <!-- StarBorder Final Promise CTA -->
+            <a href="auth.html" class="star-border-btn" aria-label="Start Your Journey">
+              <div class="star-border-gradient-bottom"></div>
+              <div class="star-border-gradient-top"></div>
+              <div class="star-border-inner">
+                <span>Start Your Journey</span>
+                <span>→</span>
+              </div>
+            </a>
+            <a href="#hero-slide" class="btn btn-secondary" style="padding: 1rem 1.8rem;">
+              <span>Back to Top</span>
+              <span>↑</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       MINIMAL FOOTER
+       ========================================================================= -->
+  <footer class="footer-minimal">
+    <div style="display: flex; align-items: center; gap: 0.6rem;">
+      <svg class="brand-logo-icon" viewBox="0 0 36 36" fill="none" style="width: 20px; height: 20px;">
+        <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12" />
+        <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5"
+          stroke-linecap="round" />
+      </svg>
+      <span style="font-weight: 700; font-size: 0.9rem;">SIKHSAATHI</span>
+      <span style="margin-left: 1rem; color: var(--text-muted); font-size: 0.8rem;">Learning, that learns you.</span>
+    </div>
+
+    <div>
+      <span>© 2026 SikshaSaathi. Built with Learning Intelligence.</span>
+    </div>
+  </footer>
+
+  <!-- Scripts: Lenis + GSAP + ScrollTrigger + CardNav + CursorGrid + ClickSpark + BorderGlow + Interactive App -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script src="js/card-nav.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <script src="js/click-spark.js"></script>
+  <script src="js/border-glow.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

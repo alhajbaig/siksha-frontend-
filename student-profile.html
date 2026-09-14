@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aarav Sharma — Student Profile & Learning Genome | SikshaSaathi</title>
+  <meta name="description" content="SikshaSaathi Flagship Student Profile & 360° Learning Genome. Track cognitive mastery, study telemetry, and milestones.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <link rel="stylesheet" href="css/student.css?v=genome_v3">
+  <!-- Role Route Guard & Session Management -->
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script>
+    if (window.SikshaSession) {
+      window.SikshaSession.checkRouteGuard('student');
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Center Radial Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- =========================================================================
+         LEFT SIDEBAR (DESKTOP APPLICATION LAYOUT)
+         ========================================================================= -->
+    <aside class="app-sidebar" aria-label="Application Navigation">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="sidebar-logo" aria-label="SikshaSaathi Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#19B86B"/>
+          <circle cx="24" cy="16" r="2.5" fill="#5B5CE2"/>
+          <circle cx="12" cy="24" r="3" fill="#5B5CE2"/>
+        </svg>
+        <span>Siksha Saathi</span>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="sidebar-nav">
+        
+        <a href="student.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="student-mentor.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>AI Mentor</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+
+        <a href="student-notes.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+          <span>Notes</span>
+        </a>
+
+        <a href="student-flashcards.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9Z"/><path d="m9 2 3 4 3-4"/></svg>
+          <span>Flashcards</span>
+          <span class="sidebar-badge">8 DUE</span>
+        </a>
+
+        <a href="student-practice.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Practice</span>
+        </a>
+
+        <a href="student-assessments.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+        </a>
+
+        <a href="student-revision.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Smart Revision</span>
+        </a>
+
+        <a href="student-emergency.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 10 10-12h-9l1-10z"/></svg>
+          <span>Emergency Mode</span>
+        </a>
+
+        <div class="nav-section-title">ACADEMICS & COHORT</div>
+
+        <a href="#tab-classes" class="sidebar-link sidebar-link-classroom" id="sidebar-classes-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+          <span style="font-weight: 700;">My Classroom</span>
+          <span class="cohort-sidebar-badge">✦ COHORT</span>
+        </a>
+
+        <div class="nav-section-title">LEARNING & GENOME</div>
+
+        <a href="#tab-genome" class="sidebar-link active" id="sidebar-progress-link" aria-current="page">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <span>Progress</span>
+        </a>
+
+        <a href="#tab-achievements" class="sidebar-link" id="sidebar-achievements-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>Achievements</span>
+        </a>
+
+      </nav>
+
+      <!-- Bottom Profile Area -->
+      <div class="sidebar-profile">
+        
+        <!-- Profile Dropdown Popup -->
+        <div id="profile-menu-popup" class="profile-menu-popup" role="menu">
+          <a href="#tab-overview" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile Details</span>
+          </a>
+          <a href="#tab-genome" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Learning Genome</span>
+          </a>
+          <a href="#tab-achievements" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            <span>Achievements</span>
+          </a>
+          <a href="#tab-settings" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </a>
+          <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: 4px 0;">
+          <a href="index.html" class="profile-menu-item" style="color: var(--rose-accent);">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="stroke: var(--rose-accent);"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Sign Out</span>
+          </a>
+        </div>
+
+        <button id="profile-menu-btn" class="profile-card-btn" aria-haspopup="true" aria-expanded="false">
+          <div class="profile-avatar">AS</div>
+          <div style="flex-grow: 1;">
+            <div class="profile-name">Aarav Sharma</div>
+            <div class="profile-role">Class 12 • Science</div>
+          </div>
+          <span class="profile-dropdown-arrow">▾</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         MAIN CONTENT REGION
+         ========================================================================= -->
+    <main class="app-main">
+      
+      <!-- Top Bar -->
+      <header class="main-topbar">
+        <div class="topbar-greeting">
+          <h2>Student Profile & Genome</h2>
+          <p>“Your persistent cognitive identity and learning trajectory.”</p>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="edit-profile-btn" class="btn btn-secondary" style="font-size: 0.82rem; padding: 0.55rem 1.25rem;">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Edit Profile</span>
+          </button>
+
+          <button class="topbar-btn" aria-label="Notifications">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notification-dot"></span>
+          </button>
+
+          <a href="index.html" class="topbar-btn" title="Back to Landing Page" aria-label="Exit to landing page">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <div class="main-content-scroll">
+        
+        <!-- =====================================================================
+             FLAGSHIP IDENTITY HEADER BANNER
+             ===================================================================== -->
+        <section class="profile-banner-card">
+          <div class="profile-banner-grid">
+            
+            <!-- Large Avatar -->
+            <div class="flagship-avatar" id="profile-flagship-avatar">AS</div>
+
+            <!-- Bio & Student Details -->
+            <div>
+              <div class="profile-title-row">
+                <h1 class="profile-student-name">Aarav Sharma</h1>
+                <span class="badge badge-emerald" id="profile-class-badge">CLASS 12 • SCIENCE</span>
+                <span class="badge badge-indigo" id="profile-goal-badge">CBSE & JEE ASPIRANT</span>
+              </div>
+              <p class="profile-bio-text" style="font-size: 0.92rem; color: #D5D7E0; margin-top: 0.5rem; line-height: 1.5; max-width: 650px;">
+                Passionate STEM student exploring classical mechanics, differential calculus, and organic synthesis. Aiming for Top 500 rank in JEE Advanced 2027.
+              </p>
+              <div style="display: flex; gap: 1.5rem; margin-top: 0.85rem; font-size: 0.82rem; color: #A0A5B5; font-family: var(--font-mono); flex-wrap: wrap;">
+                <span id="profile-institution-badge">📍 Delhi Public School, R.K. Puram</span>
+                <span id="profile-streak-badge">🔥 14-Day Active Streak</span>
+                <span id="profile-rank-badge">🏆 School Rank #14</span>
+              </div>
+            </div>
+
+            <!-- Quick Action -->
+            <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+              <button class="btn btn-primary" style="background: #FFFFFF; color: #101114; font-size: 0.85rem;" onclick="alert('Portfolio link copied to clipboard!');">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <span>Share Genome</span>
+              </button>
+              <a href="student-mentor.html" class="btn btn-secondary" style="background: rgba(255,255,255,0.1); color: #FFFFFF; border-color: rgba(255,255,255,0.2); font-size: 0.85rem;">
+                <span>AI Socratic Chat</span>
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             KEY TELEMETRY METRICS STRIP
+             ===================================================================== -->
+        <section class="metrics-strip">
+          <div class="metric-col">
+            <span class="metric-label">Completed Levels</span>
+            <div class="metric-value"><span id="profile-levels-completed">0</span> <span style="font-size: 0.95rem; color: var(--indigo-primary); font-weight: 500;">/ 20</span></div>
+          </div>
+
+          <div class="metric-col">
+            <span class="metric-label">Total Questions Solved</span>
+            <div class="metric-value" style="color: var(--indigo-primary);"><span id="profile-problems-solved">0</span> <span style="font-size: 0.95rem; font-weight: 500;">MCQs</span></div>
+          </div>
+
+          <div class="metric-col">
+            <span class="metric-label">Overall Accuracy</span>
+            <div class="metric-value" style="color: var(--emerald-primary);"><span id="profile-accuracy">0</span><span style="font-size: 1rem; font-weight: 500;">%</span></div>
+          </div>
+
+          <div class="metric-col">
+            <span class="metric-label">Learning Streak</span>
+            <div class="metric-value"><span id="profile-streak">14</span> <span style="font-size: 1.1rem; color: var(--amber-accent);">Days 🔥</span></div>
+          </div>
+        </section>
+
+        <!-- =====================================================================
+             TAB NAVIGATION
+             ===================================================================== -->
+        <div class="profile-tab-navigation" role="tablist">
+          <button class="profile-nav-tab active" data-tab-target="tab-overview" role="tab">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Overview & Genome</span>
+          </button>
+
+          <button class="profile-nav-tab" data-tab-target="tab-roadmap" role="tab">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>AI Learning Roadmap ✦</span>
+          </button>
+
+          <button class="profile-nav-tab" data-tab-target="tab-subjects" role="tab">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <span>Academic Subjects</span>
+          </button>
+
+          <button class="profile-nav-tab" data-tab-target="tab-activity" role="tab">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Quiz History & Attempts</span>
+          </button>
+
+          <button class="profile-nav-tab" data-tab-target="tab-milestones" role="tab">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Exams & Targets</span>
+          </button>
+
+          <button class="profile-nav-tab" data-tab-target="tab-achievements" role="tab">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            <span>Badges (8)</span>
+          </button>
+
+          <button class="profile-nav-tab profile-nav-tab-featured" data-tab-target="tab-classes" role="tab" id="tab-classes-btn">
+            <span class="tab-highlight-beacon"></span>
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+            <span style="font-weight: 700;">My Classroom</span>
+            <span class="tab-badge-glow">✦ COHORT HUB</span>
+          </button>
+
+          <button class="profile-nav-tab" data-tab-target="tab-settings" role="tab">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Preferences & AI</span>
+          </button>
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 1: YOUR LEARNING GENOME
+             ===================================================================== -->
+        <div id="tab-overview" class="profile-tab-content" style="display: block;">
+          
+          <!-- ============ GENOME LOADING SKELETON ============ -->
+          <div id="genome-loading-state" class="genome-loading-skeleton" style="display: flex;">
+            <div class="skeleton-shimmer-wrap">
+              <div class="skeleton-core-node"></div>
+              <div class="skeleton-branch-line bl-1"></div>
+              <div class="skeleton-branch-line bl-2"></div>
+              <div class="skeleton-branch-line bl-3"></div>
+              <div class="skeleton-branch-line bl-4"></div>
+              <div class="skeleton-sub-node sn-1"></div>
+              <div class="skeleton-sub-node sn-2"></div>
+              <div class="skeleton-sub-node sn-3"></div>
+              <div class="skeleton-sub-node sn-4"></div>
+            </div>
+            <p class="skeleton-loading-text">✦ Mapping your real-time Learning Genome...</p>
+          </div>
+
+          <!-- ============ GENOME EMPTY STATE (hidden when data exists) ============ -->
+          <div id="genome-empty-state" class="genome-empty-state" style="display: none;">
+            <div class="genome-empty-constellation" aria-hidden="true">
+              <svg viewBox="0 0 400 400" class="genome-empty-svg">
+                <circle cx="200" cy="200" r="6" fill="rgba(79,70,229,0.2)" />
+                <circle cx="200" cy="100" r="5" fill="rgba(79,70,229,0.12)" stroke="rgba(79,70,229,0.15)" stroke-width="1.5"/>
+                <circle cx="290" cy="155" r="5" fill="rgba(5,150,105,0.12)" stroke="rgba(5,150,105,0.15)" stroke-width="1.5"/>
+                <circle cx="260" cy="270" r="5" fill="rgba(217,119,6,0.12)" stroke="rgba(217,119,6,0.15)" stroke-width="1.5"/>
+                <circle cx="140" cy="270" r="5" fill="rgba(2,132,199,0.12)" stroke="rgba(2,132,199,0.15)" stroke-width="1.5"/>
+                <circle cx="110" cy="155" r="5" fill="rgba(79,70,229,0.12)" stroke="rgba(79,70,229,0.15)" stroke-width="1.5"/>
+                <line x1="200" y1="200" x2="200" y2="100" stroke="rgba(79,70,229,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+                <line x1="200" y1="200" x2="290" y2="155" stroke="rgba(5,150,105,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+                <line x1="200" y1="200" x2="260" y2="270" stroke="rgba(217,119,6,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+                <line x1="200" y1="200" x2="140" y2="270" stroke="rgba(2,132,199,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+                <line x1="200" y1="200" x2="110" y2="155" stroke="rgba(79,70,229,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+              </svg>
+            </div>
+            <h2 class="genome-empty-title">Your Learning Genome</h2>
+            <p class="genome-empty-subtitle">Your learning fingerprint is taking shape.</p>
+            <p class="genome-empty-desc">Complete a few practice sessions and assessments to reveal:</p>
+            <ul class="genome-empty-list">
+              <li>Your strongest subjects</li>
+              <li>Your cognitive strengths</li>
+              <li>Your learning patterns</li>
+              <li>Your growth areas</li>
+            </ul>
+            <a href="student-practice.html" class="btn btn-primary" style="margin-top: 1rem; padding: 0.65rem 1.4rem; font-size: 0.88rem;">
+              Take Your First Quiz →
+            </a>
+          </div>
+
+          <!-- ============ GENOME ERROR STATE ============ -->
+          <div id="genome-error-state" class="genome-empty-state" style="display: none;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚠️</div>
+            <h2 class="genome-empty-title">Could not load your Genome</h2>
+            <p class="genome-empty-desc">Something went wrong while loading your learning data. Please try again.</p>
+            <button id="genome-retry-btn" class="btn btn-primary" style="margin-top: 1rem; padding: 0.65rem 1.4rem; font-size: 0.88rem;">
+              Retry →
+            </button>
+          </div>
+
+          <!-- ============ MAIN GENOME VISUALIZATION (shown when data exists) ============ -->
+          <div id="genome-main-content" class="genome-ecosystem-container" style="display: none;">
+
+            <!-- TOP BAR: Learning Genome Identity & Context -->
+            <div class="genome-topbar">
+              <div class="genome-topbar-left">
+                <div class="eyebrow" style="margin-bottom: 0.25rem;">
+                  <span class="eyebrow-dot" style="background: var(--indigo-primary);"></span>
+                  <span>ADAPTIVE COGNITIVE DNA</span>
+                </div>
+                <h2 class="genome-topbar-title">Student Learning Genome & Memory Engine</h2>
+                <p class="genome-topbar-subtitle">
+                  Synchronized cognitive map of your knowledge frontier, concept mastery, and real-time retention telemetry.
+                </p>
+              </div>
+              <div class="genome-topbar-right">
+                <span id="genome-identity-badge" class="genome-badge-pill">Concept-First Learner</span>
+                <span class="genome-live-sync-pill"><span class="pulse-dot"></span> Live Sync</span>
+                <button id="genome-reset-focus-btn" class="genome-btn-ghost-sm" style="display: none;">
+                  <span>↺ View All Branches</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ================= 1. HERO FULL-WIDTH CONSTELLATION CANVAS ================= -->
+            <section class="genome-hero-canvas-card">
+              <div class="genome-canvas-meta">
+                <div class="genome-canvas-legend">
+                  <span class="legend-chip"><span class="legend-circle bio"></span> Biology</span>
+                  <span class="legend-chip"><span class="legend-circle phys"></span> Physics</span>
+                  <span class="legend-chip"><span class="legend-circle chem"></span> Chemistry</span>
+                  <span class="legend-chip"><span class="legend-circle math"></span> Mathematics</span>
+                  <span class="legend-chip"><span class="legend-circle cs"></span> Computer Science</span>
+                </div>
+                <div class="genome-canvas-status-legend">
+                  <span class="status-legend-item"><span class="status-dot mastered"></span> Mastered (≥80%)</span>
+                  <span class="status-legend-item"><span class="status-dot developing"></span> In Progress</span>
+                  <span class="status-legend-item"><span class="status-dot attention"></span> Needs Attention</span>
+                </div>
+              </div>
+
+              <!-- SVG Viewport -->
+              <div class="genome-svg-viewport" id="genome-svg-viewport">
+                <svg id="genome-constellation-svg" class="genome-branching-svg" viewBox="0 0 880 580" preserveAspectRatio="xMidYMid meet" aria-label="Interactive Student Learning Genome Tree">
+                  <!-- Populated dynamically -->
+                </svg>
+
+                <!-- Floating Hover Tooltip -->
+                <div id="genome-hover-tooltip" class="genome-hover-tooltip" style="display: none;" role="tooltip">
+                  <div id="tooltip-title" class="tooltip-title">Physics → Mechanics</div>
+                  <div id="tooltip-meta" class="tooltip-meta">65% mastery · Increasing trend</div>
+                </div>
+              </div>
+
+              <div class="genome-canvas-hint">
+                💡 Click on any <strong>subject</strong> or <strong>topic node</strong> to inspect real mastery, error patterns, and practice drills.
+              </div>
+            </section>
+
+            <!-- SELECTED NODE INSPECTOR DRAWER (expands smoothly when node clicked) -->
+            <div id="genome-node-inspector" class="genome-inspector-card" style="display: none;" role="region" aria-label="Topic details">
+              <button id="genome-inspector-close" class="genome-inspector-close" aria-label="Close inspector">✕</button>
+              <div class="genome-inspector-content" id="genome-inspector-content">
+                <!-- Populated dynamically on click -->
+              </div>
+            </div>
+
+            <!-- ================= 2. STAR FEATURE: NEURAL MEMORY RETENTION & FORGETTING PREDICTION ================= -->
+            <section class="genome-retention-flagship-card" id="genome-retention-command-center">
+              <div class="retention-card-header">
+                <div>
+                  <div class="eyebrow" style="margin-bottom: 0.25rem;">
+                    <span class="eyebrow-dot" style="background: var(--indigo-primary);"></span>
+                    <span>NEURAL MEMORY TELEMETRY</span>
+                  </div>
+                  <h3 class="retention-flagship-title">Forgetting Prediction & Spaced Retention Engine</h3>
+                  <p class="retention-flagship-subtitle">
+                    Hermann Ebbinghaus exponential memory decay modeling (<span class="math-inline">R = e^{-t/S}</span>) calibrated in real-time from your actual practice drills.
+                  </p>
+                </div>
+                <div class="retention-header-actions">
+                  <span class="genome-retention-badge-lg" id="genome-current-retention-badge">88% Recall</span>
+                  <a href="student-practice.html" id="smart-revision-cta-btn" class="btn btn-primary btn-sm">
+                    <span>⚡ Launch Smart Spaced Revision</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Key Memory Metrics Quick Strip -->
+              <div class="retention-stats-strip">
+                <div class="retention-stat-item">
+                  <span class="retention-stat-label">Recall Equilibrium</span>
+                  <div class="retention-stat-val" id="retention-val-overall">88%</div>
+                  <span class="retention-stat-note" id="retention-note-overall">Across all attempted concepts</span>
+                </div>
+                <div class="retention-stat-item">
+                  <span class="retention-stat-label">Average Memory Half-Life (t½)</span>
+                  <div class="retention-stat-val" id="retention-val-halflife" style="color: var(--indigo-primary);">4.2 Days</div>
+                  <span class="retention-stat-note">Time until recall drops to 50%</span>
+                </div>
+                <div class="retention-stat-item">
+                  <span class="retention-stat-label">Concepts in Danger Zone</span>
+                  <div class="retention-stat-val" id="retention-val-danger" style="color: var(--rose-accent, #E11D48);">0 Topics</div>
+                  <span class="retention-stat-note" id="retention-note-danger">&lt; 50% retention risk</span>
+                </div>
+                <div class="retention-stat-item">
+                  <span class="retention-stat-label">Optimal Review Window</span>
+                  <div class="retention-stat-val" id="retention-val-window" style="color: var(--emerald-primary);">Next 48 Hours</div>
+                  <span class="retention-stat-note">Spaced practice prevents decay</span>
+                </div>
+              </div>
+
+              <!-- Interactive Curve & Time-Travel Simulator -->
+              <div class="retention-simulator-grid">
+                <!-- Left: Chart & Slider -->
+                <div class="retention-chart-panel">
+                  <div class="retention-chart-top">
+                    <div class="retention-legend-row">
+                      <span class="retention-legend-chip"><span class="legend-line decay"></span> Predicted Decay (No Practice)</span>
+                      <span class="retention-legend-chip"><span class="legend-line spaced"></span> Spaced Recovery (2-Min Refresh)</span>
+                    </div>
+                    <span class="retention-sim-indicator" id="retention-sim-indicator">Day 0 (Current State)</span>
+                  </div>
+
+                  <div class="genome-decay-chart-wrap">
+                    <svg id="genome-decay-svg" class="genome-decay-svg" viewBox="0 0 540 200" preserveAspectRatio="xMidYMid meet">
+                      <!-- Rendered by JS -->
+                    </svg>
+                  </div>
+
+                  <!-- Time-Travel Interactive Slider -->
+                  <div class="retention-slider-container">
+                    <div class="slider-header-row">
+                      <label for="retention-time-slider" class="slider-label">
+                        <span>Interactive Time-Travel Simulation:</span>
+                        <strong id="slider-target-day-text" style="color: var(--indigo-primary);">Projected Recall Today</strong>
+                      </label>
+                      <button id="slider-reset-btn" class="slider-reset-link" type="button">Reset to Today</button>
+                    </div>
+                    <input type="range" id="retention-time-slider" min="0" max="30" step="1" value="0" class="retention-range-slider" aria-label="Simulate memory decay over days">
+                    <div class="slider-ticks-row">
+                      <span class="slider-tick active" data-day="0">Today</span>
+                      <span class="slider-tick" data-day="2">+2 Days</span>
+                      <span class="slider-tick" data-day="5">+5 Days</span>
+                      <span class="slider-tick" data-day="7">+7 Days</span>
+                      <span class="slider-tick" data-day="14">+14 Days</span>
+                      <span class="slider-tick" data-day="30">+30 Days</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right: Science & Spaced Retention Diagnostics -->
+                <div class="retention-insights-panel">
+                  <div class="retention-callout-card">
+                    <div class="callout-icon">🧠</div>
+                    <div class="callout-content">
+                      <h4 class="callout-title">The Ebbinghaus Forgetting Law</h4>
+                      <p class="callout-text">
+                        Without active recall, human memory drops by ~50% within 48 hours. A single 2-minute targeted micro-quiz resets retention back to 100% and doubles memory stability.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div id="genome-retention-status-wrap" class="genome-retention-status-wrap">
+                    <!-- Populated dynamically -->
+                  </div>
+
+                  <div class="retention-quick-remedy-box">
+                    <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">
+                      MOST ENDANGERED CONCEPT:
+                    </div>
+                    <div id="retention-top-endangered-box" class="endangered-topic-row">
+                      <!-- Injected dynamically -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Concept-Level Retention Health Grid -->
+              <div class="retention-topics-section">
+                <div class="retention-topics-header">
+                  <div>
+                    <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-main); margin: 0;">Concept-by-Concept Retention Matrix</h4>
+                    <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0.2rem 0 0;">
+                      Synchronized per-topic memory decay based on days elapsed since your last practice drill:
+                    </p>
+                  </div>
+                  <div class="retention-filter-pills" id="retention-filter-pills">
+                    <button class="retention-filter-btn active" data-filter="all" type="button">All Topics</button>
+                    <button class="retention-filter-btn" data-filter="at-risk" type="button">Needs Review</button>
+                    <button class="retention-filter-btn" data-filter="safe" type="button">Healthy</button>
+                  </div>
+                </div>
+
+                <div id="genome-retention-topics-grid" class="retention-topics-grid">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+
+            </section>
+
+            <!-- ================= 3. DIAGNOSTICS & COGNITIVE MASTERY SECTION (2-COLUMN BALANCED GRID) ================= -->
+            <div class="genome-diagnostics-grid">
+
+              <!-- LEFT COLUMN: CONCEPTUAL GAPS & PERSONAL PATHWAY -->
+              <div class="genome-diag-col">
+                
+                <!-- 1. CONCEPTUAL GAP ANALYSIS -->
+                <div class="genome-panel-card" id="genome-gaps-card">
+                  <div class="genome-panel-header">
+                    <div>
+                      <span class="genome-panel-eyebrow" style="color: var(--amber-accent);">DIAGNOSTIC DETECTION</span>
+                      <h3 class="genome-panel-title">Conceptual Gap Analysis</h3>
+                    </div>
+                    <span class="genome-gap-alert-badge">⚡ Focus Remediation</span>
+                  </div>
+                  <p class="genome-panel-desc">Underlying conceptual voids flagged from diagnostic quizzes and repeat errors:</p>
+                  <div id="genome-gaps-list" class="genome-gaps-list">
+                    <!-- Dynamically populated -->
+                  </div>
+                </div>
+
+                <!-- 2. YOUR PERSONAL PATHWAY -->
+                <div class="genome-panel-card" id="genome-pathway-card">
+                  <div class="genome-panel-header">
+                    <div>
+                      <span class="genome-panel-eyebrow">PRIORITIZED LEARNING</span>
+                      <h3 class="genome-panel-title">Your Personal Pathway</h3>
+                    </div>
+                    <span class="genome-panel-badge">Next Sequence</span>
+                  </div>
+                  <p class="genome-panel-desc">Recommended sequence dynamically constructed from your diagnostic accuracy and frontier:</p>
+                  <div id="genome-pathway-list" class="genome-pathway-list">
+                    <!-- Dynamically populated -->
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- RIGHT COLUMN: RADAR, FREQUENT MISTAKES & SOCRATIC MENTOR -->
+              <div class="genome-diag-col">
+
+                <!-- 1. COGNITIVE RADAR PERFORMANCE PROFILE -->
+                <div class="genome-panel-card" id="genome-radar-card">
+                  <div class="genome-panel-header">
+                    <div>
+                      <span class="genome-panel-eyebrow">COGNITIVE RADAR</span>
+                      <h3 class="genome-panel-title">Performance Profile</h3>
+                    </div>
+                    <span class="genome-panel-badge">6 Dimensions</span>
+                  </div>
+                  <div class="genome-radar-container">
+                    <svg id="genome-radar-svg" class="genome-radar-svg" viewBox="0 0 260 260">
+                      <!-- Radar Chart SVG rendered by JS -->
+                    </svg>
+                  </div>
+                  <div id="genome-radar-legend" class="genome-radar-dimensions-list">
+                    <!-- Dimensions summary rendered by JS -->
+                  </div>
+                </div>
+
+                <!-- 2. FREQUENT MISTAKES LOG -->
+                <section class="genome-panel-card genome-mistakes-section" id="genome-mistakes-section">
+                  <div class="genome-panel-header">
+                    <div>
+                      <span class="genome-panel-eyebrow" style="color: #DC2626;">MISTAKE FORENSICS</span>
+                      <h3 class="genome-panel-title">Frequent Mistakes Log</h3>
+                    </div>
+                    <span class="genome-section-meta">Extracted from actual quiz answers</span>
+                  </div>
+                  <div id="genome-mistakes-grid" class="genome-mistakes-grid">
+                    <!-- Populated dynamically with KaTeX rendered math -->
+                  </div>
+                </section>
+
+                <!-- 3. AI SOCRATIC MENTOR GUIDANCE -->
+                <div class="genome-panel-card genome-mentor-card" id="genome-mentor-card">
+                  <div class="genome-panel-header">
+                    <div>
+                      <span class="genome-panel-eyebrow" style="color: #7C3AED;">AI SOCRATIC MENTOR</span>
+                      <h3 class="genome-panel-title">Targeted Guidance</h3>
+                    </div>
+                    <span class="mentor-live-dot">● Active</span>
+                  </div>
+                  <p id="genome-mentor-guidance-text" class="genome-mentor-guidance">
+                    Socratic Guide: Let's address your misconceptions in foundational concepts.
+                  </p>
+                  <div class="genome-mentor-question-box" id="genome-mentor-question-box">
+                    "Can you explain the difference between speed and velocity in circular paths?"
+                  </div>
+                  <a id="genome-mentor-cta-btn" href="student-mentor.html" class="btn-action-primary btn-sm" style="margin-top: 0.85rem; width: 100%; text-align: center;">
+                    <span>Ask Socratic Mentor →</span>
+                  </a>
+                </div>
+
+                <!-- 4. YOUR NEXT BEST ACTION -->
+                <div class="next-action-card" id="genome-next-action-card">
+                  <div class="next-action-meta">
+                    <span class="next-action-eyebrow">✦ YOUR NEXT BEST ACTION</span>
+                    <h3 id="genome-next-action-title" class="next-action-title">Keep practicing to get a recommendation</h3>
+                    <p id="genome-next-action-reason" class="next-action-reason">
+                      Complete more practice sessions and your Genome will suggest the most impactful next step.
+                    </p>
+                  </div>
+                  <div class="next-action-buttons">
+                    <a id="genome-next-action-primary" href="student-practice.html" class="btn-action-primary">
+                      <span>Practice Now →</span>
+                    </a>
+                    <a id="genome-next-action-secondary" href="student-notes.html" class="btn-action-ghost">
+                      <span>Study Notes</span>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Hidden backward-compatible DOM IDs for legacy scripts -->
+            <div style="display: none;" aria-hidden="true">
+              <span id="genome-identity-label"></span>
+              <span id="genome-narrative-body"></span>
+              <span id="genome-insight-strength-text"></span>
+              <span id="genome-insight-growth-text"></span>
+              <span id="genome-insight-change-text"></span>
+              <span id="genome-dominant-subject"></span>
+              <span id="genome-calibration-stage"></span>
+              <span id="genome-data-points"></span>
+              <span id="genome-active-subjs"></span>
+              <div id="genome-strengths-cards"></div>
+              <div id="genome-growth-cards"></div>
+              <div id="genome-patterns-cards"></div>
+              <div id="genome-evolution-timeline"></div>
+              <div id="genome-subject-focus"></div>
+              <div id="genome-detail-panel"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================================================
+             TAB CONTENT 1B: AI PERSONALIZED LEARNING ROADMAP (STAR FEATURE)
+             ===================================================================== -->
+        <div id="tab-roadmap" class="profile-tab-content" style="display: none;">
+          
+          <div class="roadmap-journey-wrapper">
+            
+            <!-- Hero Header Card -->
+            <div class="roadmap-hero-card">
+              <div class="roadmap-hero-info">
+                <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--indigo-primary);"></span><span>COGNITIVE AI CURRICULUM ARCHITECT</span></div>
+                <h2 class="roadmap-hero-title" id="roadmap-main-title">AI Personalized Learning Roadmap</h2>
+                <p class="roadmap-hero-sub" id="roadmap-main-sub">
+                  A calibrated learning journey dynamically generated from your actual performance, level completions, and diagnostic accuracy.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <button id="generate-roadmap-btn" class="btn btn-primary" style="padding: 0.75rem 1.6rem; font-size: 0.9rem;">
+                  <span id="roadmap-btn-icon">✨</span>
+                  <span id="roadmap-btn-text">Generate My Roadmap</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Outdated Notice Banner (shown only when student has new quiz progress since last roadmap generation) -->
+            <div id="roadmap-outdated-alert" class="roadmap-outdated-banner" style="display: none;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 1.1rem;">⚠️</span>
+                <span><strong>Your learning path has changed.</strong> Your recent quiz performance may require an updated roadmap.</span>
+              </div>
+              <button id="update-roadmap-alert-btn" class="btn btn-secondary" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-color: rgba(234, 160, 35, 0.4); color: #854D0E; background: #FFFFFF;">
+                Update Roadmap 🔄
+              </button>
+            </div>
+
+            <!-- Visual Connected Learning Journey Flow -->
+            <div class="card" style="padding: 2rem 2.25rem; background: #FFFFFF;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+                <div>
+                  <span class="eyebrow" style="margin-bottom: 0.2rem;"><span>LEARNING JOURNEY</span></span>
+                  <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Where you are → What to do next</h3>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">
+                  <span id="roadmap-duration-pill">Estimated: 12 Days</span>
+                  <span style="color: var(--emerald-primary); font-weight: 600;">● Source Grounded</span>
+                </div>
+              </div>
+
+              <div class="roadmap-journey-flow" id="roadmap-nodes-container">
+                <div class="roadmap-journey-backbone"></div>
+                <!-- Nodes populated dynamically by student.js -->
+                <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+                  <div style="font-size: 2rem; margin-bottom: 0.75rem;">🗺️</div>
+                  <strong style="font-size: 1.05rem; color: var(--text-main); display: block; margin-bottom: 0.35rem;">No Roadmap Generated Yet</strong>
+                  <p style="font-size: 0.88rem; max-width: 420px; margin: 0 auto 1.25rem auto;">
+                    Click below to generate a tailored step-by-step learning journey built from your quiz diagnostics.
+                  </p>
+                  <button class="btn btn-primary" onclick="document.getElementById('generate-roadmap-btn').click();">
+                    ✨ Generate My Roadmap Now
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 2: ACADEMIC SUBJECTS & CHAPTER DRILLDOWN
+             ===================================================================== -->
+        <div id="tab-subjects" class="profile-tab-content" style="display: none;">
+          <div class="tracks-grid" style="grid-template-columns: repeat(2, 1fr);">
+            
+            <div class="card">
+              <span class="badge badge-indigo">MATHEMATICS</span>
+              <h3 style="font-size: 1.15rem; font-weight: 700; margin: 0.5rem 0;">Class 12 Advanced Mathematics</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Curriculum: CBSE + JEE Advanced Focus</p>
+
+              <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;"><span>Functions & Relations</span><strong style="color: var(--emerald-primary);">94% ✓</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Quadratic Equations</span><strong style="color: var(--indigo-primary);">62% (Active)</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Differential Calculus</span><strong style="color: var(--emerald-primary);">88% ✓</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Vectors & 3D Geometry</span><span style="color: var(--text-muted);">Upcoming</span></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <span class="badge badge-blue">PHYSICS</span>
+              <h3 style="font-size: 1.15rem; font-weight: 700; margin: 0.5rem 0;">Class 12 Theoretical Physics</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Curriculum: Classical Mechanics + Electromagnetism</p>
+
+              <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;"><span>Kinematics & Dynamics</span><strong style="color: var(--amber-accent);">61% (Active)</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Work, Energy & Power</span><strong style="color: var(--emerald-primary);">82% ✓</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Electrostatics & Gauss Law</span><strong style="color: var(--indigo-primary);">74%</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Magnetic Effects of Current</span><span style="color: var(--text-muted);">Upcoming</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 3: QUIZ HISTORY & PERSISTENT ANSWER KEYS
+             ===================================================================== -->
+        <div id="tab-activity" class="profile-tab-content" style="display: none;">
+          <div class="card" style="padding: 1.75rem 2rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <div>
+                <span class="eyebrow"><span class="eyebrow-dot"></span><span>ATTEMPT HISTORY</span></span>
+                <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main);">Completed Quiz Attempts & Solutions</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                  Every completed diagnostic quiz is recorded in SQLite. Click any attempt to reconstruct its authoritative 10-question Answer Key.
+                </p>
+              </div>
+              <a href="student-practice.html" class="btn btn-primary" style="font-size: 0.82rem; padding: 0.5rem 1.15rem;">
+                + Practice New Level
+              </a>
+            </div>
+
+            <div id="profile-quiz-history-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- Dynamically populated from /api/practice/history -->
+            </div>
+          </div>
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 4: TARGET EXAMS & MILESTONES
+             ===================================================================== -->
+        <div id="tab-milestones" class="profile-tab-content" style="display: none;">
+          <div class="assessment-catalog-grid">
+            
+            <div class="card">
+              <span class="badge badge-indigo">PRIMARY TARGET</span>
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0.5rem 0;">JEE Advanced 2027</h3>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--indigo-primary);">240 <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">Days Remaining</span></div>
+              
+              <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;"><span>Syllabus Coverage</span><strong>74%</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Readiness Score</span><strong style="color: var(--emerald-primary);">88%</strong></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <span class="badge badge-emerald">BOARD EXAM</span>
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0.5rem 0;">CBSE Class 12 Boards</h3>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--emerald-primary);">180 <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">Days Remaining</span></div>
+
+              <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;"><span>Syllabus Coverage</span><strong>86%</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Readiness Score</span><strong style="color: var(--emerald-primary);">94%</strong></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <span class="badge badge-amber">OLYMPIAD</span>
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0.5rem 0;">NSEP Physics Olympiad</h3>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--amber-accent);">90 <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 500;">Days Remaining</span></div>
+
+              <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;"><span>Syllabus Coverage</span><strong>68%</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Readiness Score</span><strong style="color: var(--amber-accent);">81%</strong></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 5: BADGES & ACHIEVEMENTS
+             ===================================================================== -->
+        <div id="tab-achievements" class="profile-tab-content" style="display: none;">
+          <div class="achievements-gallery">
+            
+            <div class="badge-card unlocked">
+              <div class="badge-icon-wrap">🔥</div>
+              <strong style="font-size: 0.92rem; color: var(--text-main);">7-Day Streak Master</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Practiced every single day for a full week</span>
+              <span class="badge badge-emerald" style="font-size: 0.65rem;">UNLOCKED</span>
+            </div>
+
+            <div class="badge-card unlocked">
+              <div class="badge-icon-wrap">📐</div>
+              <strong style="font-size: 0.92rem; color: var(--text-main);">Algebra Virtuoso</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Mastered linear & quadratic polynomials</span>
+              <span class="badge badge-emerald" style="font-size: 0.65rem;">UNLOCKED</span>
+            </div>
+
+            <div class="badge-card unlocked">
+              <div class="badge-icon-wrap">⚡</div>
+              <strong style="font-size: 0.92rem; color: var(--text-main);">Speed Solver</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Solved 10 problems in under 6 minutes</span>
+              <span class="badge badge-emerald" style="font-size: 0.65rem;">UNLOCKED</span>
+            </div>
+
+            <div class="badge-card unlocked">
+              <div class="badge-icon-wrap">✦</div>
+              <strong style="font-size: 0.92rem; color: var(--text-main);">Socratic Thinker</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Completed 20 guided Socratic dialogues</span>
+              <span class="badge badge-emerald" style="font-size: 0.65rem;">UNLOCKED</span>
+            </div>
+
+            <div class="badge-card locked">
+              <div class="badge-icon-wrap">🎯</div>
+              <strong style="font-size: 0.92rem; color: var(--text-main);">100% Mock Perfect</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Score 100% on a full JEE Advanced Mock</span>
+              <span class="badge badge-rose" style="font-size: 0.65rem;">LOCKED (92%)</span>
+            </div>
+
+            <div class="badge-card locked">
+              <div class="badge-icon-wrap">🌌</div>
+              <strong style="font-size: 0.92rem; color: var(--text-main);">Quantum Intuition</strong>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Complete modern physics chapter suite</span>
+              <span class="badge badge-rose" style="font-size: 0.65rem;">LOCKED</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 6: PREFERENCES & AI MENTOR CONFIGURATION
+             ===================================================================== -->
+        <div id="tab-settings" class="profile-tab-content" style="display: none;">
+          <div class="card">
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>SYSTEM PREFERENCES</span></div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">AI Mentor Persona & Cadence</h3>
+
+            <div class="settings-form-grid">
+              
+              <div class="form-group">
+                <label class="form-label" for="mentor-persona-select">AI Mentor Teaching Persona</label>
+                <select id="mentor-persona-select" class="form-select">
+                  <option selected>✦ Pure Socratic (Guides with thought-provoking questions)</option>
+                  <option>⚡ Deep Conceptual Theorist (Mathematical first principles)</option>
+                  <option>🎯 Exam Strategist (Shortcuts, time traps, and speed)</option>
+                  <option>🌱 Encouraging Coach (Gentle, step-by-step guidance)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="daily-target-time">Daily Target Study Time</label>
+                <input type="text" id="daily-target-time" class="form-input" value="45 minutes / day">
+              </div>
+
+            </div>
+
+            <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem;">Notifications & Forgetting Alerts</h4>
+              
+              <div class="toggle-switch-row">
+                <div>
+                  <strong>Spaced Repetition Memory Decay Alert</strong>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Alert me when a concept retention drops below 70%</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-switch-row">
+                <div>
+                  <strong>Daily Morning Study Recommendation</strong>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Send today's primary focus recommendation at 7:30 AM</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-switch-row">
+                <div>
+                  <strong>Streak Protector Reminder</strong>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Evening notification if daily practice hasn't been completed</div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="alert('Preferences saved successfully!');">
+              <span>Save Preferences</span>
+              <span>✓</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- =====================================================================
+             TAB CONTENT 8: MY CLASSROOM & COHORT HUB (FLAGSHIP)
+             ===================================================================== -->
+        <div id="tab-classes" class="profile-tab-content" style="display: none;">
+          
+          <div id="student-classroom-hub-container">
+            <!-- Dynamic Hub or Empty State rendered via student.js -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+                <div>
+                  <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--brand-indigo, #5B5CE2);"></span><span>ENROLLED CLASSROOM</span></div>
+                  <h2 class="section-heading">My Classroom & Study Cohort</h2>
+                  <p class="section-subtitle">Connect with your teachers, review shared lecture notes, complete cohort assignments, and clear doubts.</p>
+                </div>
+                <button type="button" id="open-join-class-modal-btn" class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 0.4rem;">
+                  <span>+ Join a Class</span>
+                </button>
+              </div>
+
+              <!-- Student Classes Grid Container -->
+              <div id="student-classes-grid" class="classes-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;">
+                <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+                  Loading your classrooms from database...
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =========================================================================
+       JOIN CLASS MODAL
+       ========================================================================= -->
+  <div id="join-class-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="join-modal-title">
+    <div class="modal-container" style="max-width: 480px;">
+      <button id="close-join-modal-btn" class="modal-close-btn" aria-label="Close join class">✕</button>
+
+      <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--brand-indigo, #5B5CE2);"></span><span>CLASSROOM ENROLLMENT</span></div>
+      <h2 id="join-modal-title" style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.35rem; color: var(--text-main);">Join a Classroom</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Enter the unique 6-character class code shared by your teacher (e.g., <strong style="color: var(--text-main);">CHMZ85</strong>, <strong style="color: var(--text-main);">PHY7K2</strong>).
+      </p>
+
+      <!-- Step 1: Code Input -->
+      <div id="join-step-input">
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label class="form-label" for="input-class-code" style="font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
+            CLASS CODE
+          </label>
+          <div>
+            <input type="text" id="input-class-code" class="form-input" placeholder="e.g. CHMZ85" maxlength="12" style="font-family: var(--font-mono, monospace); font-size: 1.35rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; padding: 0.75rem 1rem;" autocomplete="off" spellcheck="false">
+          </div>
+          <div id="join-code-error" style="display: none; color: var(--rose-accent, #FF4B6E); font-size: 0.78rem; margin-top: 0.4rem; font-weight: 600;"></div>
+        </div>
+
+        <button type="button" id="btn-validate-code" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;">
+          <span>Find Classroom →</span>
+        </button>
+      </div>
+
+      <!-- Step 2: Safe Preview & Confirmation -->
+      <div id="join-step-preview" style="display: none;">
+        <div style="background: var(--bg-secondary, #F8F9FA); border: 1px solid var(--border-subtle, rgba(0,0,0,0.08)); border-radius: 12px; padding: 1.15rem; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.68rem; font-weight: 800; color: var(--indigo-primary, #5B5CE2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">
+            YOU ARE ABOUT TO JOIN
+          </div>
+          <h3 id="preview-class-name" style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin: 0 0 0.25rem 0;">Class Name</h3>
+          <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.65rem;">
+            <span id="preview-class-subject" class="class-subject-badge" style="background: rgba(91,92,226,0.1); color: var(--brand-indigo, #5B5CE2); font-weight: 700; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px;">Subject</span>
+            <span id="preview-class-grade" style="font-size: 0.78rem; color: var(--text-muted);">Class 12</span>
+          </div>
+          <div style="border-top: 1px solid var(--border-subtle, rgba(0,0,0,0.06)); padding-top: 0.65rem; font-size: 0.82rem; color: var(--text-secondary);">
+            👨‍🏫 Educator: <strong id="preview-class-teacher" style="color: var(--text-main);">Teacher Name</strong>
+            <div id="preview-class-inst" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem;">Institution</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" id="btn-cancel-preview" class="btn btn-secondary" style="flex: 1; justify-content: center;">
+            <span>Back</span>
+          </button>
+          <button type="button" id="btn-confirm-join" class="btn btn-primary" style="flex: 1.5; justify-content: center;">
+            <span>Confirm & Join Class ✓</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       LEAVE CLASS CONFIRMATION MODAL
+       ========================================================================= -->
+  <div id="leave-class-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="leave-modal-title">
+    <div class="modal-container" style="max-width: 480px;">
+      <button id="close-leave-modal-btn" class="modal-close-btn" aria-label="Close leave modal">✕</button>
+
+      <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--rose-accent, #E11D48);"></span><span>LEAVING CLASSROOM</span></div>
+      <h2 id="leave-modal-title" style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.35rem; color: var(--text-main);">Leave Classroom?</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+        Are you sure you want to disconnect from this classroom cohort?
+      </p>
+
+      <div style="background: var(--bg-secondary, #F8F9FA); border: 1px solid var(--border-subtle, rgba(0,0,0,0.08)); border-radius: 12px; padding: 1.1rem; margin-bottom: 1.25rem;">
+        <h3 id="leave-modal-class-name" style="font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin: 0 0 0.25rem 0;">Class Name</h3>
+        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.65rem;">
+          👨‍🏫 Educator: <strong id="leave-modal-teacher-name" style="color: var(--text-main);">Teacher</strong>
+        </div>
+        <div style="border-top: 1px solid var(--border-subtle, rgba(0,0,0,0.06)); padding-top: 0.65rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">
+          <strong style="color: var(--emerald-primary, #059669);">✦ Your progress is 100% safe:</strong> Your diagnostic quiz history, flashcards, study telemetry, and Learning Genome will <em>NOT</em> be deleted or reset. You can rejoin anytime with the class code.
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+        <button type="button" id="cancel-leave-modal-btn" class="btn btn-secondary" style="flex: 1; justify-content: center;">
+          <span>Cancel</span>
+        </button>
+        <button type="button" id="confirm-leave-class-btn" class="btn" style="flex: 1.4; justify-content: center; background: var(--rose-accent, #E11D48); color: #FFFFFF; font-weight: 700; border-radius: 10px; padding: 0.65rem 1rem; border: none; cursor: pointer;">
+          <span>Yes, Leave Class</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="student-toast-container" class="student-toast-container" aria-live="polite"></div>
+
+  <!-- =========================================================================
+       EDIT PROFILE MODAL
+       ========================================================================= -->
+  <div id="edit-profile-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+    <div class="modal-container">
+      <button id="close-edit-modal-btn" class="modal-close-btn" aria-label="Close edit profile">✕</button>
+
+      <div class="eyebrow"><span class="eyebrow-dot"></span><span>STUDENT PROFILE</span></div>
+      <h2 id="edit-modal-title" style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.25rem;">Edit Profile Details</h2>
+
+      <form id="edit-profile-form" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="form-group">
+          <label class="form-label" for="edit-name-input">Full Name</label>
+          <input type="text" id="edit-name-input" class="form-input" value="Aarav Sharma" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="form-group">
+            <label class="form-label" for="edit-grade-input">Class & Stream</label>
+            <input type="text" id="edit-grade-input" class="form-input" value="Class 12 • Science">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="edit-institution-input">School / Institution</label>
+            <input type="text" id="edit-institution-input" class="form-input" value="Delhi Public School, R.K. Puram">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="edit-bio-input">Bio / Learning Goal</label>
+          <textarea id="edit-bio-input" class="form-input" rows="3" style="resize: vertical;">Passionate STEM student exploring classical mechanics, differential calculus, and organic synthesis. Aiming for Top 500 rank in JEE Advanced 2027.</textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="edit-goal-input">Target Competitive Exam / Goal</label>
+          <input type="text" id="edit-goal-input" class="form-input" value="JEE Advanced & CBSE Class 12">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('edit-profile-modal').classList.remove('open');">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Profile Details ✓</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       AI ROADMAP NODE DETAIL MODAL (EXPANSION DRAWER)
+       ========================================================================= -->
+  <div id="roadmap-detail-modal" class="roadmap-detail-modal" role="dialog" aria-modal="true" aria-labelledby="roadmap-modal-node-title">
+    <div class="roadmap-modal-content">
+      <button id="close-roadmap-modal-btn" class="modal-close-btn" aria-label="Close details">✕</button>
+
+      <div class="eyebrow" style="margin-bottom: 0.35rem;"><span class="eyebrow-dot" style="background: var(--indigo-primary);"></span><span id="roadmap-modal-subject">SUBJECT</span></div>
+      <h2 id="roadmap-modal-node-title" style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.85rem;">Topic Title</h2>
+
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.1rem; margin-bottom: 1.25rem;">
+        <div style="font-size: 0.76rem; font-family: var(--font-mono); font-weight: 700; color: var(--indigo-primary); text-transform: uppercase; margin-bottom: 0.35rem;">
+          WHY THIS IS RECOMMENDED
+        </div>
+        <p id="roadmap-modal-reason" style="font-size: 0.88rem; color: var(--text-main); line-height: 1.55; margin: 0;">
+          Explanation will appear here based on your actual diagnostic quiz accuracy.
+        </p>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        <span>⏱️ Estimated Study Time: <strong id="roadmap-modal-time" style="color: var(--text-main);">45 mins</strong></span>
+        <span id="roadmap-modal-status-badge" class="roadmap-node-badge">Recommended</span>
+      </div>
+
+      <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.65rem;">
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-main);">RECOMMENDED ACTIONS:</div>
+        <div id="roadmap-modal-actions-container" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <!-- Action buttons injected dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       CLASSROOM NOTE READER MODAL (DISTRACTION-FREE KATEX VIEWER)
+       ========================================================================= -->
+  <div id="classroom-note-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="note-modal-title">
+    <div class="modal-container note-reader-container" style="max-width: 720px; max-height: 88vh; display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span id="note-modal-subject" class="class-subject-badge" style="background: rgba(91,92,226,0.1); color: var(--brand-indigo, #5B5CE2); font-weight: 700; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px;">Subject</span>
+            <span id="note-modal-type" style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">LaTeX Note</span>
+            <span id="note-modal-readtime" style="font-size: 0.75rem; color: var(--text-muted);">⏱️ 12 mins</span>
+          </div>
+          <h2 id="note-modal-title" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin: 0 0 0.25rem 0;">Lecture Note Title</h2>
+          <div style="font-size: 0.78rem; color: var(--text-muted);">
+            👨‍🏫 Uploaded by <strong id="note-modal-author" style="color: var(--text-main);">Educator</strong>
+          </div>
+        </div>
+        <button id="close-note-modal-btn" class="modal-close-btn" aria-label="Close note">✕</button>
+      </div>
+
+      <div id="note-modal-content" class="note-modal-body" style="flex: 1; overflow-y: auto; padding: 1.25rem 0.25rem; font-size: 0.95rem; line-height: 1.7; color: var(--text-main);">
+        <!-- Formatted note content with rendered KaTeX equations injected dynamically -->
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 1rem; margin-top: 0.5rem;">
+        <span style="font-size: 0.76rem; color: var(--emerald-primary, #059669); font-weight: 600;">✓ Synced from your teacher's classroom</span>
+        <div style="display: flex; gap: 0.6rem;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="window.print();">🖨️ Print / Save PDF</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('classroom-note-modal').classList.remove('open');">Done Reading</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <!-- Supabase Cloud SDK & Bridge -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/student.js?v=genome_v4"></script>
+</body>
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educator Telemetry & Classroom Overview — SikshaSaathi</title>
+  <meta name="description" content="SikshaSaathi Teacher & Admin Portal. Classroom Misconception Heatmaps, Learning Genome Telemetry, and AI-Powered Mentorship.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/teacher.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+  <!-- Role Route Guard (Strict Teacher Access Only, Zero Flash) -->
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script>
+    if (window.SikshaSession) {
+      window.SikshaSession.checkRouteGuard('teacher');
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Center Radial Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- =========================================================================
+         LEFT SIDEBAR (EDUCATOR PORTAL NAVIGATION)
+         ========================================================================= -->
+    <aside class="app-sidebar" aria-label="Educator Navigation">
+      
+      <!-- Brand Logo -->
+      <a href="/teacher/index.html" class="sidebar-logo" aria-label="SikshaSaathi Educator Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#059669"/>
+          <circle cx="24" cy="16" r="2.5" fill="#4F46E5"/>
+          <circle cx="12" cy="24" r="3" fill="#4F46E5"/>
+        </svg>
+        <span>SIKHSAATHI <span style="font-size: 0.65rem; color: var(--indigo-primary); font-weight: 700; vertical-align: top;">TEACHER</span></span>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="sidebar-nav">
+        
+        <a href="index.html" class="sidebar-link active" aria-current="page">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Class Overview</span>
+        </a>
+
+        <a href="students.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Student Genome</span>
+          <span class="sidebar-badge">42 ACTIVE</span>
+        </a>
+
+        <a href="assessments.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+          <span class="sidebar-badge">BUILDER</span>
+        </a>
+
+        <a href="curriculum.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Study Notes & RAG</span>
+        </a>
+
+        <a href="interventions.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>Guidance & Copilot</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+
+        <div class="nav-section-title">PORTAL SWITCHER</div>
+
+        <a href="/index.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+          <span>Platform Home</span>
+        </a>
+
+      </nav>
+
+      <!-- Bottom Profile Area -->
+      <div class="sidebar-profile">
+        <div class="profile-card-btn" id="sidebar-profile-card" aria-label="Educator Profile" style="cursor: pointer;" title="Click to view and edit educator credentials">
+          <div class="profile-avatar">RV</div>
+          <div style="flex-grow: 1; min-width: 0;">
+            <div class="profile-name" style="font-weight: 700; font-size: 0.88rem; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dr. Rajesh Verma</div>
+            <div class="profile-role" style="font-size: 0.74rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Senior Physics Educator</div>
+          </div>
+          <button type="button" id="open-edit-profile-btn" class="btn btn-ghost" style="padding: 4px 6px; font-size: 0.8rem;" title="Edit Profile">⚙</button>
+        </div>
+        <div style="margin-top: 0.5rem;">
+          <button id="teacher-signout-btn" class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.76rem; padding: 0.4rem 0.5rem; color: var(--rose-accent); border-color: rgba(225, 29, 72, 0.25); display: flex; align-items: center; justify-content: center; gap: 0.35rem; cursor: pointer;">
+            <span>Sign Out</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         MAIN VIEWPORT REGION
+         ========================================================================= -->
+    <main class="app-main">
+      
+      <!-- Top Bar -->
+      <header class="main-topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <div class="topbar-cohort-select">
+            <span>🏫</span>
+            <select id="cohort-selector" aria-label="Select Cohort">
+              <option value="" selected>All Enrolled Classrooms</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="search-input-wrap">
+            <span>🔍</span>
+            <input type="text" id="global-search-input" placeholder="Search student, topic, score..." aria-label="Global Search">
+          </div>
+
+          <button class="topbar-btn" title="Cohort Notifications" aria-label="Notifications">
+            <span>🔔</span>
+            <span class="notification-dot"></span>
+          </button>
+
+          <a href="../frontend/student.html" class="topbar-btn" title="Open Student Portal" target="_blank" aria-label="Open Student Portal">
+            <span>↗</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <div class="main-content-scroll">
+        
+        <!-- SECTION 01: HERO WELCOME BANNER -->
+        <section class="hero-banner-card">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              <span>COHORT INTELLIGENCE • SIKHSASAATHI EDUCATOR SUITE</span>
+            </div>
+            <h1 id="hero-teacher-name" class="hero-banner-title">Good morning, Educator.</h1>
+            <p id="hero-teacher-summary" class="section-subtitle" style="max-width: 680px;">
+              Welcome to your personalized educator suite. Track classroom mastery, student progress frontiers, and socratic interventions.
+            </p>
+            <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap;">
+              <button id="open-create-class-btn" class="btn btn-primary">
+                <span>+ Create Classroom</span>
+              </button>
+              <button id="open-edit-profile-hero-btn" class="btn btn-secondary">
+                <span>⚙ Edit Profile</span>
+              </button>
+              <a href="interventions.html" class="btn btn-secondary">
+                <span>⚡ Open Socratic Copilot →</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero Widget -->
+          <div style="background: #FFFFFF; border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.25rem 1.75rem; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.03); min-width: 170px;">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--indigo-primary); font-weight: 700;">COHORT HEALTH</div>
+            <div id="metric-cohort-health" style="font-size: 2.3rem; font-weight: 800; color: var(--text-main); margin: 0.15rem 0;">0.0<span style="font-size: 1.1rem; color: var(--text-muted); font-weight: 600;">%</span></div>
+            <div id="metric-health-status" style="font-size: 0.76rem; color: var(--emerald-primary); font-weight: 600;">● Active Monitoring</div>
+          </div>
+        </section>
+
+        <!-- SECTION 02: TELEMETRY METRICS STRIP -->
+        <section aria-label="Executive Cohort KPIs">
+          <div class="metrics-strip">
+            
+            <div class="metric-card">
+              <span class="metric-label">Active Classrooms</span>
+              <div id="metric-classes" class="metric-value">0</div>
+              <div class="metric-trend trend-up">
+                <span>●</span> Verified Teaching Cohorts
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-label">Enrolled Scholars</span>
+              <div id="metric-students" class="metric-value">0</div>
+              <div class="metric-trend trend-up">
+                <span>●</span> Real-time active members
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-label">Average Cohort Mastery</span>
+              <div id="metric-mastery" class="metric-value" style="color: var(--indigo-primary);">0.0%</div>
+              <div class="metric-trend trend-up">
+                <span>↑</span> Across all enrolled topics
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-label">Join Code System</span>
+              <div class="metric-value" style="color: var(--emerald-primary); font-size: 1.25rem;">Active</div>
+              <div class="metric-trend trend-neutral">
+                <span>Collision-safe codes</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-label">Socratic Mentorship</span>
+              <div class="metric-value" style="color: var(--amber-accent); font-size: 1.25rem;">Connected</div>
+              <div class="metric-trend trend-neutral">
+                <span>Copilot ready</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SECTION: REAL-TIME CLASSROOMS & ACTIVE COHORTS -->
+        <section class="card" style="margin-bottom: 2rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-dot"></span><span>CLASSROOM ECOSYSTEM</span></div>
+              <h2 class="section-heading">My Classrooms & Active Cohorts</h2>
+              <p class="section-subtitle">Real-time classroom memberships, enrolled students, and unique join codes.</p>
+            </div>
+            <button id="open-create-class-grid-btn" class="btn btn-primary btn-sm">
+              <span>+ Create Classroom</span>
+            </button>
+          </div>
+          <div id="teacher-classes-grid" class="classes-grid">
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+              Loading classrooms from database...
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 03: CLASSROOM MISCONCEPTION HEATMAP -->
+        <section class="card heatmap-container">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-dot"></span><span>CLASSROOM MISCONCEPTION HEATMAP</span></div>
+              <h2 class="section-heading">Cohort Error Rate & Conceptual Frontiers</h2>
+              <p class="section-subtitle">Identifies specific concepts where over half of your class is stumbling before exam day.</p>
+            </div>
+            
+            <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Exporting Heatmap Report to PDF...', '📄')">
+              <span>Export Diagnostic Report</span>
+            </button>
+          </div>
+
+          <!-- Subject Tabs Filter -->
+          <div class="subject-tabs-row">
+            <button class="subject-tab-btn active" data-subject="Physics">Physics (Mechanics & Waves)</button>
+            <button class="subject-tab-btn" data-subject="Mathematics">Mathematics (Calculus & Algebra)</button>
+            <button class="subject-tab-btn" data-subject="Chemistry">Chemistry (Organic & Physical)</button>
+            <button class="subject-tab-btn" data-subject="Biology">Biology (Cellular & Genetics)</button>
+            <button class="subject-tab-btn" data-subject="Computer Science">Computer Science (Algorithms)</button>
+          </div>
+
+          <!-- Heatmap Data Table -->
+          <div style="overflow-x: auto;">
+            <table class="heatmap-table">
+              <thead>
+                <tr>
+                  <th style="width: 38%;">Concept & Underlying Misconception</th>
+                  <th style="width: 20%;">Cohort Error Rate</th>
+                  <th style="width: 14%;">Risk Level</th>
+                  <th style="width: 28%;">Recommended Teacher Action</th>
+                </tr>
+              </thead>
+              <tbody id="heatmap-table-body">
+                <!-- Populated dynamically via teacher.js -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 04: TWO COLUMNS (STUDENT ATTENTION QUEUE & RECENT GUIDANCE FEED) -->
+        <section style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem;">
+          
+          <!-- Student Attention Queue -->
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <div>
+                <div class="eyebrow"><span class="eyebrow-dot"></span><span>STUDENT LEARNING GENOME ALERTS</span></div>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Priority Attention Queue</h3>
+              </div>
+              <a href="students.html" class="btn btn-ghost btn-sm" id="view-all-students-link">View Roster →</a>
+            </div>
+
+            <p class="section-subtitle" style="margin-bottom: 1rem;">
+              Students flagged by the Learning Genome algorithm based on accuracy trends and knowledge frontiers.
+            </p>
+
+            <div id="attention-queue-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.88rem;">
+                Analyzing cohort mastery frontiers...
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-Time Guidance & Recommendation Activity -->
+          <div class="card">
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>TEACHER-AI DISPATCH LOG</span></div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.25rem;">Recent Personalized Guidance</h3>
+            <p class="section-subtitle" style="margin-bottom: 1rem;">Direct educator recommendations delivered to students' portals.</p>
+
+            <div id="recent-activity-list" style="display: flex; flex-direction: column; gap: 0.25rem;">
+              
+              <div style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.84rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                  <strong style="color: var(--text-main);">Aarav Sharma</strong>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Today, 10:15 AM</span>
+                </div>
+                <div style="color: var(--indigo-primary); font-size: 0.78rem; font-weight: 600;">Targeted Practice Assigned:</div>
+                <div style="color: var(--text-secondary); font-size: 0.8rem;">“10-min drill on factorisation sign distribution. Check your signs in step 2.”</div>
+              </div>
+
+              <div style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.84rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                  <strong style="color: var(--text-main);">Diya Patel</strong>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Yesterday</span>
+                </div>
+                <div style="color: var(--emerald-primary); font-size: 0.78rem; font-weight: 600;">Enrichment Challenge:</div>
+                <div style="color: var(--text-secondary); font-size: 0.8rem;">“Advanced Olympiad problem set on electromagnetic induction.”</div>
+              </div>
+
+              <div style="padding: 0.75rem 0; font-size: 0.84rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                  <strong style="color: var(--text-main);">Class 12-A (Full Cohort)</strong>
+                  <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">2 days ago</span>
+                </div>
+                <div style="color: var(--soft-blue); font-size: 0.78rem; font-weight: 600;">Study Material Published:</div>
+                <div style="color: var(--text-secondary); font-size: 0.8rem;">“Handwritten Reaction Mechanism Summary: SN1 vs SN2 kinetics.”</div>
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =========================================================================
+       SLIDE-OVER DRAWER: INDIVIDUAL STUDENT GENOME INSPECTION
+       ========================================================================= -->
+  <div id="student-drawer-backdrop" class="drawer-backdrop" aria-hidden="true">
+    <div class="slide-drawer" role="dialog" aria-label="Student Learning Genome Deep Dive">
+      
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 0.85rem;">
+          <div id="drawer-student-avatar" class="profile-avatar" style="width: 44px; height: 44px; font-size: 1rem;">AS</div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <h2 id="drawer-student-name" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Aarav Sharma</h2>
+              <span id="drawer-student-status" class="badge badge-indigo">On Track</span>
+            </div>
+            <div id="drawer-student-meta" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Roll: 12-A-01 • Class 12-A</div>
+          </div>
+        </div>
+        <button id="student-drawer-close-btn" class="btn btn-ghost" aria-label="Close Drawer" style="font-size: 1.25rem;">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        
+        <!-- Forgetting Curve Prediction Alert -->
+        <div id="drawer-forgetting-alert"></div>
+
+        <!-- Learning Genome Subject Radar / Mastery -->
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>LEARNING GENOME BREAKDOWN</span></div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin: 0.2rem 0 0.85rem 0;">Curriculum Competency Index</h3>
+          <div id="drawer-genome-bars"></div>
+        </div>
+
+        <!-- Verified Strengths -->
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--emerald-primary);"></span><span>DEMONSTRATED STRENGTHS</span></div>
+          <ul id="drawer-strengths-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+        </div>
+
+        <!-- Conceptual Gaps & Misconceptions -->
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--rose-accent);"></span><span>CRITICAL CONCEPTUAL GAPS</span></div>
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Root causes identified through Socratic diagnostic telemetry:</p>
+          <ul id="drawer-gaps-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+        </div>
+
+      </div>
+
+      <div class="drawer-footer">
+        <button class="btn btn-secondary" onclick="document.getElementById('student-drawer-backdrop').classList.remove('open')">Close</button>
+        <button id="drawer-send-guidance-btn" class="btn btn-primary">
+          <span>✉ Dispatch Personalized Guidance</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: CREATE / GENERATE ASSESSMENT
+       ========================================================================= -->
+  <div id="assessment-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Create Assessment">
+      
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>ASSESSMENT GENERATOR</span></div>
+          <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Create Diagnostic Assessment</h2>
+        </div>
+        <button id="close-assessment-modal-btn" class="btn btn-ghost" style="font-size: 1.1rem;">✕</button>
+      </div>
+
+      <form id="create-assessment-form">
+        <div class="modal-body">
+          
+          <div class="form-group">
+            <label class="form-label" for="assessment-title-input">Assessment Title</label>
+            <input type="text" id="assessment-title-input" class="form-input" placeholder="e.g. Diagnostic Quiz: Newton's Laws & Normal Force" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="assessment-subject-select">Subject</label>
+              <select id="assessment-subject-select" class="form-select">
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Biology">Biology</option>
+                <option value="Computer Science">Computer Science</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="assessment-type-select">Format</label>
+              <select id="assessment-type-select" class="form-select">
+                <option value="Diagnostic 10-Min">10-Minute Diagnostic Pulse</option>
+                <option value="Topic Mastery">Topic Mastery Assessment</option>
+                <option value="Socratic Challenge">Socratic Multi-Step Challenge</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+            <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-main);">Assessment Questions</span>
+            <button type="button" id="add-question-btn" class="btn btn-secondary btn-sm">+ Add Question</button>
+          </div>
+
+          <div id="dynamic-questions-container">
+            <!-- Question 1 Default -->
+            <div class="card" style="padding: 1rem; margin-bottom: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--indigo-primary);">QUESTION #1</span>
+              </div>
+              <div class="form-group" style="margin-bottom: 0.5rem;">
+                <label class="form-label">Question Prompt</label>
+                <input type="text" class="form-input" placeholder="e.g. An object of mass m rests on a table. What is the reaction force to mg?" required>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                <input type="text" class="form-input" placeholder="Option A: Upward gravitational pull on Earth (Correct)">
+                <input type="text" class="form-input" placeholder="Option B: Normal force from table (Distractor)">
+              </div>
+              <div class="form-group" style="margin-top: 0.5rem;">
+                <label class="form-label">Socratic Hint for Student</label>
+                <input type="text" class="form-input" placeholder="Hint: Newton's 3rd law action and reaction act on TWO different bodies.">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('assessment-modal').classList.remove('open')">Cancel</button>
+          <button type="submit" class="btn btn-primary">🚀 Publish Assessment to Cohort</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: UPLOAD STUDY NOTES & RAG INGESTION
+       ========================================================================= -->
+  <div id="upload-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Upload Study Notes">
+      
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>STUDY RESOURCE UPLOADER</span></div>
+          <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Upload Notes & Feed Cohort RAG</h2>
+        </div>
+        <button id="close-upload-modal-btn" class="btn btn-ghost" style="font-size: 1.1rem;">✕</button>
+      </div>
+
+      <form id="upload-notes-form">
+        <div class="modal-body">
+          
+          <div class="form-group">
+            <label class="form-label" for="upload-title-input">Resource Title</label>
+            <input type="text" id="upload-title-input" class="form-input" placeholder="e.g. Lecture 08: Rotational Dynamics & Inertia Tensors" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="upload-subject-select">Subject</label>
+              <select id="upload-subject-select" class="form-select">
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Biology">Biology</option>
+                <option value="Computer Science">Computer Science</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="upload-target-class">Target Cohort</label>
+              <select id="upload-target-class" class="form-select">
+                <option value="Class 12-A">Class 12-A (All 42 Students)</option>
+                <option value="At-Risk Only">Struggling Frontier Students Only</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dropzone -->
+          <div id="notes-file-dropzone" class="file-dropzone">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+            <strong style="color: var(--text-main); font-size: 0.9rem;">Click or drag PDF / Handwritten notes here</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Supports PDF, Markdown, High-Res Handwritten Scans up to 50MB</p>
+            <div id="selected-file-name" style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--indigo-primary); margin-top: 0.5rem; font-weight: 700;"></div>
+            <input type="file" id="notes-file-input" style="display: none;" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-secondary); padding: 0.75rem 1rem; border-radius: 10px;">
+            <input type="checkbox" id="upload-is-handwritten" style="cursor: pointer;">
+            <label for="upload-is-handwritten" style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); cursor: pointer;">
+              Enable Handwritten-Style Notes View for Students (Prototype Item 11)
+            </label>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('upload-modal').classList.remove('open')">Cancel</button>
+          <button type="submit" class="btn btn-primary">⚡ Vectorise & Index into RAG</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: DISPATCH PERSONALIZED GUIDANCE
+       ========================================================================= -->
+  <div id="guidance-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Dispatch Personalized Guidance">
+      
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>TEACHER MENTORSHIP DISPATCHER</span></div>
+          <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Send Personalized Guidance</h2>
+        </div>
+        <button id="close-guidance-modal-btn" class="btn btn-ghost" style="font-size: 1.1rem;">✕</button>
+      </div>
+
+      <form id="guidance-form">
+        <div class="modal-body">
+          
+          <div class="form-group">
+            <label class="form-label" for="guidance-student-select">Select Student</label>
+            <select id="guidance-student-select" class="form-select">
+              <option value="STU-101">Aarav Sharma (Roll: 12-A-01 • Mastery: 78%)</option>
+              <option value="STU-102">Diya Patel (Roll: 12-A-04 • Mastery: 92%)</option>
+              <option value="STU-103">Rohan Verma (Roll: 12-A-09 • Mastery: 58%)</option>
+              <option value="STU-104">Ananya Iyer (Roll: 12-A-12 • Mastery: 86%)</option>
+              <option value="STU-105">Vikram Aditya (Roll: 12-A-15 • Mastery: 64%)</option>
+              <option value="STU-106">Sneha Kulkarni (Roll: 12-A-18 • Mastery: 81%)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="guidance-type-select">Intervention Type</label>
+            <select id="guidance-type-select" class="form-select">
+              <option value="Targeted Practice">Targeted Micro-Practice Drill</option>
+              <option value="Socratic Note">Socratic Clarification Note</option>
+              <option value="Smart Revision Boost">Smart Revision (Forgetting Decelerator)</option>
+              <option value="Enrichment Challenge">Advanced Olympiad / Extension Problem</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="guidance-text-input">Educator Guidance / Socratic Prompt</label>
+            <textarea id="guidance-text-input" class="form-textarea" rows="4" placeholder="e.g. Aarav, in your recent quiz you misapplied the negative sign during binomial expansion. Try solving (2x - 3)^2 by writing out the negative distribution explicitly."></textarea>
+          </div>
+
+          <div style="background: var(--indigo-soft); padding: 0.75rem 1rem; border-radius: 10px; font-size: 0.78rem; color: var(--indigo-dark);">
+            💡 <em>This recommendation will appear prominently on the student's dashboard under "Teacher Mentorship" alongside their AI Pathway.</em>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('guidance-modal').classList.remove('open')">Cancel</button>
+          <button type="submit" class="btn btn-primary">✉ Dispatch to Student Portal</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: CREATE NEW CLASSROOM (PART 2)
+       ========================================================================= -->
+  <div id="create-class-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Create New Classroom">
+      
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>EDUCATOR ECOSYSTEM</span></div>
+          <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Create New Classroom</h2>
+        </div>
+        <button type="button" class="btn btn-ghost modal-close-btn" data-modal="create-class-modal">✕</button>
+      </div>
+
+      <form id="create-class-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="class-name-input">Classroom Name *</label>
+            <input type="text" id="class-name-input" class="form-input" placeholder="e.g. Class 12-A • Physics & STEM Cohort" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="class-subject-select">Subject Specialization *</label>
+            <select id="class-subject-select" class="form-select" required>
+              <option value="Physics" selected>Physics</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Biology">Biology</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="General Science">General Science</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="class-grade-input">Academic Level / Section</label>
+            <input type="text" id="class-grade-input" class="form-input" placeholder="e.g. Class 12 • Senior Secondary" value="Class 12">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="class-desc-input">Description / Syllabus Scope (Optional)</label>
+            <textarea id="class-desc-input" class="form-textarea" rows="3" placeholder="e.g. Mechanics, electromagnetism, and thermodynamic problem solving for competitive exams."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-close-btn" data-modal="create-class-modal">Cancel</button>
+          <button type="submit" id="submit-create-class-btn" class="btn btn-primary">🚀 Generate Classroom & Unique Join Code</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: CLASS CREATED SUCCESS & UNIQUE CODE DISPLAY (PART 2)
+       ========================================================================= -->
+  <div id="class-success-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Class Created Successfully" style="max-width: 490px; text-align: center;">
+      <div class="modal-body" style="padding: 2.25rem 2rem 1.5rem 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.35rem;" id="success-class-name">Classroom Registered!</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+          Your classroom has been created. Share this official join code with your students to begin teaching:
+        </p>
+
+        <div style="background: #F8FAFC; border: 2px dashed var(--indigo-primary); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem;">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem;">OFFICIAL CLASS JOIN CODE</div>
+          <div id="success-class-code" style="font-family: var(--font-mono); font-size: 2.4rem; font-weight: 900; letter-spacing: 0.18em; color: var(--indigo-primary); margin-bottom: 0.75rem;">PHY8Q4</div>
+          <button type="button" id="success-copy-code-btn" class="btn btn-primary" style="margin: 0 auto; display: flex; align-items: center; gap: 0.4rem;">
+            <span>📋 Copy Class Code</span>
+          </button>
+        </div>
+
+        <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">
+          Students enter this code in their Student Portal to automatically link into your class roster and diagnostic telemetry.
+        </p>
+      </div>
+
+      <div class="modal-footer" style="justify-content: center; border-top: none; padding-top: 0;">
+        <button type="button" class="btn btn-secondary modal-close-btn" data-modal="class-success-modal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: EDIT EDUCATOR PROFILE (PART 2)
+       ========================================================================= -->
+  <div id="edit-profile-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Edit Educator Profile">
+      
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>PROFILE & CREDENTIALS</span></div>
+          <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Edit Educator Profile</h2>
+        </div>
+        <button type="button" class="btn btn-ghost modal-close-btn" data-modal="edit-profile-modal">✕</button>
+      </div>
+
+      <form id="edit-profile-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="edit-profile-name">Full Name *</label>
+            <input type="text" id="edit-profile-name" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="edit-profile-institution">School / Institution</label>
+            <input type="text" id="edit-profile-institution" class="form-input" placeholder="e.g. National Public School • STEM Wing">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="edit-profile-subject">Primary Subject Focus</label>
+            <input type="text" id="edit-profile-subject" class="form-input" placeholder="e.g. Senior Secondary Physics">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="edit-profile-bio">Bio & Mentorship Philosophy</label>
+            <textarea id="edit-profile-bio" class="form-textarea" rows="3" placeholder="Describe your teaching background, subject mastery, or student guidance focus..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-close-btn" data-modal="edit-profile-modal">Cancel</button>
+          <button type="submit" id="submit-edit-profile-btn" class="btn btn-primary">Save Profile Changes</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <script src="js/click-spark.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic Assessments & Mocks — SikshaSaathi</title>
+  <meta name="description" content="SikshaSaathi High-Fidelity Exam Simulator and AI Diagnostic Assessments with authentic Gaussian percentiles.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/student.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+</head>
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Center Radial Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- =========================================================================
+         LEFT SIDEBAR (DESKTOP APPLICATION LAYOUT)
+         ========================================================================= -->
+    <aside class="app-sidebar" aria-label="Application Navigation">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="sidebar-logo" aria-label="SikshaSaathi Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#5B5CE2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#19B86B"/>
+          <circle cx="24" cy="16" r="2.5" fill="#5B5CE2"/>
+          <circle cx="12" cy="24" r="3" fill="#5B5CE2"/>
+        </svg>
+        <span>Siksha Saathi</span>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav class="sidebar-nav">
+        
+        <a href="student.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="student-mentor.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>AI Mentor</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+
+        <a href="student-notes.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+          <span>Notes</span>
+        </a>
+
+        <a href="student-flashcards.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9Z"/><path d="m9 2 3 4 3-4"/></svg>
+          <span>Flashcards</span>
+        </a>
+
+        <a href="student-practice.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Practice</span>
+        </a>
+
+        <a href="student-assessments.html" class="sidebar-link active" aria-current="page">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+        </a>
+
+        <a href="student-revision.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Smart Revision</span>
+        </a>
+
+        <a href="student-emergency.html" class="sidebar-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 10 10-12h-9l1-10z"/></svg>
+          <span>Emergency Mode</span>
+        </a>
+
+        <div class="nav-section-title">LEARNING</div>
+
+        <a href="student-profile.html#tab-genome" class="sidebar-link" id="sidebar-progress-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <span>Progress</span>
+        </a>
+
+        <a href="student-profile.html#tab-achievements" class="sidebar-link" id="sidebar-achievements-link">
+          <svg class="svg-icon sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>Achievements</span>
+        </a>
+
+      </nav>
+
+      <!-- Bottom Profile Area -->
+      <div class="sidebar-profile">
+        
+        <!-- Profile Dropdown Popup -->
+        <div id="profile-menu-popup" class="profile-menu-popup" role="menu">
+          <a href="student-profile.html" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile Details</span>
+          </a>
+          <a href="student-profile.html#tab-genome" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Learning Genome</span>
+          </a>
+          <a href="student-profile.html#tab-achievements" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            <span>Achievements</span>
+          </a>
+          <a href="student-profile.html#tab-settings" class="profile-menu-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </a>
+          <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: 4px 0;">
+          <a href="index.html" class="profile-menu-item" style="color: var(--rose-accent);">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="stroke: var(--rose-accent);"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            <span>Sign Out</span>
+          </a>
+        </div>
+
+        <button id="profile-menu-btn" class="profile-card-btn" aria-haspopup="true" aria-expanded="false">
+          <div class="profile-avatar">AS</div>
+          <div style="flex-grow: 1;">
+            <div class="profile-name">Aarav Sharma</div>
+            <div class="profile-role">Class 12 • Science</div>
+          </div>
+          <span class="profile-dropdown-arrow">▾</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         MAIN CONTENT REGION
+         ========================================================================= -->
+    <main class="app-main">
+      
+      <!-- Top Bar -->
+      <header class="main-topbar">
+        <div class="topbar-greeting">
+          <h2>Assessments & Diagnostics</h2>
+          <p>“Calibrated multi-subject benchmarks with authentic cognitive percentiles.”</p>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="search-input-wrap">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="assessment-search-input" placeholder="Search tests or topics..." aria-label="Search tests">
+          </div>
+
+          <button class="topbar-btn" aria-label="Notifications">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notification-dot"></span>
+          </button>
+
+          <a href="index.html" class="topbar-btn" title="Back to Landing Page" aria-label="Exit to landing page">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <div class="main-content-scroll">
+        
+        <!-- Hero Benchmark Card -->
+        <section class="hero-recommendation-card" id="hero-diagnostic-card">
+          <div class="hero-rec-grid">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-dot"></span><span>AI DIAGNOSTIC BENCHMARK</span></div>
+              <h1 class="hero-rec-title" id="hero-rec-title">JEE Advanced Full Diagnostic Mock #3</h1>
+              <p class="section-subtitle" id="hero-rec-subtitle">Comprehensive multi-subject evaluation across Physics, Chemistry, and Mathematics.</p>
+              
+              <div class="hero-rec-meta">
+                <span id="hero-rec-duration">⏱ 25 min duration</span>
+                <span id="hero-rec-questions">📋 15 questions</span>
+                <span style="color: var(--emerald-primary); font-weight: 600;">● Live Proctor Ready</span>
+                <span class="badge badge-indigo" id="hero-rec-marking">+4 / -1 Marking</span>
+              </div>
+
+              <button id="hero-start-exam-btn" class="btn btn-primary" data-assessment-id="jee-mock-3" style="padding: 0.8rem 2.2rem; font-size: 0.95rem; margin-top: 1rem;">
+                <span>Launch Exam Simulator</span>
+                <span>⚡</span>
+              </button>
+            </div>
+
+            <div style="background: #FFFFFF; border: 1px solid var(--border-subtle); border-radius: 18px; padding: 1.5rem 2rem; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.03);">
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--indigo-primary); font-weight: 700; letter-spacing: 0.05em;">PREDICTED PERCENTILE</div>
+              <div id="hero-predicted-percentile" style="font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin: 0.25rem 0;">
+                98.7<span style="font-size: 1.1rem; color: var(--emerald-primary);">%ile</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Calibrated with <strong>Gaussian CDF</strong> Model</div>
+              <div style="margin-top: 0.75rem; font-size: 0.72rem; color: var(--text-muted); background: var(--bg-secondary); padding: 0.35rem 0.6rem; border-radius: 6px;">
+                Direct sync with Learning Genome
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Test Catalog Section -->
+        <section style="margin-top: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-dot"></span><span>BENCHMARK ARENA</span></div>
+              <h2 class="section-heading">Subject Diagnostics & Practice Mocks</h2>
+              <p class="section-subtitle">Take full mocks or targeted chapter tests to update your Learning Genome and Smart Revision queues.</p>
+            </div>
+            
+            <!-- Category Filter Pills -->
+            <div class="asmt-filter-pills" id="asmt-category-pills">
+              <button class="asmt-filter-btn active" data-category="all">All Tests</button>
+              <button class="asmt-filter-btn" data-category="multi-subject">Multi-Subject Mocks</button>
+              <button class="asmt-filter-btn" data-category="physics">Physics</button>
+              <button class="asmt-filter-btn" data-category="chemistry">Chemistry</button>
+              <button class="asmt-filter-btn" data-category="mathematics">Mathematics</button>
+              <button class="asmt-filter-btn" data-category="cs">Computer Science</button>
+            </div>
+          </div>
+
+          <!-- Live Dynamic Assessment Grid -->
+          <div class="assessment-catalog-grid" id="assessment-catalog-grid">
+            <!-- Dynamically populated from /api/assessments/catalog -->
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-muted);">
+              Loading diagnostic test catalog...
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =========================================================================
+       MODAL 1: TIMED EXAM SIMULATOR (HIGH-FIDELITY PROCTOR ENGINE)
+       ========================================================================= -->
+  <div id="exam-simulator-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="exam-modal-title">
+    <div class="modal-container" style="max-width: 960px; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; padding: 1.75rem;">
+      <button id="close-exam-btn" class="modal-close-btn" aria-label="Close exam simulator">✕</button>
+
+      <!-- Exam Modal Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); margin-bottom: 1.25rem;">
+        <div>
+          <span class="badge badge-indigo" id="exam-modal-badge">JEE ADVANCED SIMULATOR</span>
+          <h2 id="exam-modal-title" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-top: 0.25rem;">
+            JEE Diagnostic Benchmark
+          </h2>
+        </div>
+
+        <div style="text-align: right; background: var(--bg-secondary); padding: 0.4rem 1rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono); font-weight: 700;">TIME REMAINING</div>
+          <div id="exam-countdown-timer" style="font-size: 1.5rem; font-weight: 800; color: var(--rose-accent); font-family: var(--font-mono); line-height: 1.1;">25:00</div>
+        </div>
+      </div>
+
+      <!-- Exam Simulator Split Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 260px; gap: 1.5rem; flex: 1; min-height: 0; overflow: hidden;">
+        
+        <!-- Left Question Panel (Scrollable) -->
+        <div style="overflow-y: auto; padding-right: 0.75rem; display: flex; flex-direction: column;">
+          
+          <!-- Question Header Meta -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <div id="exam-question-index-chip" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--indigo-primary); font-weight: 700;">
+              QUESTION 1 OF 15
+            </div>
+            <div id="exam-topic-chip" class="badge badge-soft" style="font-size: 0.72rem;">
+              Kinematics
+            </div>
+          </div>
+
+          <!-- Question Prompt with KaTeX math support -->
+          <div id="exam-question-text" style="font-size: 1.05rem; font-weight: 600; color: var(--text-main); line-height: 1.6; margin-bottom: 1.25rem; user-select: none;">
+            Loading question...
+          </div>
+
+          <!-- Options Grid -->
+          <div id="exam-options-container" class="exam-options-grid">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Bottom Action Bar inside Question Panel -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); gap: 0.5rem; flex-wrap: wrap;">
+            <button id="exam-prev-btn" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+              ← Previous
+            </button>
+
+            <div style="display: flex; gap: 0.5rem;">
+              <button id="exam-flag-btn" class="btn btn-secondary" style="padding: 0.5rem 0.9rem; font-size: 0.82rem; color: var(--amber-accent);">
+                ⚐ Mark for Review
+              </button>
+              <button id="exam-clear-btn" class="btn btn-secondary" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">
+                Clear Selection
+              </button>
+            </div>
+
+            <button id="exam-next-btn" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">
+              Next →
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right Question Palette Panel -->
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1.1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+              QUESTION PALETTE
+            </div>
+            <div id="exam-answered-counter" style="font-size: 0.72rem; font-weight: 700; color: var(--emerald-primary);">
+              0/15 Answered
+            </div>
+          </div>
+
+          <!-- Legend Guide -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; font-size: 0.68rem; color: var(--text-muted); padding: 0.5rem 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              <span style="width: 10px; height: 10px; border-radius: 3px; background: var(--emerald-primary); display: inline-block;"></span> Answered
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              <span style="width: 10px; height: 10px; border-radius: 3px; background: var(--amber-accent); display: inline-block;"></span> Flagged
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              <span style="width: 10px; height: 10px; border-radius: 3px; border: 2px solid var(--indigo-primary); display: inline-block;"></span> Current
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              <span style="width: 10px; height: 10px; border-radius: 3px; background: #FFFFFF; border: 1px solid var(--border-subtle); display: inline-block;"></span> Unvisited
+            </div>
+          </div>
+
+          <!-- Question Numbers Grid -->
+          <div id="exam-palette-grid" class="question-matrix-palette" style="overflow-y: auto; max-height: 280px; padding: 0.25rem 0;">
+            <!-- Buttons 1..N inserted dynamically -->
+          </div>
+
+          <!-- Submit Assessment Button -->
+          <button id="submit-exam-btn" class="btn btn-primary" style="margin-top: auto; width: 100%; justify-content: center; font-size: 0.9rem; padding: 0.75rem;">
+            Submit Assessment ✓
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL 2: INSTANT DIAGNOSTIC SCORECARD & CONCEPT MASTERY BREAKDOWN
+       ========================================================================= -->
+  <div id="exam-scorecard-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="scorecard-title">
+    <div class="modal-container" style="max-width: 920px; max-height: 90vh; overflow-y: auto; padding: 2rem;">
+      <button id="close-scorecard-btn" class="modal-close-btn" aria-label="Close scorecard">✕</button>
+
+      <!-- Scorecard Header -->
+      <div style="text-align: center; margin-bottom: 1.75rem;">
+        <span class="badge badge-emerald">ASSESSMENT COMPLETED</span>
+        <h2 id="scorecard-title" style="font-size: 1.75rem; font-weight: 800; color: var(--text-main); margin-top: 0.35rem;">
+          Diagnostic Scorecard
+        </h2>
+        <p id="scorecard-subtitle" style="font-size: 0.85rem; color: var(--text-muted);">
+          Learning Genome updated dynamically. Calibrated with Gaussian standard distribution.
+        </p>
+      </div>
+
+      <!-- Top Primary Metrics Grid -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.75rem; text-align: center;">
+        
+        <div style="padding: 1.1rem; background: var(--bg-secondary); border-radius: 14px; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); font-weight: 700;">ACCURACY</div>
+          <div id="scorecard-accuracy" style="font-size: 1.8rem; font-weight: 800; color: var(--emerald-primary); margin-top: 0.2rem;">0%</div>
+        </div>
+
+        <div style="padding: 1.1rem; background: var(--bg-secondary); border-radius: 14px; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); font-weight: 700;">SCORE</div>
+          <div id="scorecard-score" style="font-size: 1.8rem; font-weight: 800; color: var(--indigo-primary); margin-top: 0.2rem;">0/60</div>
+        </div>
+
+        <div style="padding: 1.1rem; background: var(--bg-secondary); border-radius: 14px; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); font-weight: 700;">PERCENTILE</div>
+          <div id="scorecard-percentile" style="font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin-top: 0.2rem;">0%ile</div>
+        </div>
+
+        <div style="padding: 1.1rem; background: var(--bg-secondary); border-radius: 14px; border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); font-weight: 700;">TIME TAKEN</div>
+          <div id="scorecard-time" style="font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin-top: 0.2rem;">0m</div>
+        </div>
+
+      </div>
+
+      <!-- Subject Performance Breakdown Row -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 1.25rem; margin-bottom: 1.5rem;">
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-family: var(--font-mono); margin-bottom: 0.75rem;">
+          SUBJECT PERFORMANCE BREAKDOWN
+        </div>
+        <div id="scorecard-subject-breakdown" style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <!-- Dynamically inserted subject progress tracks -->
+        </div>
+      </div>
+
+      <!-- Cognitive Insights (Strengths & Focus Areas) -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.75rem;">
+        
+        <div style="background: rgba(25, 184, 107, 0.05); border: 1px solid rgba(25, 184, 107, 0.2); border-radius: 14px; padding: 1rem;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--emerald-primary); margin-bottom: 0.5rem;">
+            ✓ STRONG MASTERY CONCEPTS
+          </div>
+          <div id="scorecard-strong-topics" style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+            <span style="font-size: 0.78rem; color: var(--text-muted);">None identified</span>
+          </div>
+        </div>
+
+        <div style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 14px; padding: 1rem;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--rose-accent); margin-bottom: 0.5rem;">
+            ⚠ RECOMMENDED REVISION TOPICS
+          </div>
+          <div id="scorecard-weak-topics" style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+            <span style="font-size: 0.78rem; color: var(--text-muted);">None identified</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Detailed Step-by-Step Question Solutions Accordion -->
+      <div style="margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main);">
+            Question-by-Question Solution Derivations
+          </h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">
+            KaTeX Analytical Proofs
+          </span>
+        </div>
+
+        <div id="scorecard-solutions-list" style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <!-- Populated dynamically with step-by-step KaTeX explanations -->
+        </div>
+      </div>
+
+      <!-- Footer Action Buttons -->
+      <div style="display: flex; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); flex-wrap: wrap;">
+        <a href="student-profile.html#tab-genome" class="btn btn-primary" style="flex: 1; justify-content: center; min-width: 220px;">
+          View in Learning Genome →
+        </a>
+        <a href="student-revision.html" class="btn btn-secondary" style="flex: 1; justify-content: center; min-width: 220px;">
+          ⚡ Revise Weak Spots in Revision Studio
+        </a>
+        <button id="scorecard-back-catalog-btn" class="btn btn-secondary" style="padding: 0.6rem 1.25rem;">
+          Back to Tests
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <script src="js/click-spark.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script src="js/student.js"></script>
+  <script src="js/assessments.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+/api/*            https://siksha-backend-g8jh.onrender.com/api/:splat  200!
+/teacher          /teacher/index.html    200
+/teacher/         /teacher/index.html    200

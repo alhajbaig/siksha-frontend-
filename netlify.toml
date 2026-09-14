@@ -1,0 +1,36 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://siksha-backend-g8jh.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/teacher"
+  to = "/teacher/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/teacher/"
+  to = "/teacher/index.html"
+  status = 200

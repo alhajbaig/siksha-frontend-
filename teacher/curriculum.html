@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Material & RAG Knowledge Engine — SikshaSaathi Teacher</title>
+  <meta name="description" content="SikshaSaathi Educator Curriculum & Resource Hub. Upload PDFs, handwritten notes, and manage topic-wise RAG knowledge pipelines.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/teacher.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+
+  <!-- Role Route Guard (Strict Teacher Access Only, Zero Flash) -->
+  <script src="js/config.js"></script>
+  <script src="js/session.js"></script>
+  <script>
+    if (window.SikshaSession) {
+      window.SikshaSession.checkRouteGuard('teacher');
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive ClickSpark Radial Canvas Burst Overlay -->
+  <canvas id="click-spark-canvas" class="click-spark-canvas" aria-hidden="true"></canvas>
+
+  <!-- Interactive CursorGrid Intelligence Lattice Canvas Background -->
+  <div id="cursor-grid-container" class="cursor-grid-bg" aria-hidden="true"></div>
+
+  <!-- Ambient Center Radial Glow -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="app-sidebar" aria-label="Educator Navigation">
+      <a href="/teacher/index.html" class="sidebar-logo" aria-label="SikshaSaathi Educator Home">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="#101114" stroke-width="1.5" opacity="0.12"/>
+          <path d="M12 24C12 20 24 20 24 16C24 13 21 11 18 11C14 11 12 14 12 14" stroke="#4F46E5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="11" r="3" fill="#059669"/>
+          <circle cx="24" cy="16" r="2.5" fill="#4F46E5"/>
+          <circle cx="12" cy="24" r="3" fill="#4F46E5"/>
+        </svg>
+        <span>SIKHSAATHI <span style="font-size: 0.65rem; color: var(--indigo-primary); font-weight: 700; vertical-align: top;">TEACHER</span></span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Class Overview</span>
+        </a>
+
+        <a href="students.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Student Genome</span>
+          <span class="sidebar-badge">42 ACTIVE</span>
+        </a>
+
+        <a href="assessments.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Assessments</span>
+          <span class="sidebar-badge">BUILDER</span>
+        </a>
+
+        <a href="curriculum.html" class="sidebar-link active" aria-current="page">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Study Notes & RAG</span>
+        </a>
+
+        <a href="interventions.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>Guidance & Copilot</span>
+          <span class="sidebar-badge">SOCRATIC</span>
+        </a>
+
+        <div class="nav-section-title">PORTAL SWITCHER</div>
+        <a href="/index.html" class="sidebar-link">
+          <svg class="sidebar-link-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+          <span>Platform Home</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-profile">
+        <div class="profile-card-btn" aria-label="Educator Profile">
+          <div class="profile-avatar">RV</div>
+          <div style="flex-grow: 1; min-width: 0;">
+            <div class="profile-name" style="font-weight: 700; font-size: 0.88rem; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Dr. Rajesh Verma</div>
+            <div class="profile-role" style="font-size: 0.74rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Senior Physics Educator</div>
+          </div>
+        </div>
+        <div style="margin-top: 0.5rem;">
+          <button id="teacher-signout-btn" class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.76rem; padding: 0.4rem 0.5rem; color: var(--rose-accent); border-color: rgba(225, 29, 72, 0.25); display: flex; align-items: center; justify-content: center; gap: 0.35rem; cursor: pointer;">
+            <span>Sign Out</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN APP -->
+    <main class="app-main">
+      <header class="main-topbar">
+        <div class="topbar-cohort-select">
+          <span>🏫</span>
+          <select id="cohort-selector">
+            <option value="12A" selected>Class 12-A • Physics & STEM Cohort</option>
+            <option value="12B">Class 12-B • Science Foundation</option>
+          </select>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="search-input-wrap">
+            <span>🔍</span>
+            <input type="text" id="global-search-input" placeholder="Search notes, chunks, PDFs...">
+          </div>
+          <button id="open-upload-modal-btn" class="btn btn-primary btn-sm">
+            <span>+ Upload Study Notes</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="main-content-scroll">
+        
+        <!-- HEADER -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>CURRICULUM & KNOWLEDGE PIPELINE</span></div>
+            <h1 class="section-heading" style="font-size: 1.8rem;">Study Material, PDFs & Handwritten Notes</h1>
+            <p class="section-subtitle">Upload your teaching notes, slides, and summary sheets to instantly empower student RAG AI queries.</p>
+          </div>
+        </div>
+
+        <!-- RAG METRICS -->
+        <div class="metrics-strip">
+          <div class="metric-card">
+            <span class="metric-label">Uploaded Documents</span>
+            <div class="metric-value">28</div>
+            <div class="metric-trend trend-neutral">5 Core Subjects</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Vector Embeddings</span>
+            <div class="metric-value" style="color: var(--indigo-primary);">412 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">chunks</span></div>
+            <div class="metric-trend trend-up">All Synchronized</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Student RAG Queries</span>
+            <div class="metric-value" style="color: var(--emerald-primary);">1,420</div>
+            <div class="metric-trend trend-up">↑ 24% this week</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Handwritten Style</span>
+            <div class="metric-value">12 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">sheets</span></div>
+            <div class="metric-trend trend-neutral">Familiar look</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Simulation Labs</span>
+            <div class="metric-value">8 <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">interactive</span></div>
+            <div class="metric-trend trend-up">Embedded</div>
+          </div>
+        </div>
+
+        <!-- HANDWRITTEN NOTES DEMO PREVIEW (PROTOTYPE ITEM 11) -->
+        <div class="card" style="background: linear-gradient(135deg, #FFFDF8 0%, #FAF6ED 100%); border-color: #EFE6D2;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <div class="eyebrow" style="color: #92400E;"><span class="eyebrow-dot" style="background: #92400E;"></span><span>FEATURE PROTOTYPE • ITEM 11</span></div>
+              <h3 style="font-size: 1.2rem; font-weight: 800; color: #1E293B;">Handwritten-Style Notes View</h3>
+            </div>
+            <span class="badge" style="background: #FEF3C7; color: #B45309; border: 1px solid #FCD34D;">STUDENT VIEW TOGGLE ENABLED</span>
+          </div>
+          <p class="section-subtitle" style="color: #78716C; margin-bottom: 1.25rem;">
+            “Important study material is rendered with authentic ink typography, lined paper textures, and handwritten margin cues to create a familiar and non-intimidating learning feel.”
+          </p>
+
+          <div class="handwritten-preview-box">
+            <span class="handwritten-margin-note" style="float: right;">★ Very High Yield for Class 12 Boards!</span>
+            <h3>Laws of Motion: Solving Pulley Constraints</h3>
+            <p>1. Always identify the constant string length: $\sum x_i = L$</p>
+            <p>2. Differentiate twice with respect to time to get acceleration relations:</p>
+            <p style="padding-left: 1.5rem; color: #1E3A8A; font-weight: 700;">$a_1 + a_2 - 2a_p = 0 \implies a_p = \frac{a_1 + a_2}{2}$</p>
+            <p>3. Isolate each mass into a separate Free Body Diagram (FBD).</p>
+            <p><span class="handwritten-margin-note">Common Trap:</span> Normal force is NOT the 3rd law reaction to $mg$!</p>
+          </div>
+        </div>
+
+        <!-- UPLOADED RESOURCES & RAG STATUS TABLE -->
+        <div class="card data-table-card">
+          <div class="data-table-header">
+            <div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Curriculum Resource Repository & RAG Index</h3>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">These documents power students' Socratic AI Mentor context and RAG search.</p>
+            </div>
+            <button id="quick-upload-trigger" class="btn btn-secondary btn-sm" onclick="document.getElementById('upload-modal').classList.add('open')">
+              <span>+ Upload New PDF</span>
+            </button>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Resource Title & Topic</th>
+                  <th>RAG Embeddings Status</th>
+                  <th>Target Cohort</th>
+                  <th>Uploaded</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="resources-table-body">
+                
+                <tr class="filterable-row">
+                  <td>
+                    <div style="font-weight: 700; color: var(--text-main);">Newtonian Mechanics & Pulley Constraint Equations</div>
+                    <div style="font-size: 0.76rem; color: var(--text-muted);">Physics • Handwritten Style • 14 Chunks</div>
+                  </td>
+                  <td><span class="badge badge-emerald">INDEXED (100%)</span></td>
+                  <td>Class 12-A</td>
+                  <td>Today</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Previewing RAG Chunks', '📖')">Inspect RAG</button>
+                  </td>
+                </tr>
+
+                <tr class="filterable-row">
+                  <td>
+                    <div style="font-weight: 700; color: var(--text-main);">Organic Chemistry: Reaction Mechanisms (SN1 vs SN2)</div>
+                    <div style="font-size: 0.76rem; color: var(--text-muted);">Chemistry • Lecture PDF • 18 Chunks</div>
+                  </td>
+                  <td><span class="badge badge-emerald">INDEXED (100%)</span></td>
+                  <td>Class 12-A</td>
+                  <td>2 days ago</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Previewing RAG Chunks', '📖')">Inspect RAG</button>
+                  </td>
+                </tr>
+
+                <tr class="filterable-row">
+                  <td>
+                    <div style="font-weight: 700; color: var(--text-main);">Integration by Parts & ILATE Priority Rulebook</div>
+                    <div style="font-size: 0.76rem; color: var(--text-muted);">Mathematics • Formula Sheet • 12 Chunks</div>
+                  </td>
+                  <td><span class="badge badge-emerald">INDEXED (100%)</span></td>
+                  <td>Class 12-A</td>
+                  <td>3 days ago</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Previewing RAG Chunks', '📖')">Inspect RAG</button>
+                  </td>
+                </tr>
+
+                <tr class="filterable-row">
+                  <td>
+                    <div style="font-weight: 700; color: var(--text-main);">Molecular Genetics & DNA Replication Forks</div>
+                    <div style="font-size: 0.76rem; color: var(--text-muted);">Biology • Summary Handout • 16 Chunks</div>
+                  </td>
+                  <td><span class="badge badge-emerald">INDEXED (100%)</span></td>
+                  <td>Class 12-A</td>
+                  <td>5 days ago</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Previewing RAG Chunks', '📖')">Inspect RAG</button>
+                  </td>
+                </tr>
+
+                <tr class="filterable-row">
+                  <td>
+                    <div style="font-weight: 700; color: var(--text-main);">Graph Algorithms: Dijkstra vs Bellman-Ford</div>
+                    <div style="font-size: 0.76rem; color: var(--text-muted);">Computer Science • Lecture Slides • 22 Chunks</div>
+                  </td>
+                  <td><span class="badge badge-emerald">INDEXED (100%)</span></td>
+                  <td>Class 12-A</td>
+                  <td>1 week ago</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Previewing RAG Chunks', '📖')">Inspect RAG</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div id="upload-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-label="Upload Study Notes">
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>STUDY RESOURCE UPLOADER</span></div>
+          <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Upload Notes & Feed Cohort RAG</h2>
+        </div>
+        <button id="close-upload-modal-btn" class="btn btn-ghost" style="font-size: 1.1rem;">✕</button>
+      </div>
+
+      <form id="upload-notes-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="upload-title-input">Resource Title</label>
+            <input type="text" id="upload-title-input" class="form-input" placeholder="e.g. Lecture 08: Rotational Dynamics & Inertia Tensors" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="upload-subject-select">Subject</label>
+              <select id="upload-subject-select" class="form-select">
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Biology">Biology</option>
+                <option value="Computer Science">Computer Science</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="upload-target-class">Target Cohort</label>
+              <select id="upload-target-class" class="form-select">
+                <option value="Class 12-A">Class 12-A (All 42 Students)</option>
+                <option value="At-Risk Only">Struggling Frontier Students Only</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="notes-file-dropzone" class="file-dropzone">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+            <strong style="color: var(--text-main); font-size: 0.9rem;">Click or drag PDF / Handwritten notes here</strong>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Supports PDF, Markdown, High-Res Handwritten Scans up to 50MB</p>
+            <div id="selected-file-name" style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--indigo-primary); margin-top: 0.5rem; font-weight: 700;"></div>
+            <input type="file" id="notes-file-input" style="display: none;" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-secondary); padding: 0.75rem 1rem; border-radius: 10px;">
+            <input type="checkbox" id="upload-is-handwritten" style="cursor: pointer;" checked>
+            <label for="upload-is-handwritten" style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); cursor: pointer;">
+              Enable Handwritten-Style Notes View for Students (Prototype Item 11)
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('upload-modal').classList.remove('open')">Cancel</button>
+          <button type="submit" class="btn btn-primary">⚡ Vectorise & Index into RAG</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+  <script src="js/cursor-grid.js"></script>
+  <script src="js/click-spark.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+</html>
