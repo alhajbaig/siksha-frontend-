@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.profile-avatar').forEach(el => {
         el.textContent = initials;
       });
-      if (document.title && document.title.includes('Aarav Sharma')) {
-        document.title = document.title.replace('Aarav Sharma', name);
+      if (document.title) {
+        document.title = `${name} — Learning Portal | SikshaSaathi`;
       }
     }
     if (user.class_grade) {
