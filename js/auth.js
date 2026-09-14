@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modeParam = urlParams.get('mode');
     if (roleParam && roleParam.toLowerCase() === 'teacher') {
       currentRole = 'teacher';
+    } else {
+      currentRole = 'student';
     }
     if (modeParam && modeParam.toLowerCase() === 'signup') {
       currentMode = 'signup';
@@ -137,29 +139,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 4. ROLE SWITCHING (STUDENT <-> TEACHER) ---
   if (roleBtnStudent && roleBtnTeacher) {
-    roleBtnStudent.addEventListener('click', () => {
-      if (currentRole === 'student') return;
+    roleBtnStudent.addEventListener('click', (e) => {
+      e.preventDefault();
       setRole('student');
     });
 
-    roleBtnTeacher.addEventListener('click', () => {
-      if (currentRole === 'teacher') return;
+    roleBtnTeacher.addEventListener('click', (e) => {
+      e.preventDefault();
       setRole('teacher');
     });
   }
 
   function setRole(role) {
-    currentRole = role;
-    if (role === 'student') {
-      roleBtnStudent.classList.add('active');
-      roleBtnStudent.setAttribute('aria-selected', 'true');
-      roleBtnTeacher.classList.remove('active');
-      roleBtnTeacher.setAttribute('aria-selected', 'false');
+    currentRole = (role || 'student').toLowerCase();
+    if (currentRole === 'student') {
+      if (roleBtnStudent) {
+        roleBtnStudent.classList.add('active');
+        roleBtnStudent.setAttribute('aria-selected', 'true');
+      }
+      if (roleBtnTeacher) {
+        roleBtnTeacher.classList.remove('active');
+        roleBtnTeacher.setAttribute('aria-selected', 'false');
+      }
+      try {
+        const u = new URL(window.location.href);
+        if (u.searchParams.get('role') === 'teacher') {
+          u.searchParams.delete('role');
+          window.history.replaceState({}, '', u.pathname + (u.search ? u.search : ''));
+        }
+        sessionStorage.removeItem('post_login_redirect');
+      } catch (e) {}
     } else {
-      roleBtnTeacher.classList.add('active');
-      roleBtnTeacher.setAttribute('aria-selected', 'true');
-      roleBtnStudent.classList.remove('active');
-      roleBtnStudent.setAttribute('aria-selected', 'false');
+      if (roleBtnTeacher) {
+        roleBtnTeacher.classList.add('active');
+        roleBtnTeacher.setAttribute('aria-selected', 'true');
+      }
+      if (roleBtnStudent) {
+        roleBtnStudent.classList.remove('active');
+        roleBtnStudent.setAttribute('aria-selected', 'false');
+      }
+      try {
+        const u = new URL(window.location.href);
+        u.searchParams.set('role', 'teacher');
+        window.history.replaceState({}, '', u.pathname + u.search);
+      } catch (e) {}
     }
 
     updateUI(true);
@@ -167,19 +190,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 5. MODE SWITCHING (LOG IN <-> CREATE ACCOUNT) ---
   if (tabLogin && tabSignup && tabsSlider) {
-    tabLogin.addEventListener('click', () => {
+    tabLogin.addEventListener('click', (e) => {
+      e.preventDefault();
       if (currentMode === 'login') return;
       setMode('login');
     });
 
-    tabSignup.addEventListener('click', () => {
+    tabSignup.addEventListener('click', (e) => {
+      e.preventDefault();
       if (currentMode === 'signup') return;
       setMode('signup');
     });
   }
 
   if (btnFooterToggle) {
-    btnFooterToggle.addEventListener('click', () => {
+    btnFooterToggle.addEventListener('click', (e) => {
+      e.preventDefault();
       setMode(currentMode === 'login' ? 'signup' : 'login');
     });
   }
@@ -187,21 +213,33 @@ document.addEventListener('DOMContentLoaded', () => {
   function setMode(mode) {
     currentMode = mode;
     if (mode === 'login') {
-      tabLogin.classList.add('active');
-      tabLogin.setAttribute('aria-selected', 'true');
-      tabSignup.classList.remove('active');
-      tabSignup.setAttribute('aria-selected', 'false');
-      tabsSlider.style.transform = 'translateX(0%)';
+      if (tabLogin) {
+        tabLogin.classList.add('active');
+        tabLogin.setAttribute('aria-selected', 'true');
+      }
+      if (tabSignup) {
+        tabSignup.classList.remove('active');
+        tabSignup.setAttribute('aria-selected', 'false');
+      }
+      if (tabsSlider) tabsSlider.style.transform = 'translateX(0%)';
     } else {
-      tabSignup.classList.add('active');
-      tabSignup.setAttribute('aria-selected', 'true');
-      tabLogin.classList.remove('active');
-      tabLogin.setAttribute('aria-selected', 'false');
-      tabsSlider.style.transform = 'translateX(100%)';
+      if (tabSignup) {
+        tabSignup.classList.add('active');
+        tabSignup.setAttribute('aria-selected', 'true');
+      }
+      if (tabLogin) {
+        tabLogin.classList.remove('active');
+        tabLogin.setAttribute('aria-selected', 'false');
+      }
+      if (tabsSlider) tabsSlider.style.transform = 'translateX(100%)';
     }
 
     updateUI(true);
   }
+
+  // Immediate initial synchronization
+  setRole(currentRole);
+  setMode(currentMode);
 
   // --- 6. UPDATE EDITORIAL & FORM UI ---
   function updateUI(animate = false) {
@@ -429,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sessionStorage.removeItem('post_login_redirect');
           } catch (e) {}
 
-          const role = (data.user.role || '').toLowerCase();
+          const role = (data.user.role || currentRole || 'student').toLowerCase();
           if (role === 'teacher') {
             if (postRedirect && postRedirect.startsWith('/teacher') && !postRedirect.includes('auth.html')) {
               window.location.replace(postRedirect);
@@ -437,14 +475,14 @@ document.addEventListener('DOMContentLoaded', () => {
               window.location.replace('/teacher/index.html');
             }
           } else {
-            // Student role
+            // Student role - ALWAYS go to student workspace!
             if (postRedirect && !postRedirect.startsWith('/teacher') && !postRedirect.includes('auth.html')) {
               window.location.replace(postRedirect);
             } else {
               window.location.replace('/student.html');
             }
           }
-        }, 500);
+        }, 400);
 
       } catch (err) {
         console.error('[Auth Error]', err);
@@ -455,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 8. Demo Exploration Bypass Handler ---
+  // --- 11. Demo Exploration Bypass Handler ---
   const btnExploreDemo = document.getElementById('btn-explore-demo');
   if (btnExploreDemo) {
     btnExploreDemo.addEventListener('click', async () => {
@@ -508,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 9. Social Authentication (Google & Apple) ---
+  // --- 12. Social Authentication (Google & Apple) ---
   const btnSocialGoogle = document.getElementById('btn-social-google');
   const btnSocialApple = document.getElementById('btn-social-apple');
 
@@ -519,41 +557,44 @@ document.addEventListener('DOMContentLoaded', () => {
       btnSocialGoogle.innerHTML = '<span>Connecting to Google...</span>';
 
       try {
-        if (window.SikshaSupabase && window.SikshaSupabase.client) {
-          const redirectTo = window.location.origin + '/student.html';
-          const { error } = await window.SikshaSupabase.client.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-              redirectTo: redirectTo,
-              queryParams: {
-                access_type: 'offline',
-                prompt: 'consent'
-              }
-            }
-          });
-          if (error) throw error;
+        if (window.SikshaSupabase && window.SikshaSupabase.signInWithOAuth) {
+          const redirectTo = window.location.origin + (currentRole === 'teacher' ? '/teacher/index.html' : '/student.html');
+          await window.SikshaSupabase.signInWithOAuth('google', redirectTo);
         } else {
-          // Fallback if Supabase client not yet initialized
-          showError('email', 'Google authentication service is initializing. Please try again in a moment or use email login.');
-          btnSocialGoogle.disabled = false;
-          btnSocialGoogle.innerHTML = prevHtml;
+          throw new Error('Supabase client not loaded');
         }
       } catch (err) {
-        console.warn('[Google Auth Error]', err);
-        showError('email', err.message || 'Google authentication was interrupted. Please use email credentials or retry.');
-        btnSocialGoogle.disabled = false;
-        btnSocialGoogle.innerHTML = prevHtml;
+        console.warn('OAuth redirect failed, using fallback:', err);
+        setTimeout(() => {
+          btnSocialGoogle.disabled = false;
+          btnSocialGoogle.innerHTML = prevHtml;
+          showError('email', 'Social authentication unavailable. Please use email & password.');
+        }, 800);
       }
     });
   }
 
   if (btnSocialApple) {
-    btnSocialApple.addEventListener('click', () => {
-      alert('Apple Institutional Single Sign-On (SSO) is enabled for verified campus domains. Please sign in with your student or faculty email.');
+    btnSocialApple.addEventListener('click', async () => {
+      btnSocialApple.disabled = true;
+      const prevHtml = btnSocialApple.innerHTML;
+      btnSocialApple.innerHTML = '<span>Connecting to Apple...</span>';
+
+      try {
+        if (window.SikshaSupabase && window.SikshaSupabase.signInWithOAuth) {
+          const redirectTo = window.location.origin + (currentRole === 'teacher' ? '/teacher/index.html' : '/student.html');
+          await window.SikshaSupabase.signInWithOAuth('apple', redirectTo);
+        } else {
+          throw new Error('Supabase client not loaded');
+        }
+      } catch (err) {
+        console.warn('Apple OAuth failed:', err);
+        setTimeout(() => {
+          btnSocialApple.disabled = false;
+          btnSocialApple.innerHTML = prevHtml;
+          showError('email', 'Apple Sign-In unavailable. Please use email & password.');
+        }, 800);
+      }
     });
   }
-
-  // Initial UI Render
-  updateUI(false);
-
 });
