@@ -2777,6 +2777,15 @@ input:checked + .slider:before {
 
 /* Tablets and Mobile Drawer Mode */
 @media (max-width: 1024px) {
+  .app-container {
+    position: static !important;
+    z-index: auto !important;
+  }
+
+  .sidebar-backdrop {
+    z-index: 99990 !important;
+  }
+
   .mobile-menu-btn {
     display: flex;
   }
@@ -2790,8 +2799,10 @@ input:checked + .slider:before {
     max-width: 85vw !important;
     height: 100% !important;
     height: 100dvh !important;
-    z-index: 9999 !important;
+    z-index: 99999 !important;
     background: #FFFFFF !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     transform: translateX(-105%) !important;
     transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s ease !important;
     box-shadow: none !important;

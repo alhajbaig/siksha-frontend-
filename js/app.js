@@ -104,12 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .from('#hero-slide .lead-text', { opacity: 0, y: 25 }, '-=0.8')
       .from('#hero-slide .hero-cta-wrap', { opacity: 0, y: 20 }, '-=0.8');
 
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
     // SLIDE 02: THE PROBLEM (Text from different directions -> Pinned -> 4 Statements Scrub)
     const problemTl = gsap.timeline({
       scrollTrigger: {
         trigger: '#problem-slide',
         start: 'top top',
-        end: '+=300%',
+        end: isMobile ? '+=100%' : '+=300%',
         pin: true,
         scrub: 1
       }
@@ -117,8 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     problemTl
       .from('#problem-slide .eyebrow', { opacity: 0, y: -15, duration: 0.4 }, 0)
-      .from('#problem-slide .from-left', { x: -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
-      .from('#problem-slide .from-right', { x: 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#problem-slide .from-left', { x: isMobile ? -100 : -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#problem-slide .from-right', { x: isMobile ? 100 : 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
       .from('#problem-slide .lead-text', { opacity: 0, y: 25, duration: 0.6 }, 0.4)
       .from('#problem-slide .slide-secondary-content', { opacity: 0, y: 40, duration: 0.6 }, 0.6);
 
@@ -138,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: '#marks-slide',
         start: 'top top',
-        end: '+=200%',
+        end: isMobile ? '+=90%' : '+=200%',
         pin: true,
         scrub: 1
       }
@@ -146,8 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     marksTl
       .from('#marks-slide .eyebrow', { opacity: 0, y: -15, duration: 0.4 }, 0)
-      .from('#marks-slide .from-left', { x: -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
-      .from('#marks-slide .from-right', { x: 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#marks-slide .from-left', { x: isMobile ? -100 : -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#marks-slide .from-right', { x: isMobile ? 100 : 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
       .from('#marks-slide .from-bottom', { y: 60, scale: 0.8, opacity: 0, filter: 'blur(12px)', duration: 0.8 }, 0.2)
       .from('#marks-slide .slide-secondary-content', { opacity: 0, scale: 0.94, y: 50, duration: 1 }, 0.8)
       .from('#marks-slide .score-big-num', { scale: 0.8, opacity: 0, duration: 0.6 }, 1.0)
@@ -159,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: '#shift-slide',
         start: 'top top',
-        end: '+=150%',
+        end: isMobile ? '+=80%' : '+=150%',
         pin: true,
         scrub: 1
       }
@@ -167,8 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     shiftTl
       .from('#shift-slide .eyebrow', { opacity: 0, y: -15, duration: 0.4 }, 0)
-      .from('#shift-slide .from-left', { x: -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
-      .from('#shift-slide .from-right', { x: 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#shift-slide .from-left', { x: isMobile ? -100 : -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#shift-slide .from-right', { x: isMobile ? 100 : 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
       .from('#shift-slide .lead-text', { opacity: 0, y: 25, duration: 0.6 }, 0.4)
       .from('#shift-slide .slide-secondary-content', { opacity: 0, y: 30, duration: 0.8 }, 0.7);
 
@@ -177,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTrigger: {
         trigger: '#how-slide',
         start: 'top top',
-        end: '+=380%',
+        end: isMobile ? '+=120%' : '+=380%',
         pin: true,
         scrub: 1
       }
@@ -185,8 +187,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     howTl
       .from('#how-slide .eyebrow', { opacity: 0, y: -15, duration: 0.4 }, 0)
-      .from('#how-slide .from-left', { x: -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
-      .from('#how-slide .from-right', { x: 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#how-slide .from-left', { x: isMobile ? -100 : -250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
+      .from('#how-slide .from-right', { x: isMobile ? 100 : 250, opacity: 0, filter: 'blur(14px)', duration: 0.8 }, 0)
       .from('#how-slide .slide-secondary-content', { opacity: 0, y: 40, duration: 0.6 }, 0.6);
 
     const stepCards = document.querySelectorAll('.step-story-card');
@@ -209,18 +211,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial state of papers inside closed folder
     gsap.set([paper1, paper2, paper3], { x: 0, y: 0, rotation: 0, opacity: 0, scale: 0.75 });
 
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const p1TargetX = isMobile ? -140 : -310;
-    const p1TargetY = isMobile ? -90 : -130;
-    const p2TargetY = isMobile ? -170 : -210;
-    const p3TargetX = isMobile ? 140 : 310;
-    const p3TargetY = isMobile ? -90 : -130;
+    const p1TargetX = isMobile ? -30 : -310;
+    const p1TargetY = isMobile ? -65 : -130;
+    const p2TargetY = isMobile ? -120 : -210;
+    const p3TargetX = isMobile ? 30 : 310;
+    const p3TargetY = isMobile ? -65 : -130;
 
     const mistakesTl = gsap.timeline({
       scrollTrigger: {
         trigger: '#mistakes-slide',
         start: 'top top',
-        end: '+=350%',
+        end: isMobile ? '+=100%' : '+=350%',
         pin: true,
         scrub: 1
       }

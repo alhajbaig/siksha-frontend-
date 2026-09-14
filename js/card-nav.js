@@ -42,7 +42,8 @@
         contentEl.style.height = wasHeight;
 
         if (isMobile) {
-          return topBar + contentHeight + padding;
+          const maxHeight = Math.min(window.innerHeight * 0.82, 560);
+          return Math.min(topBar + contentHeight + padding, maxHeight);
         }
         return 350;
       }

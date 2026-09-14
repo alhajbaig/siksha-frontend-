@@ -35,7 +35,11 @@
       backdrop = document.createElement('div');
       backdrop.className = 'sidebar-backdrop';
       backdrop.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(backdrop);
+      if (sidebar.parentNode) {
+        sidebar.parentNode.insertBefore(backdrop, sidebar);
+      } else {
+        document.body.appendChild(backdrop);
+      }
     }
 
     function openDrawer() {
