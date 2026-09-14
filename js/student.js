@@ -2050,6 +2050,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (metricStreak) metricStreak.textContent = streakDays;
           const profStreak = document.getElementById('profile-streak');
           if (profStreak) profStreak.textContent = streakDays;
+          const streakBadge = document.getElementById('profile-streak-badge');
+          if (streakBadge) streakBadge.textContent = `🔥 ${streakDays}-Day Active Streak`;
           const cogState = document.getElementById('dashboard-cognitive-state');
           if (cogState) {
             cogState.textContent = streakDays >= 14 ? 'Optimal' : streakDays >= 7 ? 'Active' : streakDays >= 3 ? 'Warming Up' : 'Getting Started';
@@ -4234,6 +4236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (isDashboardPage || isProfilePage) {
     loadStudentTelemetry();
+    loadStudentProgress();
   }
   checkUrlReviewParams();
 
@@ -4248,14 +4251,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   syncSidebarActiveState();
 
-  // GSAP Entrance Animations
+  // GSAP Entrance Animations (Non-destructive to child DOM spans)
   if (typeof gsap !== 'undefined') {
-    gsap.from('.metric-value', {
-      textContent: 0,
-      duration: 1.2,
+    gsap.from('.metric-col, .metric-card', {
+      opacity: 0,
+      y: 12,
+      duration: 0.6,
       ease: 'power2.out',
-      snap: { textContent: 1 },
-      stagger: 0.1
+      stagger: 0.08
     });
 
     gsap.from('.card, .hero-recommendation-card, .track-card, .profile-banner-card, .roadmap-hero-card', {

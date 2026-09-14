@@ -374,31 +374,81 @@
         <button id="student-drawer-close-btn" class="btn btn-ghost" aria-label="Close Drawer" style="font-size: 1.25rem;">✕</button>
       </div>
 
+      <!-- DRAWER NAVIGATION TABS -->
+      <div class="drawer-nav-tabs" role="tablist">
+        <button type="button" class="drawer-tab-btn active" id="drawer-tab-btn-genome" onclick="switchDrawerTab('genome')">
+          <span>🧬</span><span>Learning Genome</span>
+        </button>
+        <button type="button" class="drawer-tab-btn" id="drawer-tab-btn-tests" onclick="switchDrawerTab('tests')">
+          <span>📜</span><span>Test & Quiz History</span>
+        </button>
+        <button type="button" class="drawer-tab-btn" id="drawer-tab-btn-activity" onclick="switchDrawerTab('activity')">
+          <span>⚡</span><span>Activity Log</span>
+        </button>
+      </div>
+
       <div class="drawer-body">
-        
-        <!-- Forgetting Curve Prediction Alert -->
-        <div id="drawer-forgetting-alert"></div>
+        <!-- PANE 1: LEARNING GENOME -->
+        <div id="drawer-pane-genome">
+          <!-- Forgetting Curve Prediction Alert -->
+          <div id="drawer-forgetting-alert"></div>
 
-        <!-- Learning Genome Subject Radar / Mastery -->
-        <div>
-          <div class="eyebrow"><span class="eyebrow-dot"></span><span>LEARNING GENOME BREAKDOWN</span></div>
-          <h3 style="font-size: 1.05rem; font-weight: 700; margin: 0.2rem 0 0.85rem 0;">Curriculum Competency Index</h3>
-          <div id="drawer-genome-bars"></div>
+          <!-- Learning Genome Subject Radar / Mastery -->
+          <div style="margin-bottom: 1.25rem;">
+            <div class="eyebrow"><span class="eyebrow-dot"></span><span>LEARNING GENOME BREAKDOWN</span></div>
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin: 0.2rem 0 0.85rem 0;">Curriculum Competency Index</h3>
+            <div id="drawer-genome-bars"></div>
+          </div>
+
+          <!-- Verified Strengths -->
+          <div style="margin-bottom: 1.25rem;">
+            <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--emerald-primary);"></span><span>DEMONSTRATED STRENGTHS</span></div>
+            <ul id="drawer-strengths-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+          </div>
+
+          <!-- Conceptual Gaps & Misconceptions -->
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--rose-accent);"></span><span>CRITICAL CONCEPTUAL GAPS</span></div>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Root causes identified through Socratic diagnostic telemetry:</p>
+            <ul id="drawer-gaps-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+          </div>
         </div>
 
-        <!-- Verified Strengths -->
-        <div>
-          <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--emerald-primary);"></span><span>DEMONSTRATED STRENGTHS</span></div>
-          <ul id="drawer-strengths-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+        <!-- PANE 2: TEST & QUIZ HISTORY -->
+        <div id="drawer-pane-tests" style="display: none;">
+          <!-- Test History KPI Strip -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.65rem; margin-bottom: 1.25rem;">
+            <div style="background: var(--bg-secondary); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 600;">TESTS TAKEN</div>
+              <div id="drawer-tests-total" style="font-size: 1.2rem; font-weight: 800; color: var(--indigo-primary); margin-top: 2px;">0</div>
+            </div>
+            <div style="background: var(--bg-secondary); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 600;">MCQs SOLVED</div>
+              <div id="drawer-tests-questions" style="font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin-top: 2px;">0</div>
+            </div>
+            <div style="background: var(--bg-secondary); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 600;">ACCURACY</div>
+              <div id="drawer-tests-accuracy" style="font-size: 1.2rem; font-weight: 800; color: var(--emerald-primary); margin-top: 2px;">0%</div>
+            </div>
+            <div style="background: var(--bg-secondary); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 600;">LEVELS PASSED</div>
+              <div id="drawer-tests-levels" style="font-size: 1.2rem; font-weight: 800; color: var(--amber-accent); margin-top: 2px;">0</div>
+            </div>
+          </div>
+
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span>CHRONOLOGICAL TEST & QUIZ ATTEMPTS</span></div>
+          <div id="drawer-tests-list" style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem;">Loading test records...</div>
+          </div>
         </div>
 
-        <!-- Conceptual Gaps & Misconceptions -->
-        <div>
-          <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--rose-accent);"></span><span>CRITICAL CONCEPTUAL GAPS</span></div>
-          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Root causes identified through Socratic diagnostic telemetry:</p>
-          <ul id="drawer-gaps-list" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.45rem;"></ul>
+        <!-- PANE 3: REAL-TIME ACTIVITY TIMELINE -->
+        <div id="drawer-pane-activity" style="display: none;">
+          <div class="eyebrow"><span class="eyebrow-dot" style="background: var(--emerald-primary);"></span><span>STUDENT LEARNING & PRACTICE STREAM</span></div>
+          <div id="drawer-activity-stream" style="margin-top: 1rem; display: flex; flex-direction: column;">
+            <div style="text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem;">Loading activity stream...</div>
+          </div>
         </div>
-
       </div>
 
       <div class="drawer-footer">

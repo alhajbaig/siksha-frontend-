@@ -13,22 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 1. SMOOTH SCROLL (LENIS)
+  // 1. SCROLL ENGINE — NATIVE RESPONSIVE SCROLL
   // =========================================================================
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({
-      duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true
-    });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
+  // Lenis window hijack removed to ensure buttery smooth native scrolling
+  // across all dashboard containers, drawers, and modal dialogs.
 
   // =========================================================================
   // 2. KATEX AUTO-RENDER HELPER
@@ -225,10 +213,144 @@ document.addEventListener('DOMContentLoaded', () => {
   const drawerSendGuidanceBtn = document.getElementById('drawer-send-guidance-btn');
   let currentInspectedStudent = null;
 
-  async function openStudentDrawer(studentId, fallbackName = 'Student') {
+  window.switchDrawerTab = function(tabName) {
+    const tabs = ['genome', 'tests', 'activity'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`drawer-tab-btn-${t}`);
+      const pane = document.getElementById(`drawer-pane-${t}`);
+      if (btn) {
+        if (t === tabName) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      }
+      if (pane) {
+        pane.style.display = (t === tabName) ? 'block' : 'none';
+      }
+    });
+  };
+
+  async function loadStudentActivityAndTests(studentId) {
+    const testsList = document.getElementById('drawer-tests-list');
+    const activityStream = document.getElementById('drawer-activity-stream');
+    const totalTestsEl = document.getElementById('drawer-tests-total');
+    const totalQuestionsEl = document.getElementById('drawer-tests-questions');
+    const accuracyEl = document.getElementById('drawer-tests-accuracy');
+    const levelsEl = document.getElementById('drawer-tests-levels');
+
+    if (testsList) testsList.innerHTML = '<div style="text-align: center; padding: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">Fetching authentic student test records...</div>';
+    if (activityStream) activityStream.innerHTML = '<div style="text-align: center; padding: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">Fetching recent activity stream...</div>';
+
+    try {
+      const res = await fetch(getApiUrl(`/api/teacher/students/${studentId}/activity`), { headers: getAuthHeader() });
+      if (!res.ok) {
+        throw new Error(`Failed to load activity (status ${res.status})`);
+      }
+      const data = await res.json();
+      const sum = data.summary || {};
+      const history = data.quiz_history || [];
+      const timeline = data.activity_timeline || [];
+
+      // Update KPI summary
+      if (totalTestsEl) totalTestsEl.textContent = sum.total_tests_completed || 0;
+      if (totalQuestionsEl) totalQuestionsEl.textContent = sum.total_questions_solved || 0;
+      if (accuracyEl) accuracyEl.textContent = `${sum.overall_accuracy_percent || 0}%`;
+      if (levelsEl) levelsEl.textContent = sum.completed_levels_count || 0;
+
+      // Render Test Cards
+      if (testsList) {
+        if (history.length === 0) {
+          testsList.innerHTML = `
+            <div style="text-align: center; padding: 2.5rem 1rem; border: 1px dashed var(--border-subtle); border-radius: 12px; color: var(--text-muted); font-size: 0.85rem;">
+              <div style="font-size: 1.6rem; margin-bottom: 0.35rem;">📝</div>
+              <div>No test or quiz attempts recorded yet for this student.</div>
+              <div style="font-size: 0.76rem; margin-top: 0.25rem;">Practice quizzes and diagnostic exam simulations will appear here in real-time.</div>
+            </div>
+          `;
+        } else {
+          testsList.innerHTML = history.map(att => {
+            const dt = att.completed_at ? new Date(att.completed_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) : 'Recently';
+            const mins = Math.max(Math.round((att.time_spent_seconds || 0) / 60), 1);
+            const isPass = (att.accuracy_percent || 0) >= 60;
+            const badgeClass = isPass ? 'badge-emerald' : 'badge-rose';
+            const subjectIcon = att.subject_id === 'phys' ? '⚛️' : att.subject_id === 'chem' ? '🧪' : att.subject_id === 'bio' ? '🧬' : att.subject_id === 'math' ? '📐' : '💻';
+
+            return `
+              <div class="test-attempt-card">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.1rem;">${subjectIcon}</span>
+                    <strong style="color: var(--text-main); font-size: 0.92rem;">${att.subject_title || 'Subject'} • Level ${att.level_number || 1}</strong>
+                  </div>
+                  <span class="badge ${badgeClass}">${isPass ? 'Passed' : 'Needs Review'}</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; color: var(--text-secondary); background: var(--bg-secondary); padding: 0.5rem 0.75rem; border-radius: 8px;">
+                  <div>
+                    Score: <strong style="color: var(--text-main); font-family: var(--font-mono);">${att.score} / ${att.total_questions}</strong>
+                  </div>
+                  <div>
+                    Accuracy: <strong style="color: ${isPass ? 'var(--emerald-primary)' : 'var(--rose-accent)'}; font-family: var(--font-mono);">${att.accuracy_percent}%</strong>
+                  </div>
+                  <div>
+                    ⏱️ <span style="font-family: var(--font-mono);">${att.time_spent_seconds ? `${att.time_spent_seconds}s` : `${mins}m`}</span>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.74rem; color: var(--text-muted);">
+                  <span>Submitted: ${dt}</span>
+                  <span style="font-family: var(--font-mono); color: var(--indigo-primary); font-weight: 600;">ID: ${att.id}</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // Render Activity Stream
+      if (activityStream) {
+        if (timeline.length === 0) {
+          activityStream.innerHTML = `
+            <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.85rem;">
+              No activity events recorded yet.
+            </div>
+          `;
+        } else {
+          activityStream.innerHTML = timeline.map(ev => {
+            const dt = ev.timestamp ? new Date(ev.timestamp).toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'short' }) : 'Recently';
+            return `
+              <div class="activity-timeline-item">
+                <div class="activity-timeline-icon">✓</div>
+                <div style="flex: 1;">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <strong style="color: var(--text-main); font-size: 0.86rem;">${ev.title}</strong>
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono);">${dt}</span>
+                  </div>
+                  <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem;">${ev.description}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+    } catch (err) {
+      console.warn('Error fetching student activity:', err);
+      if (testsList) {
+        testsList.innerHTML = `<div style="text-align: center; padding: 2rem; color: var(--rose-accent); font-size: 0.85rem;">Failed to load test history: ${err.message}</div>`;
+      }
+      if (activityStream) {
+        activityStream.innerHTML = `<div style="text-align: center; padding: 2rem; color: var(--rose-accent); font-size: 0.85rem;">Failed to load activity stream.</div>`;
+      }
+    }
+  }
+
+  async function openStudentDrawer(studentId, fallbackName = 'Student', initialTab = 'genome') {
     if (!studentDrawerBackdrop) return;
     window.openStudentDrawer = openStudentDrawer;
     currentInspectedStudent = { id: studentId, name: fallbackName };
+
+    switchDrawerTab(initialTab);
+    loadStudentActivityAndTests(studentId);
 
     if (drawerStudentName) drawerStudentName.textContent = fallbackName || 'Loading Scholar...';
     if (drawerStudentMeta) drawerStudentMeta.textContent = 'Fetching verified Learning Genome & diagnostic telemetry...';
@@ -1162,10 +1284,14 @@ document.addEventListener('DOMContentLoaded', () => {
             </span>
           </td>
           <td>
-            <button class="btn btn-secondary btn-sm" onclick="openStudentDrawer('${s.id}', '${sName.replace(/'/g, "\\'")}')">
-              <span>View Genome</span>
-              <span>↗</span>
-            </button>
+            <div style="display: flex; gap: 0.45rem; flex-wrap: wrap;">
+              <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); openStudentDrawer('${s.id}', '${sName.replace(/'/g, "\\'")}', 'genome')" title="View Learning Genome">
+                <span>🧬 Genome</span>
+              </button>
+              <button class="btn btn-primary btn-sm" style="font-size: 0.76rem; padding: 0.35rem 0.65rem;" onclick="event.stopPropagation(); openStudentDrawer('${s.id}', '${sName.replace(/'/g, "\\'")}', 'tests')" title="View Test & Quiz History">
+                <span>📜 Tests & Activity</span>
+              </button>
+            </div>
           </td>
         </tr>
       `;
