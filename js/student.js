@@ -1510,6 +1510,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>📢 Teacher Announcements</span>
             <span class="classroom-subtab-counter">${announcements.length}</span>
           </button>
+          <button class="classroom-subtab-btn" data-subtab="guidance" id="classroom-subtab-guidance-btn">
+            <span>🎯 Guidance from Teacher</span>
+            <span class="classroom-subtab-counter" id="classroom-guidance-counter">0</span>
+          </button>
           <button class="classroom-subtab-btn" data-subtab="materials">
             <span>📚 Lecture Notes & Uploads</span>
             <span class="classroom-subtab-counter">${materials.length}</span>
@@ -1563,6 +1567,27 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             `;
           }).join('')}
+        </div>
+
+        <!-- SUBTAB 1B: GUIDANCE FROM TEACHER -->
+        <div id="subtab-panel-guidance" class="classroom-subtab-panel" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--brand-indigo, #5B5CE2); text-transform: uppercase; letter-spacing: 0.05em;">
+                ✦ PERSONALIZED MENTORSHIP & SOCRATIC DRILLS
+              </div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-top: 0.2rem;">
+                Guidance Assigned Directly by Your Educators
+              </h3>
+            </div>
+            <span style="font-size: 0.78rem; color: var(--emerald-primary, #059669); font-weight: 600;">● Live Cloud Sync</span>
+          </div>
+
+          <div id="student-guidance-list" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+              Loading teacher recommendations...
+            </div>
+          </div>
         </div>
 
         <!-- SUBTAB 2: LECTURE NOTES & MATERIALS -->
@@ -1893,6 +1918,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
+      // Fetch and render personalized guidance from teacher
+      await loadStudentGuidance();
+
     } catch (err) {
       console.error('[Student Classes] Failed to load hub:', err);
       hubContainer.innerHTML = `
@@ -1907,6 +1935,208 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       const retryBtn = document.getElementById('retry-classes-btn');
       if (retryBtn) retryBtn.addEventListener('click', () => loadStudentClasses(true));
+    }
+  }
+
+  // =========================================================================
+  // 6B. STUDENT GUIDANCE FROM TEACHER ENGINE
+  // =========================================================================
+  async function loadStudentGuidance() {
+    const listEl = document.getElementById('student-guidance-list');
+    const badgeCounter = document.getElementById('classroom-guidance-counter');
+    const dashboardBanner = document.getElementById('dashboard-guidance-banner');
+
+    try {
+      const headers = window.SikshaSession ? window.SikshaSession.getAuthHeaders() : {};
+      const res = await fetch(getApiUrl('/api/student/guidance'), { headers });
+      if (!res.ok) return;
+
+      const data = await res.json();
+      const items = data.guidance || [];
+
+      if (badgeCounter) {
+        const pendingCount = items.filter(g => g.status !== 'completed').length;
+        badgeCounter.textContent = pendingCount;
+        badgeCounter.style.background = pendingCount > 0 ? 'var(--rose-accent, #FF4B6E)' : 'rgba(0,0,0,0.06)';
+        badgeCounter.style.color = pendingCount > 0 ? '#FFFFFF' : 'var(--text-muted)';
+      }
+
+      // 1. Render in Classroom Hub panel if present
+      if (listEl) {
+        if (items.length === 0) {
+          listEl.innerHTML = `
+            <div class="classes-empty-state" style="padding: 3rem 1.5rem;">
+              <div class="classes-empty-icon">🎯</div>
+              <h3 class="classes-empty-title">No Educator Guidance Yet</h3>
+              <p class="classes-empty-desc">
+                When your teachers review your Learning Genome or error patterns, they will dispatch personalized practice drills, conceptual notes, and hints directly here.
+              </p>
+            </div>
+          `;
+        } else {
+          listEl.innerHTML = items.map(g => {
+            const isCompleted = g.status === 'completed';
+            const teacherName = g.teacher_name || 'Class Educator';
+            const teacherInst = g.teacher_institution || 'SikshaSaathi Verified Educator';
+            const initials = teacherName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+            const gType = g.guidance_type || 'Targeted Practice';
+
+            let typeBadgeStyle = 'background: rgba(91, 92, 226, 0.12); color: var(--brand-indigo, #5B5CE2); border: 1px solid rgba(91, 92, 226, 0.25);';
+            if (gType.toLowerCase().includes('socratic')) {
+              typeBadgeStyle = 'background: rgba(124, 58, 237, 0.12); color: #7C3AED; border: 1px solid rgba(124, 58, 237, 0.25);';
+            } else if (gType.toLowerCase().includes('revision')) {
+              typeBadgeStyle = 'background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);';
+            } else if (gType.toLowerCase().includes('enrichment') || gType.toLowerCase().includes('olympiad')) {
+              typeBadgeStyle = 'background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);';
+            }
+
+            return `
+              <div class="card" style="padding: 1.5rem; border-radius: 16px; border: 1px solid ${isCompleted ? 'var(--border-subtle)' : 'rgba(91, 92, 226, 0.35)'}; background: ${isCompleted ? '#FFFFFF' : 'linear-gradient(145deg, #FFFFFF, #FAF9FF)'}; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                  <div style="display: flex; align-items: center; gap: 0.85rem;">
+                    <div class="profile-avatar" style="width: 42px; height: 42px; font-weight: 800; font-size: 0.95rem; background: linear-gradient(135deg, #4F46E5, #8B5CF6); color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center;">${initials}</div>
+                    <div>
+                      <div style="display: flex; align-items: center; gap: 0.4rem;">
+                        <strong style="color: var(--text-main); font-size: 0.95rem;">${escapeHtml(teacherName)}</strong>
+                        <span style="font-size: 0.76rem; color: var(--brand-indigo, #5B5CE2); font-weight: 700;">🛡️ Verified Teacher</span>
+                      </div>
+                      <div style="font-size: 0.76rem; color: var(--text-muted);">${escapeHtml(teacherInst)}</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                    <span class="badge" style="${typeBadgeStyle} font-size: 0.74rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 6px;">
+                      ${escapeHtml(gType)}
+                    </span>
+                    ${isCompleted ? `
+                      <span class="badge badge-emerald" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                        ✓ Completed
+                      </span>
+                    ` : `
+                      <span class="badge badge-amber" style="background: rgba(245, 158, 11, 0.1); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.25);">
+                        ⏳ Active Recommendation
+                      </span>
+                    `}
+                  </div>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.02); border-left: 3px solid var(--brand-indigo, #5B5CE2); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-bottom: 1.25rem; font-size: 0.92rem; line-height: 1.6; color: var(--text-main);">
+                  “${escapeHtml(g.message)}”
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.85rem;">
+                  <span style="font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);">
+                    Dispatched: ${g.created_at ? new Date(g.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recently'}
+                  </span>
+                  <div style="display: flex; gap: 0.6rem; align-items: center;">
+                    <a href="student-practice.html" class="btn btn-secondary btn-sm" style="font-size: 0.78rem;">
+                      <span>Practice Drills →</span>
+                    </a>
+                    ${!isCompleted ? `
+                      <button type="button" class="btn btn-primary btn-sm mark-guidance-done-btn" data-guidance-id="${escapeHtml(g.id)}" style="font-size: 0.78rem;">
+                        <span>Mark Completed ✓</span>
+                      </button>
+                    ` : ''}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          // Wire mark completed buttons
+          listEl.querySelectorAll('.mark-guidance-done-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              const gId = btn.getAttribute('data-guidance-id');
+              await markStudentGuidanceComplete(gId, btn);
+            });
+          });
+        }
+      }
+
+      // 2. Render on Student Main Dashboard if active pending guidance exists
+      if (dashboardBanner) {
+        const pendingItems = items.filter(g => g.status !== 'completed');
+        if (pendingItems.length > 0) {
+          const topItem = pendingItems[0];
+          const tName = topItem.teacher_name || 'Your Teacher';
+          dashboardBanner.style.display = 'block';
+          dashboardBanner.innerHTML = `
+            <div class="card" style="margin-top: 1.5rem; margin-bottom: 0; background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%); color: #FFFFFF; border: 1px solid rgba(129, 140, 248, 0.3); border-radius: 18px; padding: 1.5rem 1.75rem; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.15);">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <div class="eyebrow" style="color: #A5B4FC;">
+                  <span class="eyebrow-dot" style="background: #818CF8;"></span>
+                  <span>NEW GUIDANCE FROM YOUR TEACHER • ${escapeHtml(topItem.guidance_type || 'TARGETED DRILL')}</span>
+                </div>
+                <span class="badge" style="background: rgba(225, 29, 72, 0.2); color: #FDA4AF; border: 1px solid rgba(225, 29, 72, 0.35);">
+                  🔥 Action Recommended
+                </span>
+              </div>
+              <div style="display: flex; align-items: flex-start; gap: 1.25rem; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 260px;">
+                  <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; color: #FFFFFF;">
+                    ${escapeHtml(tName)} sent you personalized guidance:
+                  </h3>
+                  <div style="background: rgba(255, 255, 255, 0.07); border-left: 3px solid #818CF8; border-radius: 0 8px 8px 0; padding: 0.85rem 1rem; font-size: 0.9rem; color: #E2E8F0; line-height: 1.5; margin-bottom: 1rem;">
+                    “${escapeHtml(topItem.message)}”
+                  </div>
+                  <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                    <a href="student-practice.html" class="btn btn-primary btn-sm" style="background: var(--brand-indigo, #5B5CE2); padding: 0.5rem 1.2rem; font-size: 0.84rem;">
+                      <span>Start Recommended Practice →</span>
+                    </a>
+                    <button type="button" class="btn btn-secondary btn-sm dashboard-mark-guidance-btn" data-guidance-id="${escapeHtml(topItem.id)}" style="background: rgba(255,255,255,0.1); color: #FFF; border-color: rgba(255,255,255,0.25); font-size: 0.84rem;">
+                      <span>Mark Understood ✓</span>
+                    </button>
+                    <a href="student-profile.html#tab-classes" class="btn btn-ghost btn-sm" style="color: #A5B4FC; font-size: 0.82rem;">
+                      <span>View All in Classroom Hub ↗</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          const dashBtn = dashboardBanner.querySelector('.dashboard-mark-guidance-btn');
+          if (dashBtn) {
+            dashBtn.addEventListener('click', async () => {
+              const gId = dashBtn.getAttribute('data-guidance-id');
+              await markStudentGuidanceComplete(gId, dashBtn);
+            });
+          }
+        } else {
+          dashboardBanner.style.display = 'none';
+        }
+      }
+
+    } catch (err) {
+      console.warn('loadStudentGuidance error:', err);
+    }
+  }
+
+  async function markStudentGuidanceComplete(guidanceId, triggerBtn) {
+    if (!guidanceId) return;
+    if (triggerBtn) {
+      triggerBtn.disabled = true;
+      triggerBtn.textContent = 'Saving...';
+    }
+    try {
+      const headers = window.SikshaSession ? window.SikshaSession.getAuthHeaders() : {};
+      const res = await fetch(getApiUrl(`/api/student/guidance/${guidanceId}/complete`), {
+        method: 'POST',
+        headers
+      });
+      if (res.ok) {
+        if (typeof showStudentToast === 'function') {
+          showStudentToast('Guidance marked as completed! Your teacher was notified.', '✓');
+        } else {
+          alert('Guidance marked completed! Your teacher was notified.');
+        }
+        await loadStudentGuidance();
+      }
+    } catch (e) {
+      console.error('Failed to mark guidance complete:', e);
+    } finally {
+      if (triggerBtn) {
+        triggerBtn.disabled = false;
+      }
     }
   }
 
@@ -4435,6 +4665,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isDashboardPage || isProfilePage) {
     loadStudentTelemetry();
     loadStudentProgress();
+    loadStudentGuidance();
   }
   checkUrlReviewParams();
 

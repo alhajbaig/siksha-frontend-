@@ -694,6 +694,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const guidanceForm = document.getElementById('guidance-form');
   const guidanceStudentSelect = document.getElementById('guidance-student-select');
 
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   function openGuidanceModal(studentId = null) {
     if (!guidanceModal) return;
     if (studentId && guidanceStudentSelect) {
@@ -718,34 +728,170 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (guidanceForm && guidanceModal) {
-    guidanceForm.addEventListener('submit', (e) => {
+    guidanceForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const sId = guidanceStudentSelect?.value;
-      const student = teacherStudentsList.find(s => s.id === sId) || { name: 'Student' };
-      const noteText = document.getElementById('guidance-text-input')?.value || 'Focus on binomial expansion sign rules.';
-      const interventionType = document.getElementById('guidance-type-select')?.value || 'Targeted Practice';
-
-      guidanceModal.classList.remove('open');
-      showToast(`Personalized ${interventionType} dispatched directly to ${student.name}'s portal!`, '✉');
-
-      const activityList = document.getElementById('recent-activity-list');
-      if (activityList) {
-        const item = document.createElement('div');
-        item.style.padding = '0.75rem 0';
-        item.style.borderBottom = '1px solid var(--border-subtle)';
-        item.style.fontSize = '0.84rem';
-        item.innerHTML = `
-          <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
-            <strong style="color: var(--text-main);">${student.name}</strong>
-            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">Just now</span>
-          </div>
-          <div style="color: var(--indigo-primary); font-size: 0.78rem; font-weight: 600;">${interventionType} Assigned:</div>
-          <div style="color: var(--text-secondary); font-size: 0.8rem;">“${noteText}”</div>
-        `;
-        activityList.prepend(item);
+      if (!sId) {
+        showToast('Please select an enrolled scholar first.', '⚠️');
+        return;
       }
-      guidanceForm.reset();
+      const noteInput = document.getElementById('guidance-text-input');
+      const noteText = noteInput?.value.trim() || '';
+      if (!noteText) {
+        showToast('Please enter a guidance recommendation or prompt.', '⚠️');
+        return;
+      }
+      const interventionType = document.getElementById('guidance-type-select')?.value || 'Targeted Practice';
+      const submitBtn = guidanceForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Dispatching...';
+      }
+
+      try {
+        const student = teacherStudentsList.find(s => s.id === sId) || { name: 'Student' };
+        const res = await fetch(getApiUrl('/api/teacher/guidance'), {
+          method: 'POST',
+          headers: getAuthHeader(),
+          body: JSON.stringify({
+            student_id: sId,
+            guidance_type: interventionType,
+            message: noteText
+          })
+        });
+
+        if (!res.ok) {
+          throw new Error(`Server returned ${res.status}`);
+        }
+
+        guidanceModal.classList.remove('open');
+        showToast(`Personalized ${interventionType} dispatched directly to ${student.name || 'student'}'s portal!`, '✉');
+        guidanceForm.reset();
+
+        // Refresh guidance table and recent activity stream
+        await loadTeacherDispatchedGuidance();
+        await loadTeacherRecentActivity();
+
+      } catch (err) {
+        console.error('Failed to dispatch guidance:', err);
+        showToast('Failed to dispatch guidance. Please try again.', '⚠️');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = '✉ Dispatch to Student Portal';
+        }
+      }
     });
+  }
+
+  async function loadTeacherDispatchedGuidance() {
+    const tbody = document.getElementById('interventions-table-body');
+    if (!tbody) return;
+
+    try {
+      const res = await fetch(getApiUrl('/api/teacher/guidance'), {
+        headers: getAuthHeader()
+      });
+      if (!res.ok) {
+        throw new Error(`Status ${res.status}`);
+      }
+      const data = await res.json();
+      const guidanceList = data.guidance || [];
+
+      if (guidanceList.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 3.5rem 1.5rem; color: var(--text-muted);">
+              <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎯</div>
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">No Guidance Interventions Dispatched Yet</h4>
+              <p style="font-size: 0.85rem; max-width: 480px; margin: 0 auto 1.25rem auto;">
+                Send targeted socratic notes, micro-practice drills, or revision boosters directly to your students' learning dashboards.
+              </p>
+              <button type="button" class="btn btn-primary" onclick="document.getElementById('guidance-modal').classList.add('open')">
+                <span>+ Send Personalized Guidance</span>
+              </button>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      function getGuidanceBadge(type) {
+        const t = (type || '').toLowerCase();
+        if (t.includes('socratic')) {
+          return '<span class="badge" style="background: rgba(124, 58, 237, 0.12); color: #7C3AED; border: 1px solid rgba(124, 58, 237, 0.25);">✦ Socratic Note</span>';
+        }
+        if (t.includes('revision')) {
+          return '<span class="badge" style="background: rgba(245, 158, 11, 0.12); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.25);">⚡ Smart Revision</span>';
+        }
+        if (t.includes('enrichment') || t.includes('olympiad') || t.includes('challenge')) {
+          return '<span class="badge" style="background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.25);">🏆 Extension Drill</span>';
+        }
+        return '<span class="badge" style="background: rgba(79, 70, 229, 0.12); color: var(--indigo-primary); border: 1px solid rgba(79, 70, 229, 0.25);">🎯 Targeted Practice</span>';
+      }
+
+      function formatGuidanceTime(dtStr) {
+        if (!dtStr) return 'Just now';
+        try {
+          const d = new Date(dtStr);
+          if (isNaN(d.getTime())) return dtStr;
+          return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        } catch (_) {
+          return dtStr;
+        }
+      }
+
+      tbody.innerHTML = guidanceList.map(g => {
+        const studentName = g.student_name || 'Enrolled Student';
+        const studentInitials = studentName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+        const className = g.class_name || g.class_grade || 'Class 12';
+        const isCompleted = g.status === 'completed';
+        const statusBadge = isCompleted
+          ? '<span class="badge badge-emerald" style="display: inline-flex; align-items: center; gap: 0.3rem;">✓ Completed</span>'
+          : '<span class="badge badge-amber" style="background: rgba(245, 158, 11, 0.1); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.25); display: inline-flex; align-items: center; gap: 0.3rem;">⏳ Awaiting Student</span>';
+
+        return `
+          <tr>
+            <td>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div class="profile-avatar" style="width: 32px; height: 32px; font-size: 0.78rem;">${studentInitials}</div>
+                <div>
+                  <div style="font-weight: 700; color: var(--text-main); font-size: 0.88rem;">${escapeHtml(studentName)}</div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted);">${escapeHtml(className)}</div>
+                </div>
+              </div>
+            </td>
+            <td>${getGuidanceBadge(g.guidance_type)}</td>
+            <td>
+              <div style="color: var(--text-secondary); font-size: 0.84rem; max-width: 380px; line-height: 1.45;">
+                “${escapeHtml(g.message)}”
+              </div>
+            </td>
+            <td>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); white-space: nowrap;">
+                ${formatGuidanceTime(g.created_at)}
+              </span>
+            </td>
+            <td>${statusBadge}</td>
+            <td>
+              <button type="button" class="btn btn-secondary btn-sm" style="padding: 0.3rem 0.65rem; font-size: 0.76rem;" onclick="if(window.openStudentDrawer){window.openStudentDrawer('${g.student_id}', '${escapeHtml(studentName).replace(/'/g, "\\'")}');}">
+                Inspect Genome →
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+    } catch (err) {
+      console.warn('loadTeacherDispatchedGuidance error:', err);
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+            Unable to load dispatched guidance log. Please check your connection.
+          </td>
+        </tr>
+      `;
+    }
   }
 
   // Bind any open-guidance buttons on page
@@ -896,7 +1042,8 @@ document.addEventListener('DOMContentLoaded', () => {
       loadTeacherMetrics(),
       loadTeacherClasses(),
       loadTeacherStudents(),
-      loadTeacherRecentActivity()
+      loadTeacherRecentActivity(),
+      loadTeacherDispatchedGuidance()
     ]);
   }
 
