@@ -120,29 +120,42 @@
   }
 
   // =========================================================================
-  // 3. API LAYER — All calls go through authenticated backend
+  // 3. API LAYER — All calls go through authenticated backend with timeout
   // =========================================================================
-  async function apiCall(path, method = 'GET', body = null) {
-    const opts = { method, headers: getAuthHeaders() };
+  async function apiCall(path, method = 'GET', body = null, timeoutMs = 30000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    const opts = { method, headers: getAuthHeaders(), signal: controller.signal };
     if (body) opts.body = JSON.stringify(body);
     const url = (window.SIKSHA_CONFIG && window.SIKSHA_CONFIG.getApiUrl)
       ? window.SIKSHA_CONFIG.getApiUrl(`/api/mentor${path}`)
       : `/api/mentor${path}`;
-    const res = await fetch(url, opts);
-    if (res.status === 401) {
-      window.location.href = 'auth.html';
+    try {
+      const res = await fetch(url, opts);
+      clearTimeout(timeoutId);
+      if (res.status === 401) {
+        window.location.href = 'auth.html';
+        return null;
+      }
+      if (res.status === 429) {
+        showError("You're sending messages too quickly. Please wait a moment.");
+        return null;
+      }
+      if (!res.ok) {
+        const err = await res.text().catch(() => '');
+        console.warn('[Mentor API]', res.status, err);
+        return null;
+      }
+      return await res.json();
+    } catch (e) {
+      clearTimeout(timeoutId);
+      if (e.name === 'AbortError') {
+        console.warn('[Mentor API] Request timed out for', path);
+      } else {
+        console.warn('[Mentor API] Network error:', e);
+      }
       return null;
     }
-    if (res.status === 429) {
-      showError("You're sending messages too quickly. Please wait a moment.");
-      return null;
-    }
-    if (!res.ok) {
-      const err = await res.text().catch(() => '');
-      console.warn('[Mentor API]', res.status, err);
-      return null;
-    }
-    return res.json();
   }
 
   // =========================================================================
@@ -160,7 +173,7 @@
     const data = await apiCall('/conversations', 'POST', {
       title, mode: state.currentMode, subject: ''
     });
-    if (!data) return null;
+    if (!data || !data.conversation_id) return null;
     state.activeConversationId = data.conversation_id;
     await loadConversations();
     await loadConversation(data.conversation_id);
@@ -212,13 +225,6 @@
 
     text = (text || (hasAttachment ? 'Please analyze and explain this attached document/diagram.' : '')).trim();
 
-    // Create conversation if none active
-    if (!state.activeConversationId) {
-      const convTitle = hasAttachment ? `Document Analysis: ${state.activeAttachment.name}` : text.substring(0, 60);
-      const convId = await createConversation(convTitle);
-      if (!convId) return;
-    }
-
     state.isSending = true;
 
     // Snapshot and clear attachment
@@ -237,6 +243,25 @@
     const thinkingEl = appendThinkingBubble();
 
     try {
+      // Bootstrap conversation if none active
+      if (!state.activeConversationId) {
+        const convTitle = hasAttachment ? `Document Analysis: ${currentAttachment.name}` : text.substring(0, 60);
+        const data = await apiCall('/conversations', 'POST', {
+          title: convTitle,
+          mode: state.currentMode,
+          subject: ''
+        });
+        if (data && data.conversation_id) {
+          state.activeConversationId = data.conversation_id;
+          if (convTitleEl) convTitleEl.textContent = convTitle;
+          loadConversations().catch(() => {});
+        } else {
+          if (thinkingEl) thinkingEl.remove();
+          appendErrorBubble("Could not start conversation session. Please check your connection and try again.");
+          return;
+        }
+      }
+
       const payload = {
         conversation_id: state.activeConversationId,
         message: text,
@@ -249,7 +274,7 @@
         payload.attachment_type = currentAttachment.type;
       }
 
-      const data = await apiCall('/chat', 'POST', payload);
+      const data = await apiCall('/chat', 'POST', payload, 45000);
 
       // Remove thinking bubble
       if (thinkingEl) thinkingEl.remove();
@@ -257,9 +282,9 @@
       if (data && data.status === 'success') {
         appendMentorBubble(data.reply, data.hint, data.mode);
         loadSuggestions();
-        loadConversations();
+        loadConversations().catch(() => {});
       } else {
-        appendErrorBubble("I couldn't respond right now. Please try again.");
+        appendErrorBubble(data?.detail || data?.reply || "I couldn't respond right now. Please try again.");
       }
     } catch (err) {
       if (thinkingEl) thinkingEl.remove();

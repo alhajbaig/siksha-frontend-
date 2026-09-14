@@ -748,20 +748,32 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Dispatching...';
       }
 
+      const abortCtrl = new AbortController();
+      const timeoutId = setTimeout(() => abortCtrl.abort(), 25000);
+
       try {
         const student = teacherStudentsList.find(s => s.id === sId) || { name: 'Student' };
         const res = await fetch(getApiUrl('/api/teacher/guidance'), {
           method: 'POST',
           headers: getAuthHeader(),
+          signal: abortCtrl.signal,
           body: JSON.stringify({
             student_id: sId,
             guidance_type: interventionType,
             message: noteText
           })
         });
+        clearTimeout(timeoutId);
 
         if (!res.ok) {
-          throw new Error(`Server returned ${res.status}`);
+          const errData = await res.json().catch(() => ({}));
+          const errMsg = errData.detail || `Server returned ${res.status}`;
+          if (res.status === 403) {
+            showToast('Access denied: Teacher role required.', '⚠️');
+          } else {
+            showToast(errMsg, '⚠️');
+          }
+          return;
         }
 
         guidanceModal.classList.remove('open');
@@ -773,8 +785,13 @@ document.addEventListener('DOMContentLoaded', () => {
         await loadTeacherRecentActivity();
 
       } catch (err) {
+        clearTimeout(timeoutId);
         console.error('Failed to dispatch guidance:', err);
-        showToast('Failed to dispatch guidance. Please try again.', '⚠️');
+        if (err.name === 'AbortError') {
+          showToast('Request timed out. Please check your internet connection.', '⚠️');
+        } else {
+          showToast('Failed to dispatch guidance. Please try again.', '⚠️');
+        }
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
