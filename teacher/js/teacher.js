@@ -63,139 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. DATA STORE (CURRICULAR MISCONCEPTIONS & DYNAMIC ROSTER)
   // =========================================================================
   let teacherStudentsList = [];
-
-  const misconceptionsData = {
-    'Physics': [
-      {
-        topic: 'Newton\'s Third Law & Normal Force',
-        errorRate: 64,
-        severity: 'critical',
-        affectedCount: 27,
-        rootCause: 'Students treat normal contact force as the 3rd-law reaction pair to gravitational weight (mg) rather than earth\'s upward pull on the mass.',
-        recommendedIntervention: '10-min Free Body Diagram Socratic Drill with pair-interaction isolation.'
-      },
-      {
-        topic: 'Rolling Without Slipping Friction Direction',
-        errorRate: 58,
-        severity: 'critical',
-        affectedCount: 24,
-        rootCause: 'Confusion regarding whether static friction acts forward or backward when torque vs linear force is applied at different radius heights.',
-        recommendedIntervention: 'Interactive Visualization Lab on Angular Acceleration and Contact Point Slip.'
-      },
-      {
-        topic: 'Induced EMF & Lenz\'s Law Sign',
-        errorRate: 42,
-        severity: 'warning',
-        affectedCount: 18,
-        rootCause: 'Misapplying the right-hand grip rule to determine opposing flux direction.',
-        recommendedIntervention: '5-minute micro-assessment on opposing magnetic fields.'
-      },
-      {
-        topic: 'Kinematic 1D Projectile Equations',
-        errorRate: 14,
-        severity: 'good',
-        affectedCount: 6,
-        rootCause: 'Occasional sign inconsistency in gravitational acceleration vector (g).',
-        recommendedIntervention: 'Routine practice refresher.'
-      }
-    ],
-    'Mathematics': [
-      {
-        topic: 'Binomial Factorisation Negative Sign Rules',
-        errorRate: 62,
-        severity: 'critical',
-        affectedCount: 26,
-        rootCause: 'Failure to distribute negative signs across parenthesis in multi-step quadratic factorisation: $-(a - b) \\neq -a - b$.',
-        recommendedIntervention: 'Targeted algebraic sign drills with automated error diagnostic feedback.'
-      },
-      {
-        topic: 'Integration by Parts ILATE Choice',
-        errorRate: 49,
-        severity: 'warning',
-        affectedCount: 21,
-        rootCause: 'Incorrect selection of $u$ vs $dv$ when algebraic polynomials multiply inverse trigonometric functions.',
-        recommendedIntervention: 'Assign handwritten summary sheet on ILATE hierarchy shortcuts.'
-      },
-      {
-        topic: 'Domain Restrictions in Logarithmic Equations',
-        errorRate: 38,
-        severity: 'warning',
-        affectedCount: 16,
-        rootCause: 'Forgetting to check candidate solutions against base and argument positivity requirements $\\log_b(x)$ where $x > 0, b > 0, b \\neq 1$.',
-        recommendedIntervention: 'Socratic prompt: "Check your roots in original domain boundaries".'
-      },
-      {
-        topic: 'Matrix Determinants & Inverses',
-        errorRate: 18,
-        severity: 'good',
-        affectedCount: 8,
-        rootCause: 'Arithmetic calculation slips in $3\\times 3$ cofactor expansions.',
-        recommendedIntervention: 'Self-guided practice module.'
-      }
-    ],
-    'Chemistry': [
-      {
-        topic: 'SN1 vs SN2 Nucleophilic Substitution Kinetics',
-        errorRate: 55,
-        severity: 'critical',
-        affectedCount: 23,
-        rootCause: 'Assuming polar protic solvents accelerate SN2 by solvating nucleophiles instead of retarding nucleophilic attack.',
-        recommendedIntervention: 'Interactive Solvent Matrix comparison table and 10-min RAG Quiz.'
-      },
-      {
-        topic: 'Le Chatelier\'s Principle & Inert Gas Addition',
-        errorRate: 46,
-        severity: 'warning',
-        affectedCount: 19,
-        rootCause: 'Assuming inert gas addition at constant volume shifts equilibrium when partial pressures remain unchanged.',
-        recommendedIntervention: 'Targeted Socratic conceptual question set.'
-      },
-      {
-        topic: 'Buffer Capacity & Henderson-Hasselbalch',
-        errorRate: 28,
-        severity: 'good',
-        affectedCount: 12,
-        rootCause: 'Selecting buffers where pH deviates by more than 1 unit from pKa.',
-        recommendedIntervention: 'Review notes.'
-      }
-    ],
-    'Biology': [
-      {
-        topic: 'Meiosis vs Mitosis Chromosome vs Chromatid Counts',
-        errorRate: 52,
-        severity: 'critical',
-        affectedCount: 22,
-        rootCause: 'Confusing total centromere count with double-stranded DNA chromatid copy numbers during Anaphase I vs Anaphase II.',
-        recommendedIntervention: 'Visual diagram matching lab and Socratic flashcard series.'
-      },
-      {
-        topic: 'Oxidative Phosphorylation Proton Gradient Direction',
-        errorRate: 39,
-        severity: 'warning',
-        affectedCount: 16,
-        rootCause: 'Mixing up intermembrane space vs mitochondrial matrix pH and electrochemical gradient polarity.',
-        recommendedIntervention: 'Mitochondrial lab simulation.'
-      }
-    ],
-    'Computer Science': [
-      {
-        topic: 'Recursion Base Cases & Stack Overflow Invariants',
-        errorRate: 44,
-        severity: 'warning',
-        affectedCount: 19,
-        rootCause: 'Omitting termination conditions for leaf nodes in binary tree depth-first traversals.',
-        recommendedIntervention: 'Code tracing diagnostic puzzle.'
-      },
-      {
-        topic: 'Time Complexity of Nested Loops with Division Step',
-        errorRate: 35,
-        severity: 'warning',
-        affectedCount: 15,
-        rootCause: 'Assuming all nested loops run in $O(N^2)$ when inner loops step geometrically in $O(\\log N)$.',
-        recommendedIntervention: 'Big-O visual chart analysis.'
-      }
-    ]
-  };
+  let _currentCohortMisconceptions = [];
+  let _activeMisconceptionSubject = 'Physics';
 
   // =========================================================================
   // 5. STUDENT ROSTER & GENOME DRAWER
@@ -537,39 +406,102 @@ document.addEventListener('DOMContentLoaded', () => {
   const subjectTabButtons = document.querySelectorAll('.subject-tab-btn');
   const heatmapBody = document.getElementById('heatmap-table-body');
 
-  function renderHeatmap(subject = 'Physics') {
+  async function renderHeatmap(subject = 'Physics') {
     if (!heatmapBody) return;
-    const list = misconceptionsData[subject] || [];
-    heatmapBody.innerHTML = list.map(item => {
-      const pillClass = item.severity === 'critical' ? 'pill-critical' : item.severity === 'warning' ? 'pill-warning' : 'pill-good';
-      return `
+    _activeMisconceptionSubject = subject;
+
+    heatmapBody.innerHTML = `
+      <tr>
+        <td colspan="4" style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted);">
+          <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⚡</div>
+          <div>Analyzing cohort quiz performance and diagnostic misconceptions in <strong>${subject}</strong>...</div>
+        </td>
+      </tr>
+    `;
+
+    try {
+      const res = await fetch(getApiUrl(`/api/teacher/misconceptions?subject=${encodeURIComponent(subject)}`), {
+        headers: getAuthHeader()
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to load cohort misconceptions (Status: ${res.status})`);
+      }
+
+      const data = await res.json();
+      const list = data.misconceptions || [];
+      const totalCohort = data.total_cohort_size || 0;
+
+      if (list.length === 0) {
+        const emptyMsg = totalCohort === 0
+          ? `No students are enrolled in your classrooms yet. Share your classroom join code so students can start practicing.`
+          : `No critical misconceptions flagged in ${subject}. All tested students are demonstrating healthy conceptual grasp.`;
+
+        heatmapBody.innerHTML = `
+          <tr>
+            <td colspan="4" style="text-align: center; padding: 3rem 1.5rem; color: var(--text-muted);">
+              <div style="font-size: 2.2rem; margin-bottom: 0.6rem;">🎯</div>
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">
+                No Critical Misconceptions Detected for ${subject}
+              </h4>
+              <p style="font-size: 0.85rem; max-width: 520px; margin: 0 auto; line-height: 1.5;">
+                ${emptyMsg}
+              </p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      heatmapBody.innerHTML = list.map(item => {
+        const severity = (item.severity || 'warning').toLowerCase();
+        const pillClass = severity === 'critical' ? 'pill-critical' : severity === 'warning' ? 'pill-warning' : 'pill-good';
+        const badgeClass = severity === 'critical' ? 'badge-rose' : severity === 'warning' ? 'badge-amber' : 'badge-emerald';
+        const errRate = Math.round(item.error_rate ?? item.errorRate ?? 0);
+        const affected = item.affected_count ?? item.affectedCount ?? 0;
+        const total = item.total_students ?? totalCohort ?? 1;
+        const rootCause = item.root_cause || item.rootCause || 'Conceptual void observed during diagnostic assessment.';
+        const recommendation = item.recommended_intervention || item.recommendedIntervention || 'Assign targeted drill and socratic review';
+
+        return `
+          <tr>
+            <td>
+              <div style="font-weight: 700; color: var(--text-main); font-size: 0.92rem;">${item.topic}</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted); max-width: 520px; line-height: 1.45; margin-top: 0.2rem;">${rootCause}</div>
+            </td>
+            <td>
+              <div class="misconception-cell">
+                <span class="cell-pill ${pillClass}">${errRate}%</span>
+                <span style="font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);">${affected} of ${total} Scholars</span>
+              </div>
+            </td>
+            <td>
+              <span class="badge ${badgeClass}">
+                ${severity.toUpperCase()}
+              </span>
+            </td>
+            <td>
+              <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.4rem; line-height: 1.4;">${recommendation}</div>
+              <button class="btn btn-secondary btn-sm" onclick="dispatchCohortIntervention('${subject}', '${item.topic.replace(/'/g, "\\'")}')">
+                <span>Send Review Drill</span>
+                <span>→</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      triggerMathRender(heatmapBody);
+    } catch (err) {
+      console.warn('Error fetching cohort misconceptions:', err);
+      heatmapBody.innerHTML = `
         <tr>
-          <td>
-            <div style="font-weight: 700; color: var(--text-main);">${item.topic}</div>
-            <div style="font-size: 0.78rem; color: var(--text-muted); max-width: 520px; line-height: 1.4; margin-top: 0.15rem;">${item.rootCause}</div>
-          </td>
-          <td>
-            <div class="misconception-cell">
-              <span class="cell-pill ${pillClass}">${item.errorRate}%</span>
-              <span style="font-size: 0.76rem; color: var(--text-muted);">${item.affectedCount}/42 Students</span>
-            </div>
-          </td>
-          <td>
-            <span class="badge ${item.severity === 'critical' ? 'badge-rose' : item.severity === 'warning' ? 'badge-amber' : 'badge-emerald'}">
-              ${item.severity.toUpperCase()}
-            </span>
-          </td>
-          <td>
-            <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.35rem;">${item.recommendedIntervention}</div>
-            <button class="btn btn-secondary btn-sm" onclick="dispatchCohortIntervention('${subject}', '${item.topic.replace(/'/g, "\\'")}')">
-              <span>Send Review Drill</span>
-              <span>→</span>
-            </button>
+          <td colspan="4" style="text-align: center; padding: 2.5rem 1rem; color: var(--rose-accent);">
+            <div>Failed to load live misconception telemetry: ${err.message || 'Server error'}</div>
           </td>
         </tr>
       `;
-    }).join('');
-    triggerMathRender(heatmapBody);
+    }
   }
 
   if (subjectTabButtons.length > 0) {
@@ -658,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="font-size: 0.76rem; color: var(--text-muted);">${subject} • ${type}</div>
           </td>
           <td><span class="badge badge-indigo">ACTIVE</span></td>
-          <td>0 / 42</td>
+          <td>0 / ${teacherStudentsList.length || 0}</td>
           <td>--</td>
           <td>15 min</td>
           <td>Just now</td>
@@ -963,8 +895,68 @@ document.addEventListener('DOMContentLoaded', () => {
       loadTeacherProfile(),
       loadTeacherMetrics(),
       loadTeacherClasses(),
-      loadTeacherStudents()
+      loadTeacherStudents(),
+      loadTeacherRecentActivity()
     ]);
+  }
+
+  async function loadTeacherRecentActivity() {
+    const listEl = document.getElementById('recent-activity-list');
+    if (!listEl) return;
+
+    try {
+      const res = await fetch(getApiUrl('/api/teacher/recent-activity?limit=10'), {
+        headers: getAuthHeader()
+      });
+      if (!res.ok) {
+        listEl.innerHTML = `
+          <div style="padding: 1.5rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.84rem;">
+            Activity stream currently unavailable.
+          </div>
+        `;
+        return;
+      }
+      const data = await res.json();
+      const activities = data.activities || [];
+
+      if (activities.length === 0) {
+        listEl.innerHTML = `
+          <div style="padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.84rem; border: 1px dashed var(--border-subtle); border-radius: var(--radius-md);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">📜</div>
+            <strong style="color: var(--text-main); display: block; margin-bottom: 0.2rem;">No Real-Time Activity Yet</strong>
+            <span>As enrolled students complete quizzes or post questions, their activity log will stream here live.</span>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = activities.map(act => {
+        const timeStr = act.timestamp ? new Date(act.timestamp).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) : 'Recently';
+        const typeBadge = act.type === 'quiz_attempt'
+          ? `<span style="color: var(--emerald-primary); font-size: 0.78rem; font-weight: 600;">Quiz Completed:</span>`
+          : act.type === 'doubt'
+          ? `<span style="color: var(--indigo-primary); font-size: 0.78rem; font-weight: 600;">Question Raised:</span>`
+          : `<span style="color: var(--soft-blue); font-size: 0.78rem; font-weight: 600;">Guidance Dispatched:</span>`;
+
+        return `
+          <div style="padding: 0.75rem 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.84rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+              <strong style="color: var(--text-main);">${act.student_name || 'Scholar'}</strong>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">${timeStr}</span>
+            </div>
+            ${typeBadge}
+            <div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.1rem;">${act.details || act.description || ''}</div>
+          </div>
+        `;
+      }).join('');
+    } catch (err) {
+      console.warn('Error loading teacher recent activity:', err);
+      listEl.innerHTML = `
+        <div style="padding: 1.5rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.84rem;">
+          Activity sync paused.
+        </div>
+      `;
+    }
   }
 
   async function loadTeacherProfile() {
@@ -996,6 +988,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const inst = data.institution ? `${data.institution} • ` : '';
         heroSummaryEl.innerHTML = `${inst}<strong>${data.total_classes}</strong> Active Classrooms • <strong>${data.total_students}</strong> Enrolled Scholars. Real-time cognitive telemetry active.`;
       }
+
+      // Update sidebar active badge
+      document.querySelectorAll('.sidebar-badge, #sidebar-active-badge').forEach(el => {
+        el.textContent = `${data.total_students || 0} ACTIVE`;
+      });
 
       // Populate Edit Profile modal inputs
       const editName = document.getElementById('edit-profile-name');
@@ -1034,6 +1031,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (healthStatusEl) {
         healthStatusEl.textContent = m.total_students > 0 ? '● Active Monitoring' : '○ Awaiting Students';
       }
+
+      // Update sidebar active scholar badge across all pages
+      document.querySelectorAll('.sidebar-badge, #sidebar-active-badge').forEach(el => {
+        el.textContent = `${m.total_students} ACTIVE`;
+      });
     } catch (err) {
       console.warn('Could not load teacher metrics:', err);
     }

@@ -13,23 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 1. SMOOTH SCROLL (LENIS)
+  // 1. SCROLL ENGINE — NATIVE RESPONSIVE SCROLL
   // =========================================================================
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({
-      duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
+  // Lenis window hijack removed to ensure buttery smooth native scrolling
+  // and instantaneous tab switching without layout freezing.
 
   // =========================================================================
   // KATEX AUTO-RENDER HELPER
@@ -54,6 +41,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial KaTeX render on page load
   setTimeout(() => triggerMathRender(), 80);
+
+  // =========================================================================
+  // 1B. FAST PROFILE HYDRATION FROM SESSION (Zero Lag & No Mock Names)
+  // =========================================================================
+  function hydrateUserProfileFromSession() {
+    const user = window.SikshaSession ? window.SikshaSession.getUser() : null;
+    if (!user) return;
+
+    const name = user.full_name || user.name || (user.email ? user.email.split('@')[0] : 'Scholar');
+    if (name) {
+      document.querySelectorAll('.profile-name, .profile-student-name').forEach(el => {
+        el.textContent = name;
+      });
+      const initials = window.SikshaSession ? window.SikshaSession.getInitials(name) : name.substring(0, 2).toUpperCase();
+      const flagshipAv = document.getElementById('profile-flagship-avatar');
+      if (flagshipAv) flagshipAv.textContent = initials;
+      document.querySelectorAll('.profile-avatar').forEach(el => {
+        el.textContent = initials;
+      });
+      if (document.title && document.title.includes('Aarav Sharma')) {
+        document.title = document.title.replace('Aarav Sharma', name);
+      }
+    }
+    if (user.class_grade) {
+      document.querySelectorAll('.profile-role').forEach(el => {
+        el.textContent = user.class_grade;
+      });
+      const classBadge = document.getElementById('profile-class-badge');
+      if (classBadge) classBadge.textContent = user.class_grade.toUpperCase();
+    }
+    if (user.target_goal) {
+      const goalBadge = document.getElementById('profile-goal-badge');
+      if (goalBadge) goalBadge.textContent = user.target_goal.toUpperCase();
+    }
+    if (user.institution) {
+      const instBadge = document.getElementById('profile-institution-badge');
+      if (instBadge) instBadge.textContent = `📍 ${user.institution}`;
+    }
+    if (user.bio) {
+      document.querySelectorAll('.profile-bio-text').forEach(el => {
+        el.textContent = user.bio;
+      });
+    }
+    const editNameInput = document.getElementById('edit-name-input');
+    if (editNameInput && name) {
+      editNameInput.value = name;
+    }
+  }
+
+  // Immediately hydrate profile on DOM ready
+  hydrateUserProfileFromSession();
 
   // =========================================================================
   // 2. PROFILE MENU POPUP TOGGLE (SIDEBAR)
@@ -871,7 +909,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'tab-overview': false,
     'tab-classes': false,
     'tab-roadmap': false,
-    'tab-activity': false
+    'tab-activity': false,
+    'tab-subjects': false
   };
 
   function triggerTabLazyLoad(targetId) {
@@ -890,6 +929,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!tabLoadStatus['tab-roadmap']) {
         tabLoadStatus['tab-roadmap'] = true;
         loadStudentRoadmap();
+      }
+    } else if (targetId === 'tab-activity') {
+      if (!tabLoadStatus['tab-activity']) {
+        tabLoadStatus['tab-activity'] = true;
+        loadStudentQuizHistory();
+      }
+    } else if (targetId === 'tab-subjects') {
+      if (!tabLoadStatus['tab-subjects']) {
+        tabLoadStatus['tab-subjects'] = true;
+        loadStudentSubjectsBreakdown();
       }
     }
   }
@@ -1032,6 +1081,155 @@ document.addEventListener('DOMContentLoaded', () => {
         if (editProfileModal) editProfileModal.classList.remove('open');
       }
     });
+  }
+
+  // =========================================================================
+  // 8A-1. REAL QUIZ ATTEMPT HISTORY (Single Source of Truth from DB)
+  // =========================================================================
+  async function loadStudentQuizHistory() {
+    const listEl = document.getElementById('profile-quiz-history-list');
+    if (!listEl) return;
+
+    listEl.innerHTML = `
+      <div style="text-align: center; padding: 2.5rem 1rem; color: var(--text-muted); font-size: 0.88rem;">
+        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📜</div>
+        Loading completed quiz attempts from database...
+      </div>
+    `;
+
+    try {
+      const headers = window.SikshaSession ? window.SikshaSession.getAuthHeaders() : {};
+      const res = await fetch(getApiUrl('/api/practice/history?limit=25'), { headers });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+      const history = data.history || [];
+
+      if (history.length === 0) {
+        listEl.innerHTML = `
+          <div style="text-align: center; padding: 3rem 1.5rem; border: 1px dashed var(--border-subtle); border-radius: var(--radius-md); color: var(--text-muted);">
+            <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎯</div>
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">No Quiz Attempts Recorded Yet</h4>
+            <p style="font-size: 0.85rem; max-width: 440px; margin: 0 auto 1.25rem auto;">
+              Take your first 10-question diagnostic practice quiz to start calibrating your Learning Genome.
+            </p>
+            <a href="student-practice.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+              <span>🚀 Start Practice Quiz</span>
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = history.map(att => {
+        const isPass = att.accuracy_percent >= 60;
+        const badgeClass = isPass ? 'badge-emerald' : 'badge-rose';
+        const dateStr = att.completed_at ? new Date(att.completed_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) : 'Recently';
+        const subjName = att.subject_title || (att.subject_id ? att.subject_id.toUpperCase() : 'Practice Quiz');
+
+        return `
+          <div class="card" style="padding: 1.15rem 1.35rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: var(--bg-card); transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 42px; height: 42px; border-radius: 10px; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">
+                ${isPass ? '🏆' : '📖'}
+              </div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <strong style="color: var(--text-main); font-size: 0.95rem;">${subjName} • Level ${att.level_number || 1}</strong>
+                  <span class="badge ${badgeClass}">${isPass ? 'Passed' : 'Needs Review'}</span>
+                </div>
+                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">
+                  Completed: ${dateStr} • Duration: ${att.time_spent_seconds ? `${att.time_spent_seconds}s` : 'Quick session'}
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+              <div style="text-align: right;">
+                <div style="font-size: 1.1rem; font-weight: 800; font-family: var(--font-mono); color: ${isPass ? 'var(--emerald-primary)' : 'var(--rose-accent)'};">
+                  ${att.score} / ${att.total_questions}
+                </div>
+                <div style="font-size: 0.74rem; color: var(--text-muted); font-family: var(--font-mono);">
+                  ${att.accuracy_percent}% Accuracy
+                </div>
+              </div>
+              <a href="student-practice.html?subject=${encodeURIComponent(att.subject_id)}&level=${att.level_number}" class="btn btn-secondary btn-sm" style="font-size: 0.78rem;">
+                Practice Again →
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+    } catch (err) {
+      console.warn('Error loading quiz history:', err);
+      listEl.innerHTML = `
+        <div style="text-align: center; padding: 2rem; color: var(--rose-accent); font-size: 0.85rem;">
+          Failed to load completed quiz attempts: ${err.message || 'Network error'}
+        </div>
+      `;
+    }
+  }
+
+  // =========================================================================
+  // 8A-2. REAL ACADEMIC SUBJECTS BREAKDOWN (Live Telemetry from DB)
+  // =========================================================================
+  async function loadStudentSubjectsBreakdown() {
+    const subjectsContainer = document.querySelector('#tab-subjects .tracks-grid') || document.querySelector('#tab-subjects');
+    if (!subjectsContainer) return;
+
+    try {
+      const headers = window.SikshaSession ? window.SikshaSession.getAuthHeaders() : {};
+      const res = await fetch(getApiUrl('/api/student/progress-summary'), { headers });
+      if (!res.ok) return;
+
+      const data = await res.json();
+      const subjects = data.subjects_progress || [];
+      if (subjects.length === 0) return;
+
+      subjectsContainer.innerHTML = subjects.map(s => {
+        const mastery = s.mastery_percent || 0;
+        const barColor = mastery >= 75 ? 'var(--emerald-primary)' : mastery >= 50 ? 'var(--indigo-primary)' : 'var(--amber-accent)';
+        const statusBadge = s.status === 'Mastered' ? 'badge-emerald' : s.status === 'In Progress' ? 'badge-indigo' : 'badge-amber';
+
+        return `
+          <div class="card" style="padding: 1.5rem; border: 1px solid var(--border-subtle); border-radius: 14px; background: var(--bg-card); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <span class="badge ${statusBadge}">${(s.title || 'SUBJECT').toUpperCase()}</span>
+                <span style="font-size: 1.3rem;">${s.icon || '📚'}</span>
+              </div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">${s.title}</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; min-height: 2.2rem;">
+                ${s.completed_levels || 0} of ${s.total_levels || 5} Progressive Diagnostic Levels Mastered
+              </p>
+
+              <div style="margin: 1.25rem 0 1rem 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; margin-bottom: 0.4rem;">
+                  <span style="color: var(--text-secondary); font-weight: 500;">Mastery Progress</span>
+                  <strong style="font-family: var(--font-mono); color: var(--text-main); font-weight: 700;">${mastery}%</strong>
+                </div>
+                <div style="width: 100%; height: 8px; background: var(--bg-tertiary); border-radius: 99px; overflow: hidden;">
+                  <div style="width: ${Math.max(mastery, 4)}%; height: 100%; background: ${barColor}; border-radius: 99px; transition: width 0.5s ease;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle);">
+              <a href="student-practice.html?subject=${encodeURIComponent(s.id)}" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; justify-content: center; font-size: 0.8rem;">
+                Practice ${s.title} →
+              </a>
+              <a href="student-notes.html?subject=${encodeURIComponent(s.id)}" class="btn btn-secondary btn-sm" style="font-size: 0.8rem;" title="Study Notes">
+                Notes
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+    } catch (err) {
+      console.warn('Error loading subjects breakdown:', err);
+    }
   }
 
   // =========================================================================

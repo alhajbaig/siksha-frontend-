@@ -55,7 +55,7 @@
         <a href="students.html" class="sidebar-link active" aria-current="page">
           <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span>Student Genome</span>
-          <span class="sidebar-badge">42 ACTIVE</span>
+          <span class="sidebar-badge" id="sidebar-active-badge">0 ACTIVE</span>
         </a>
 
         <a href="assessments.html" class="sidebar-link">
@@ -209,13 +209,13 @@
       
       <div class="drawer-header">
         <div style="display: flex; align-items: center; gap: 0.85rem;">
-          <div id="drawer-student-avatar" class="profile-avatar" style="width: 44px; height: 44px; font-size: 1rem;">AS</div>
+          <div id="drawer-student-avatar" class="profile-avatar" style="width: 44px; height: 44px; font-size: 1rem;">--</div>
           <div>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <h2 id="drawer-student-name" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Aarav Sharma</h2>
-              <span id="drawer-student-status" class="badge badge-indigo">On Track</span>
+              <h2 id="drawer-student-name" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Select Student</h2>
+              <span id="drawer-student-status" class="badge badge-indigo">Overview</span>
             </div>
-            <div id="drawer-student-meta" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Roll: 12-A-01 • Class 12-A</div>
+            <div id="drawer-student-meta" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">Click on any student to inspect learning genome</div>
           </div>
         </div>
         <button id="student-drawer-close-btn" class="btn btn-ghost" aria-label="Close Drawer" style="font-size: 1.25rem;">✕</button>
@@ -320,12 +320,7 @@
           <div class="form-group">
             <label class="form-label" for="guidance-student-select">Select Student</label>
             <select id="guidance-student-select" class="form-select">
-              <option value="STU-101">Aarav Sharma (Roll: 12-A-01 • Mastery: 78%)</option>
-              <option value="STU-102">Diya Patel (Roll: 12-A-04 • Mastery: 92%)</option>
-              <option value="STU-103">Rohan Verma (Roll: 12-A-09 • Mastery: 58%)</option>
-              <option value="STU-104">Ananya Iyer (Roll: 12-A-12 • Mastery: 86%)</option>
-              <option value="STU-105">Vikram Aditya (Roll: 12-A-15 • Mastery: 64%)</option>
-              <option value="STU-106">Sneha Kulkarni (Roll: 12-A-18 • Mastery: 81%)</option>
+              <option value="">Select an enrolled scholar...</option>
             </select>
           </div>
 

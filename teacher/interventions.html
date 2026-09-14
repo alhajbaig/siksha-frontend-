@@ -54,7 +54,7 @@
         <a href="students.html" class="sidebar-link">
           <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span>Student Genome</span>
-          <span class="sidebar-badge">42 ACTIVE</span>
+          <span class="sidebar-badge" id="sidebar-active-badge">0 ACTIVE</span>
         </a>
 
         <a href="assessments.html" class="sidebar-link">
@@ -197,91 +197,18 @@
                 </tr>
               </thead>
               <tbody id="interventions-table-body">
-                
-                <tr class="filterable-row">
-                  <td>
-                    <div class="table-student-cell">
-                      <div class="table-student-avatar">AS</div>
-                      <div>
-                        <div style="font-weight: 700; color: var(--text-main);">Aarav Sharma</div>
-                        <div style="font-size: 0.72rem; color: var(--text-muted);">Roll: 12-A-01</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-indigo">Targeted Practice</span></td>
-                  <td style="font-size: 0.82rem; color: var(--text-main); max-width: 380px;">
-                    “10-min drill on factorisation sign distribution. Check your negative signs in binomial step 2.”
-                  </td>
-                  <td style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">Today, 10:15 AM</td>
-                  <td><span class="badge badge-emerald">COMPLETED (10/10)</span></td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Viewing Aarav\'s solution log...', '🔍')">Inspect</button>
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 3rem 1.5rem; color: var(--text-muted);">
+                    <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎯</div>
+                    <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">No Guidance Interventions Dispatched Yet</h4>
+                    <p style="font-size: 0.85rem; max-width: 480px; margin: 0 auto 1.25rem auto;">
+                      Send targeted socratic notes, micro-practice drills, or revision boosters directly to your students' learning dashboards.
+                    </p>
+                    <button class="btn btn-primary" onclick="openModal('guidance-modal')">
+                      <span>+ Send Personalized Guidance</span>
+                    </button>
                   </td>
                 </tr>
-
-                <tr class="filterable-row">
-                  <td>
-                    <div class="table-student-cell">
-                      <div class="table-student-avatar" style="background: #FFE4E6; color: var(--rose-accent);">RV</div>
-                      <div>
-                        <div style="font-weight: 700; color: var(--text-main);">Rohan Verma</div>
-                        <div style="font-size: 0.72rem; color: var(--text-muted);">Roll: 12-A-09</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-rose">Socratic Note</span></td>
-                  <td style="font-size: 0.82rem; color: var(--text-main); max-width: 380px;">
-                    “Rohan, remember the Parallel Axis Theorem: $I = I_{cm} + Md^2$. You must measure from center of mass!”
-                  </td>
-                  <td style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">Yesterday</td>
-                  <td><span class="badge badge-amber">IN PROGRESS (60%)</span></td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Reminded student via portal ping!', '🔔')">Nudge</button>
-                  </td>
-                </tr>
-
-                <tr class="filterable-row">
-                  <td>
-                    <div class="table-student-cell">
-                      <div class="table-student-avatar" style="background: #FEF3C7; color: var(--amber-accent);">VA</div>
-                      <div>
-                        <div style="font-weight: 700; color: var(--text-main);">Vikram Aditya</div>
-                        <div style="font-size: 0.72rem; color: var(--text-muted);">Roll: 12-A-15</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-amber">Smart Revision Boost</span></td>
-                  <td style="font-size: 0.82rem; color: var(--text-main); max-width: 380px;">
-                    “Assigned 5-card active recall drill on rolling friction before memory decay kicks in tomorrow.”
-                  </td>
-                  <td style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">2 days ago</td>
-                  <td><span class="badge badge-emerald">COMPLETED (85%)</span></td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Viewing Vikram\'s scorecard', '🔍')">Inspect</button>
-                  </td>
-                </tr>
-
-                <tr class="filterable-row">
-                  <td>
-                    <div class="table-student-cell">
-                      <div class="table-student-avatar" style="background: #D1FAE5; color: var(--emerald-primary);">DP</div>
-                      <div>
-                        <div style="font-weight: 700; color: var(--text-main);">Diya Patel</div>
-                        <div style="font-size: 0.72rem; color: var(--text-muted);">Roll: 12-A-04</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-emerald">Enrichment Challenge</span></td>
-                  <td style="font-size: 0.82rem; color: var(--text-main); max-width: 380px;">
-                    “Advanced Olympiad challenge problem set on electromagnetic induction and eddy currents.”
-                  </td>
-                  <td style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">3 days ago</td>
-                  <td><span class="badge badge-emerald">MASTERED (100%)</span></td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Diya\'s work praised!', '★')">Praise</button>
-                  </td>
-                </tr>
-
               </tbody>
             </table>
           </div>
@@ -308,12 +235,7 @@
           <div class="form-group">
             <label class="form-label" for="guidance-student-select">Select Student</label>
             <select id="guidance-student-select" class="form-select">
-              <option value="STU-101">Aarav Sharma (Roll: 12-A-01 • Mastery: 78%)</option>
-              <option value="STU-102">Diya Patel (Roll: 12-A-04 • Mastery: 92%)</option>
-              <option value="STU-103">Rohan Verma (Roll: 12-A-09 • Mastery: 58%)</option>
-              <option value="STU-104">Ananya Iyer (Roll: 12-A-12 • Mastery: 86%)</option>
-              <option value="STU-105">Vikram Aditya (Roll: 12-A-15 • Mastery: 64%)</option>
-              <option value="STU-106">Sneha Kulkarni (Roll: 12-A-18 • Mastery: 81%)</option>
+              <option value="">Select an enrolled scholar...</option>
             </select>
           </div>
 

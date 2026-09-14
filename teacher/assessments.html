@@ -55,7 +55,7 @@
         <a href="students.html" class="sidebar-link">
           <svg class="sidebar-link-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span>Student Genome</span>
-          <span class="sidebar-badge">42 ACTIVE</span>
+          <span class="sidebar-badge" id="sidebar-active-badge">0 ACTIVE</span>
         </a>
 
         <a href="assessments.html" class="sidebar-link active" aria-current="page">
@@ -189,82 +189,18 @@
                 </tr>
               </thead>
               <tbody id="assessments-table-body">
-                
-                <tr class="filterable-row">
-                  <td>
-                    <div style="font-weight: 700; color: var(--text-main);">Diagnostic Test: Newton's Laws & Friction</div>
-                    <div style="font-size: 0.76rem; color: var(--text-muted);">Physics • 10-Minute Diagnostic Pulse • 5 Questions</div>
-                  </td>
-                  <td><span class="badge badge-emerald">ACTIVE</span></td>
-                  <td><strong>38</strong> / 42</td>
-                  <td><strong style="color: var(--indigo-primary);">74%</strong></td>
-                  <td>15 min</td>
-                  <td>2 days ago</td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Diagnostic Item Scorecard opened', '📊')">Analytics</button>
+                <tr>
+                  <td colspan="7" style="text-align: center; padding: 3rem 1.5rem; color: var(--text-muted);">
+                    <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📝</div>
+                    <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">No Assessments Created Yet</h4>
+                    <p style="font-size: 0.85rem; max-width: 480px; margin: 0 auto 1.25rem auto;">
+                      Create custom diagnostic tests, conceptual pulse quizzes, or scheduled mock exams for your enrolled scholars.
+                    </p>
+                    <button class="btn btn-primary" onclick="openModal('create-assessment-modal')">
+                      <span>+ Create Your First Assessment</span>
+                    </button>
                   </td>
                 </tr>
-
-                <tr class="filterable-row">
-                  <td>
-                    <div style="font-weight: 700; color: var(--text-main);">Topic Mastery: Organic Reaction Mechanisms</div>
-                    <div style="font-size: 0.76rem; color: var(--text-muted);">Chemistry • SN1 vs SN2 & Stereochemistry • 10 Questions</div>
-                  </td>
-                  <td><span class="badge badge-emerald">ACTIVE</span></td>
-                  <td><strong>40</strong> / 42</td>
-                  <td><strong style="color: var(--emerald-primary);">82%</strong></td>
-                  <td>25 min</td>
-                  <td>4 days ago</td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Diagnostic Item Scorecard opened', '📊')">Analytics</button>
-                  </td>
-                </tr>
-
-                <tr class="filterable-row">
-                  <td>
-                    <div style="font-weight: 700; color: var(--text-main);">Quadratic Equations & Polynomial Graphing</div>
-                    <div style="font-size: 0.76rem; color: var(--text-muted);">Mathematics • Socratic Guided Challenge • 8 Questions</div>
-                  </td>
-                  <td><span class="badge badge-indigo">SCHEDULED</span></td>
-                  <td>0 / 42</td>
-                  <td>--</td>
-                  <td>20 min</td>
-                  <td>Tomorrow</td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Assessment copied to cohort link!', '📋')">Share Link</button>
-                  </td>
-                </tr>
-
-                <tr class="filterable-row">
-                  <td>
-                    <div style="font-weight: 700; color: var(--text-main);">Cell Cycle, Meiosis & Chromosomal Invariants</div>
-                    <div style="font-size: 0.76rem; color: var(--text-muted);">Biology • Diagnostic Pulse • 6 Questions</div>
-                  </td>
-                  <td><span class="badge badge-emerald">COMPLETED</span></td>
-                  <td><strong>42</strong> / 42</td>
-                  <td><strong style="color: var(--indigo-primary);">78%</strong></td>
-                  <td>15 min</td>
-                  <td>1 week ago</td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Archived assessment report exported!', '📄')">Report</button>
-                  </td>
-                </tr>
-
-                <tr class="filterable-row">
-                  <td>
-                    <div style="font-weight: 700; color: var(--text-main);">Binary Search Trees & Recursive Traversals</div>
-                    <div style="font-size: 0.76rem; color: var(--text-muted);">Computer Science • Coding & Concept Tracing • 5 Questions</div>
-                  </td>
-                  <td><span class="badge badge-emerald">COMPLETED</span></td>
-                  <td><strong>41</strong> / 42</td>
-                  <td><strong style="color: var(--emerald-primary);">89%</strong></td>
-                  <td>20 min</td>
-                  <td>10 days ago</td>
-                  <td>
-                    <button class="btn btn-secondary btn-sm" onclick="showTeacherToast('Archived assessment report exported!', '📄')">Report</button>
-                  </td>
-                </tr>
-
               </tbody>
             </table>
           </div>
